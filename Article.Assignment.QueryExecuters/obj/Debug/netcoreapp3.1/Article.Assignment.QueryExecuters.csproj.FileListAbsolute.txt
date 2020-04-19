@@ -1,0 +1,9 @@
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\bin\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.deps.json
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\bin\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.dll
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\bin\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.pdb
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\obj\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.csprojAssemblyReference.cache
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\obj\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.csproj.CoreCompileInputs.cache
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\obj\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.AssemblyInfoInputs.cache
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\obj\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.AssemblyInfo.cs
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\obj\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.dll
+D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\obj\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.pdb
