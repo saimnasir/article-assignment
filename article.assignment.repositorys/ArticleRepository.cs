@@ -5,6 +5,7 @@ using Article.Assignment.QueryExecuters;
 using Microsoft.Extensions.Configuration;
 using Dapper;
 using System.Linq;
+using Article.Assignment.DataModels.Dto;
 
 namespace Article.Assignment.Repositories
 {
@@ -26,7 +27,13 @@ namespace Article.Assignment.Repositories
 
         public DataModels.Article Read(long id)
         {
-            return _executers.ExecuteCommand(_connStr, conn => conn.Query<DataModels.Article>(_commandText.ReadArticleCommand, new { @Id = id }).SingleOrDefault());
+            return _executers.ExecuteCommand(_connStr,
+                           conn => conn.Query<DataModels.Article>(_commandText.ReadArticleCommand,
+                           new
+                           {
+                               @Id = id,
+                               @Deleted = false
+                           }).SingleOrDefault());
         }
 
         public DataModels.Article Create(DataModels.Article article)
@@ -35,48 +42,45 @@ namespace Article.Assignment.Repositories
             article.UpdateDate = null;
             article.Deleted = false;
 
-            var id = _executers.ExecuteCommand(_connStr, conn =>
-            {
-                var query = conn.Query<long>(
-                    _commandText.CreateArticleCommand,
-                    new
-                    {
-                        article.Title,
-                        article.Author,
-                        article.Content,
-                        article.CreateDate,
-                        article.UpdateDate,
-                        article.Deleted
-                    }).SingleOrDefault();
-                return query;
-            });
+            var id = _executers.ExecuteCommand(_connStr,
+                conn =>
+                {
+                    var query = conn.Query<long>(
+                        _commandText.CreateArticleCommand,
+                        new
+                        {
+                            article.Title,
+                            article.Author,
+                            article.Content,
+                            article.CreateDate,
+                            article.UpdateDate,
+                            article.Deleted
+                        }).SingleOrDefault();
+                    return query;
+                });
 
             return Read(id);
         }
 
         public DataModels.Article Update(DataModels.Article article)
         {
-            var currentArticle = Read(article.Id);
-            if (currentArticle == null)
-            {
-                return null;
-            }
             article.UpdateDate = DateTime.Now;
 
-            _executers.ExecuteCommand(_connStr, conn =>
-            {
-                var query = conn.Query<DataModels.Article>(
-                    _commandText.UpdateArticleCommand,
-                    new
-                    {
-                        article.Id,
-                        article.Title,
-                        article.Author,
-                        article.Content,
-                        currentArticle.CreateDate, // create date will update 
-                        article.UpdateDate
-                    });
-            });
+            _executers.ExecuteCommand(_connStr,
+                conn =>
+                {
+                    var query = conn.Query<DataModels.Article>(
+                        _commandText.UpdateArticleCommand,
+                        new
+                        {
+                            article.Id,
+                            article.Title,
+                            article.Author,
+                            article.Content,
+                            article.UpdateDate,
+                            article.Deleted
+                        });
+                });
 
             return Read(article.Id);
         }
@@ -98,16 +102,29 @@ namespace Article.Assignment.Repositories
 
         public List<DataModels.Article> ListAll()
         {
-            return _executers.ExecuteCommand(_connStr, conn => conn.Query<DataModels.Article>(_commandText.ListAllArticlesCommand)).ToList();
+            return _executers.ExecuteCommand(_connStr,
+                conn => conn.Query<DataModels.Article>(
+                    _commandText.ListAllArticlesCommand,
+                    new
+                    {
+                        @Deleted = false
+                    })).ToList();
         }
 
-        public List<DataModels.Article> Search(long? author, DateTime? createDate, string title)
+        public List<DataModels.Article> Search(SearchArticleInput input)
         {
-            var articles = _executers.ExecuteCommand(_connStr, conn => conn.Query<DataModels.Article>(_commandText.SearchArticlesCommand))
-                    .Where(a => author.HasValue && a.Author == author.Value)
-                    .Where(a => createDate.HasValue && a.CreateDate == createDate.Value)
-                    .Where(a => string.IsNullOrEmpty(title) && a.Title.Contains(title))
-                    .ToList();
+            var articles = _executers.ExecuteCommand(_connStr,
+                conn => conn.Query<DataModels.Article>(
+                    _commandText.SearchArticlesCommand, new
+                    {
+                        Author = input.Author,
+                        CreateDateStart = input.CreateDateInterval?.Start,
+                        CreateDateEnd = input.CreateDateInterval?.End,
+                        UpdateDateStart = input.UpdateDateInterval?.Start,
+                        UpdateDateEnd = input.UpdateDateInterval?.End,
+                        Title = input.Title,
+                        Deleted = false
+                    })).ToList();
             return articles;
         }
 

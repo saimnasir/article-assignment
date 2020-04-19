@@ -6,6 +6,7 @@ using Article.Assignment.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
+using Article.Assignment.DataModels.Dto;
 
 namespace Article.Assignment.API.Controllers
 {
@@ -43,8 +44,8 @@ namespace Article.Assignment.API.Controllers
                 return new JsonResult(new { Message = "No Article were found in the system." });
             }
 
-            var viewModels = _viewModelMapper.Map<List<ViewModels.Article>>(dataModels);           
-            
+            var viewModels = _viewModelMapper.Map<List<ViewModels.Article>>(dataModels);
+
             // remove articles where where author is deleted
             viewModels = viewModels.Where(article => allAuthors.Any(author => article.Author == author.Id)).ToList();
             if (!viewModels.Any())
@@ -147,5 +148,48 @@ namespace Article.Assignment.API.Controllers
             _repository.Delete(id);
             return Ok(new JsonResult(new { Message = $"Delete Article({id}) is succeed." }));
         }
+
+
+
+        // POST: api/Article/Search
+        [HttpPost]
+        [Route("Search")]
+        public ActionResult<List<ViewModels.Article>> Search(SearchArticleInput input)
+        {
+            var allAuthors = _authorRepository.ListAll();
+            if (!allAuthors.Any())
+            {
+                return new JsonResult(new { Message = "No Authors were found in the system." });
+            }
+
+            var dataModels = _repository.Search(input);
+            if (!dataModels.Any())
+            {
+                return new JsonResult(new { Message = "No Article were found in the system." });
+            }
+
+            var viewModels = _viewModelMapper.Map<List<ViewModels.Article>>(dataModels);
+
+            // remove articles where where author is deleted
+            viewModels = viewModels.Where(article => allAuthors.Any(author => article.Author == author.Id)).ToList();
+            if (!viewModels.Any())
+            {
+                return new JsonResult(new { Message = "No Article were found in the system." });
+            }
+
+            // set author infos
+            viewModels.ForEach(article =>
+            {
+                var author = allAuthors.FirstOrDefault(a => a.Id == article.Author);
+                if (author != null)
+                {
+                    article.AuthorName = author.Name;
+                    article.AuthorSurname = author.Surname;
+                }
+            });
+
+            return viewModels;
+        }
+
     }
 }

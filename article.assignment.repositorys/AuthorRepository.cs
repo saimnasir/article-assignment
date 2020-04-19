@@ -28,12 +28,13 @@ namespace Article.Assignment.Repositories
         public Author Read(long id)
         {
             return _executers.ExecuteCommand(_connStr,
-                conn => conn.Query<Author>(_commandText.ReadAuthorCommand,
-                new
-                {
-                    @Id = id,
-                    @Deleted = false
-                }).SingleOrDefault());
+                conn => conn.Query<Author>(
+                    _commandText.ReadAuthorCommand,
+                    new
+                    {
+                        @Id = id,
+                        @Deleted = false
+                    }).SingleOrDefault());
         }
 
         public Author Create(Author author)
@@ -42,7 +43,8 @@ namespace Article.Assignment.Repositories
             var id = _executers.ExecuteCommand(_connStr,
                 conn =>
                 {
-                    var query = conn.Query<long>(_commandText.CreateAuthorCommand,
+                    var query = conn.Query<long>(
+                        _commandText.CreateAuthorCommand,
                         new
                         {
                             author.Name,
