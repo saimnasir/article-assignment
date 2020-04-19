@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Article.Assignment.DataModels/1.0.0": {
+        "runtime": {
+          "Article.Assignment.DataModels.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Article.Assignment.DataModels/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
