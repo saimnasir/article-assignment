@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Article.Assignment.DataModels.Dto;
+using System;
 using System.Collections.Generic;
 
 namespace Article.Assignment.Repositories
@@ -10,6 +11,6 @@ namespace Article.Assignment.Repositories
         DataModels.Article Update(DataModels.Article article);
         void Delete(long id);
         List<DataModels.Article> ListAll();
-        List<DataModels.Article> Search(long? author, DateTime? createDate, string title);
+        List<DataModels.Article> Search(SearchArticleInput input);
     }
 }

@@ -13,8 +13,8 @@ namespace Article.Assignment.Queries
         public string ReadArticleCommand =>     
             "SELECT * FROM [dbo].[Article] WHERE Id = @Id AND [Deleted] = 0;";
 
-        public string UpdateArticleCommand =>   
-            "UPDATE [dbo].[Article] SET [Title] = @Title, [Content] = @Content, [Author] = @Author, [CreateDate] = @CreateDate, [UpdateDate] = @UpdateDate, [Deleted] = @Deleted WHERE Id = @Id;";
+        public string UpdateArticleCommand =>
+            "UPDATE [dbo].[Article] SET [Title] = @Title, [Content] = @Content, [Author] = @Author, [UpdateDate] = @UpdateDate, [Deleted] = @Deleted WHERE Id = @Id;";
 
         public string DeleteArticleCommand =>   
             "UPDATE [dbo].[Article] SET [Deleted] = @Deleted WHERE Id = @Id;";
@@ -22,8 +22,8 @@ namespace Article.Assignment.Queries
         public string ListAllArticlesCommand => 
             "SELECT * FROM [dbo].[Article] WHERE [Deleted] = 0;";
 
-        public string SearchArticlesCommand =>  
-            "SELECT * FROM [dbo].[Article] WHERE Id = @Id AND [Deleted] = 0;";
+        public string SearchArticlesCommand =>
+            "SELECT * FROM [dbo].[Article] WHERE [Deleted] = @Deleted  AND (@Author IS NULL OR [Author] = @Author) AND (@CreateDateStart IS NULL OR CreateDate >= @CreateDateStart) AND (@CreateDateEnd IS NULL OR CreateDate <= @CreateDateEnd) AND (@UpdateDateStart IS NULL OR UpdateDate >= @UpdateDateStart) AND (@CreateDateEnd IS NULL OR CreateDate <= @CreateDateEnd) AND (@Title IS NULL OR Title like  \'%\'+@Title+\'%\');";
 
         #endregion
 
