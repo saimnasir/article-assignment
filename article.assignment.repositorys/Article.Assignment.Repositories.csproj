@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Article.Assignment.DataModels\Article.Assignment.DataModels.csproj" />
+    <ProjectReference Include="..\Article.Assignment.Queries\Article.Assignment.Queries.csproj" />
+    <ProjectReference Include="..\Article.Assignment.QueryExecuters\Article.Assignment.QueryExecuters.csproj" />
+  </ItemGroup>
+
+</Project>
