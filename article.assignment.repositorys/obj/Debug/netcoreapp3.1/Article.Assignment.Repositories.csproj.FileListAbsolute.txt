@@ -1,0 +1,16 @@
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.Repositories.deps.json
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.Repositories.dll
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.Repositories.pdb
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.DataModels.dll
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.Queries.dll
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.dll
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.DataModels.pdb
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.Queries.pdb
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.pdb
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositories.csprojAssemblyReference.cache
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositories.csproj.CoreCompileInputs.cache
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositories.AssemblyInfoInputs.cache
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositories.AssemblyInfo.cs
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositories.csproj.CopyComplete
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositories.dll
+D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositories.pdb
