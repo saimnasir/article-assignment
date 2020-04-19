@@ -1,0 +1,9 @@
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\bin\Debug\netcoreapp3.1\Article.Assignment.Queries.deps.json
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\bin\Debug\netcoreapp3.1\Article.Assignment.Queries.dll
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\bin\Debug\netcoreapp3.1\Article.Assignment.Queries.pdb
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\obj\Debug\netcoreapp3.1\Article.Assignment.Queries.csproj.CoreCompileInputs.cache
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\obj\Debug\netcoreapp3.1\Article.Assignment.Queries.AssemblyInfoInputs.cache
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\obj\Debug\netcoreapp3.1\Article.Assignment.Queries.AssemblyInfo.cs
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\obj\Debug\netcoreapp3.1\Article.Assignment.Queries.dll
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\obj\Debug\netcoreapp3.1\Article.Assignment.Queries.pdb
+D:\Desktop\Article\article-assignment\Article.Assignment.Queries\obj\Debug\netcoreapp3.1\Article.Assignment.Queries.csprojAssemblyReference.cache
