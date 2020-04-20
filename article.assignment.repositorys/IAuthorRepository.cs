@@ -10,7 +10,7 @@ namespace Article.Assignment.Repositories
         Author Read(long id);
         Author Create(Author Author);
         Author Update(Author Author);
-        void Delete(long id);
+        bool Delete(long id);
         List<Author> ListAll();
     }
 }

@@ -15,17 +15,12 @@ namespace Article.Assignment.API.Controllers
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorRepository _repository;
+        private readonly IMapper _mapper;
 
-        private readonly IMapper _viewModelMapper;
-        private readonly IMapper _dataModelMapper;
-
-        public AuthorController(IAuthorRepository repository)
+        public AuthorController(IAuthorRepository repository, IMapper mapper)
         {
             _repository = repository;
-
-            _viewModelMapper = new MapperConfiguration(cfg => cfg.CreateMap<DataModels.Author, ViewModels.Author>()).CreateMapper();
-            _dataModelMapper = new MapperConfiguration(cfg => cfg.CreateMap<ViewModels.Author, DataModels.Author>()).CreateMapper();
-
+            _mapper = mapper;
         }
 
         // GET: api/Author
@@ -35,13 +30,7 @@ namespace Article.Assignment.API.Controllers
             try
             {
                 var dataModels = _repository.ListAll();
-                if (!dataModels.Any())
-                {
-                    return new JsonResult(new { Message = "No Authors were found in the system" });
-                }
-
-                var viewModels = _viewModelMapper.Map<List<ViewModels.Author>>(dataModels);
-
+                var viewModels = _mapper.Map<List<ViewModels.Author>>(dataModels);
                 return viewModels;
             }
             catch (Exception ex)
@@ -59,13 +48,7 @@ namespace Article.Assignment.API.Controllers
             try
             {
                 var dataModel = _repository.Read(id);
-                if (dataModel == null)
-                {
-                    return new JsonResult(new { Message = $"Author({id}) is not found." });
-                }
-
-                var viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
-
+                var viewModel = _mapper.Map<ViewModels.Author>(dataModel);
                 return viewModel;
             }
             catch (Exception ex)
@@ -81,10 +64,9 @@ namespace Article.Assignment.API.Controllers
         {
             try
             {
-                var dataModel = _dataModelMapper.Map<DataModels.Author>(viewModel);
+                var dataModel = _mapper.Map<DataModels.Author>(viewModel);
                 dataModel = _repository.Create(dataModel);
-
-                viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
+                viewModel = _mapper.Map<ViewModels.Author>(dataModel);
                 return Ok(viewModel);
             }
             catch (Exception ex)
@@ -100,13 +82,13 @@ namespace Article.Assignment.API.Controllers
         {
             try
             {
-                var dataModel = _dataModelMapper.Map<DataModels.Author>(viewModel);
+                var dataModel = _mapper.Map<DataModels.Author>(viewModel);
                 dataModel = _repository.Update(dataModel);
-                if (dataModel == null)
+                if (viewModel == null)
                 {
                     return new JsonResult(new { Message = $"Nothing is updated. Author({viewModel.Id}) is not found." });
                 }
-                viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
+                viewModel = _mapper.Map<ViewModels.Author>(dataModel);
                 return Ok(viewModel);
             }
             catch (Exception ex)
@@ -122,12 +104,10 @@ namespace Article.Assignment.API.Controllers
         {
             try
             {
-                var dataModel = _repository.Read(id);
-                if (dataModel == null)
+                if (!_repository.Delete(id))
                 {
                     return new JsonResult(new { Message = $"Nothing is deleted. Author({id}) is not found." });
                 }
-                _repository.Delete(id);
                 return Ok(new JsonResult(new { Message = $"Delete Author({id}) is succeed." }));
             }
             catch (Exception ex)

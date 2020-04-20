@@ -15,14 +15,12 @@ namespace Article.Assignment.API.Controllers
     {
         private readonly IArticleRepository _repository;
         private readonly IAuthorRepository _authorRepository;
-        private readonly IMapper _viewModelMapper;
-        private readonly IMapper _dataModelMapper;
-        public ArticleController(IArticleRepository repository, IAuthorRepository authorRepository)
+        private readonly IMapper _mapper;
+        public ArticleController(IArticleRepository repository, IAuthorRepository authorRepository, IMapper mapper)
         {
             _repository = repository;
             _authorRepository = authorRepository;
-            _viewModelMapper = new MapperConfiguration(cfg => cfg.CreateMap<DataModels.Article, ViewModels.Article>()).CreateMapper();
-            _dataModelMapper = new MapperConfiguration(cfg => cfg.CreateMap<ViewModels.Article, DataModels.Article>()).CreateMapper();
+            _mapper = mapper;
         }
 
         // GET: api/Article
@@ -31,59 +29,13 @@ namespace Article.Assignment.API.Controllers
         {
             try
             {
-                var allAuthors = _authorRepository.ListAll();
-
-                allAuthors.Add(new DataModels.Author
-                {
-                    BirthDate = DateTime.Now,
-                    Deleted = false,
-                    Email = "saim.nass",
-                    Id = 1,
-                    Name = "Saim",
-                    Surname = "Nasır",
-                    Phone = "666446464464"
-                });
-                allAuthors.Add(new DataModels.Author
-                {
-                    BirthDate = DateTime.Now,
-                    Deleted = false,
-                    Email = "saim.nass",
-                    Id = 1,
-                    Name = "Saim",
-                    Surname = "Nasır",
-                    Phone = "666446464464"
-                });
-                if (!allAuthors.Any())
-                {
-                    return new JsonResult(new { Message = "No Authors were found in the system." });
-                }
-
                 var dataModels = _repository.ListAll();
-                if (!dataModels.Any())
-                {
-                    return new JsonResult(new { Message = "No Article were found in the system." });
-                }
-
-                var viewModels = _viewModelMapper.Map<List<ViewModels.Article>>(dataModels);
-
-                // remove articles where where author is deleted
-                viewModels = viewModels.Where(article => allAuthors.Any(author => article.Author == author.Id)).ToList();
+                var viewModels = _mapper.Map<List<ViewModels.Article>>(dataModels);
                 if (!viewModels.Any())
                 {
-                    return new JsonResult(new { Message = "No Article were found in the system." });
+                    return viewModels;
                 }
-
-                // set author infos
-                viewModels.ForEach(article =>
-                {
-                    var author = allAuthors.FirstOrDefault(a => a.Id == article.Author);
-                    if (author != null)
-                    {
-                        article.AuthorName = author.Name;
-                        article.AuthorSurname = author.Surname;
-                    }
-                });
-
+                fillAuthorsIformations(viewModels);
                 return viewModels;
             }
             catch (Exception ex)
@@ -93,7 +45,6 @@ namespace Article.Assignment.API.Controllers
             }
         }
 
-
         // GET: api/Article/5
         [HttpGet]
         [Route("{id}")]
@@ -102,20 +53,12 @@ namespace Article.Assignment.API.Controllers
             try
             {
                 var dataModel = _repository.Read(id);
-                if (dataModel == null)
+                var viewModel = _mapper.Map<ViewModels.Article>(dataModel);
+                if (viewModel != null)
                 {
-                    return new JsonResult(new { Message = $"Article({id}) is not found." });
-                }
-                var viewModel = _viewModelMapper.Map<ViewModels.Article>(dataModel);
-
-                var author = _authorRepository.Read(viewModel.Author);
-                if (author == null)
-                {
-                    return new JsonResult(new { Message = $"Author({id}) is not found." });
+                    fillAuthorInformations(viewModel);
                 }
 
-                viewModel.AuthorName = author.Name;
-                viewModel.AuthorSurname = author.Surname;
                 return viewModel;
             }
             catch (Exception ex)
@@ -131,18 +74,10 @@ namespace Article.Assignment.API.Controllers
         {
             try
             {
-                var author = _authorRepository.Read(viewModel.Author);
-                if (author == null)
-                {
-                    return new JsonResult(new { Message = $"Author({viewModel.Author}) is not found." });
-                }
-
-                var dataModel = _dataModelMapper.Map<DataModels.Article>(viewModel);
+                var dataModel = _mapper.Map<DataModels.Article>(viewModel);
                 dataModel = _repository.Create(dataModel);
-
-                viewModel = _viewModelMapper.Map<ViewModels.Article>(dataModel);
-                viewModel.AuthorName = author.Name;
-                viewModel.AuthorSurname = author.Surname;
+                viewModel = _mapper.Map<ViewModels.Article>(dataModel);
+                fillAuthorInformations(viewModel);
 
                 return Ok(viewModel);
             }
@@ -159,23 +94,15 @@ namespace Article.Assignment.API.Controllers
         {
             try
             {
-                var author = _authorRepository.Read(viewModel.Author);
-
-                if (author == null)
-                {
-                    return new JsonResult(new { Message = $"Author({viewModel.Author}) is not found." });
-                }
-
-                var dataModel = _dataModelMapper.Map<DataModels.Article>(viewModel);
+                var dataModel = _mapper.Map<DataModels.Article>(viewModel);
                 dataModel = _repository.Update(dataModel);
                 if (dataModel == null)
                 {
                     return new JsonResult(new { Message = $"Nothing is updated. Article({viewModel.Id}) is not found." });
                 }
 
-                viewModel = _viewModelMapper.Map<ViewModels.Article>(dataModel);
-                viewModel.AuthorName = author.Name;
-                viewModel.AuthorSurname = author.Surname;
+                viewModel = _mapper.Map<ViewModels.Article>(dataModel);
+                fillAuthorInformations(viewModel);
 
                 return Ok(viewModel);
             }
@@ -186,18 +113,17 @@ namespace Article.Assignment.API.Controllers
             }
         }
 
+
         // DELETE: api/Article/5
         [HttpDelete("{id}")]
         public ActionResult<ViewModels.Article> Delete(long id)
         {
             try
             {
-                var dataModel = _repository.Read(id);
-                if (dataModel == null)
+                if (!_repository.Delete(id))
                 {
                     return new JsonResult(new { Message = $"Nothing is deleted. Article({id}) is not found." });
                 }
-                _repository.Delete(id);
                 return Ok(new JsonResult(new { Message = $"Delete Article({id}) is succeed." }));
             }
             catch (Exception ex)
@@ -208,7 +134,6 @@ namespace Article.Assignment.API.Controllers
         }
 
 
-
         // POST: api/Article/Search
         [HttpPost]
         [Route("Search")]
@@ -216,37 +141,17 @@ namespace Article.Assignment.API.Controllers
         {
             try
             {
-                var allAuthors = _authorRepository.ListAll();
-                if (!allAuthors.Any())
-                {
-                    return new JsonResult(new { Message = "No Authors were found in the system." });
-                }
-
                 var dataModels = _repository.Search(input);
                 if (!dataModels.Any())
                 {
                     return new JsonResult(new { Message = "No Article were found in the system." });
                 }
 
-                var viewModels = _viewModelMapper.Map<List<ViewModels.Article>>(dataModels);
+                var allAuthors = _authorRepository.ListAll();
+                var viewModels = _mapper.Map<List<ViewModels.Article>>(dataModels);
 
                 // remove articles where where author is deleted
-                viewModels = viewModels.Where(article => allAuthors.Any(author => article.Author == author.Id)).ToList();
-                if (!viewModels.Any())
-                {
-                    return new JsonResult(new { Message = "No Article were found in the system." });
-                }
-
-                // set author infos
-                viewModels.ForEach(article =>
-                {
-                    var author = allAuthors.FirstOrDefault(a => a.Id == article.Author);
-                    if (author != null)
-                    {
-                        article.AuthorName = author.Name;
-                        article.AuthorSurname = author.Surname;
-                    }
-                });
+                fillAuthorsIformations(viewModels);
 
                 return viewModels;
             }
@@ -255,6 +160,29 @@ namespace Article.Assignment.API.Controllers
                 Log.Error(ex, "Search Articles is failed.");
                 throw;
             }
+        }
+
+        private void fillAuthorsIformations(List<ViewModels.Article> viewModels)
+        {
+            var allAuthors = _authorRepository.ListAll();
+            viewModels = viewModels.Where(article => allAuthors.Any(author => article.Author == author.Id)).ToList();
+            // set author infos
+            viewModels.ForEach(article =>
+            {
+                var author = allAuthors.FirstOrDefault(a => a.Id == article.Author);
+                if (author != null)
+                {
+                    article.AuthorName = author.Name;
+                    article.AuthorSurname = author.Surname;
+                }
+            });
+        }
+
+        private void fillAuthorInformations(ViewModels.Article viewModel)
+        {
+            var author = _authorRepository.Read(viewModel.Author);
+            viewModel.AuthorName = author.Name;
+            viewModel.AuthorSurname = author.Surname;
         }
 
     }

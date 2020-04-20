@@ -135,5 +135,6 @@ D:\Desktop\Article\article-assignment\article-assignment\bin\Debug\netcoreapp3.1
 D:\Desktop\Article\article-assignment\article-assignment\bin\Debug\netcoreapp3.1\Serilog.Sinks.Console.dll
 D:\Desktop\Article\article-assignment\article-assignment\bin\Debug\netcoreapp3.1\Serilog.Sinks.Debug.dll
 D:\Desktop\Article\article-assignment\article-assignment\bin\Debug\netcoreapp3.1\Serilog.Sinks.File.dll
+D:\Desktop\Article\article-assignment\article-assignment\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Desktop\Article\article-assignment\article-assignment\obj\Debug\netcoreapp3.1\Article.Assignment.API.csproj.CoreCompileInputs.cache
 D:\Desktop\Article\article-assignment\article-assignment\obj\Debug\netcoreapp3.1\Article.Assignment.API.MvcApplicationPartsAssemblyInfo.cache
