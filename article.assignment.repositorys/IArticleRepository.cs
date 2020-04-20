@@ -9,7 +9,7 @@ namespace Article.Assignment.Repositories
         DataModels.Article Read(long id);
         DataModels.Article Create(DataModels.Article article);
         DataModels.Article Update(DataModels.Article article);
-        void Delete(long id);
+        bool Delete(long id);
         List<DataModels.Article> ListAll();
         List<DataModels.Article> Search(SearchArticleInput input);
     }

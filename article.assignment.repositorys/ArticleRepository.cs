@@ -85,8 +85,12 @@ namespace Article.Assignment.Repositories
             return Read(article.Id);
         }
 
-        public void Delete(long id)
+        public bool Delete(long id)
         {
+            if (Read(id) == null)
+            {
+                return false;
+            }
             _executers.ExecuteCommand(_connStr,
                 conn =>
                 {
@@ -98,6 +102,7 @@ namespace Article.Assignment.Repositories
                             Deleted = true
                         });
                 });
+            return true;
         }
 
         public List<DataModels.Article> ListAll()
