@@ -6,6 +6,7 @@ using Article.Assignment.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Article.Assignment.API.Controllers
 {
@@ -31,15 +32,23 @@ namespace Article.Assignment.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ViewModels.Author>> Get()
         {
-            var dataModels = _repository.ListAll();
-            if (!dataModels.Any())
+            try
             {
-                return new JsonResult(new { Message = "No Authors were found in the system" });
+                var dataModels = _repository.ListAll();
+                if (!dataModels.Any())
+                {
+                    return new JsonResult(new { Message = "No Authors were found in the system" });
+                }
+
+                var viewModels = _viewModelMapper.Map<List<ViewModels.Author>>(dataModels);
+
+                return viewModels;
             }
-
-            var viewModels = _viewModelMapper.Map<List<ViewModels.Author>>(dataModels);
-
-            return viewModels;
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Get Author is failed.");
+                throw;
+            }
         }
 
         // GET: api/Author/5
@@ -47,53 +56,85 @@ namespace Article.Assignment.API.Controllers
         [Route("{id}")]
         public ActionResult<ViewModels.Author> Get(long id)
         {
-            var dataModel = _repository.Read(id);
-            if (dataModel == null)
+            try
             {
-                return new JsonResult(new { Message = $"Author({id}) is not found." });
+                var dataModel = _repository.Read(id);
+                if (dataModel == null)
+                {
+                    return new JsonResult(new { Message = $"Author({id}) is not found." });
+                }
+
+                var viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
+
+                return viewModel;
             }
-
-            var viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
-
-            return viewModel;
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Get Author [id:{0}] is failed.", id);
+                throw;
+            }
         }
 
         // POST: api/Author
         [HttpPost]
         public ActionResult Post(ViewModels.Author viewModel)
         {
-            var dataModel = _dataModelMapper.Map<DataModels.Author>(viewModel);
-            dataModel = _repository.Create(dataModel);
+            try
+            {
+                var dataModel = _dataModelMapper.Map<DataModels.Author>(viewModel);
+                dataModel = _repository.Create(dataModel);
 
-            viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
-            return Ok(viewModel);
+                viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
+                return Ok(viewModel);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Create Author is failed. {0}", viewModel);
+                throw;
+            }
         }
 
         // PUT: api/Author/5
         [HttpPut]
         public ActionResult<ViewModels.Author> Update(ViewModels.Author viewModel)
         {
-            var dataModel = _dataModelMapper.Map<DataModels.Author>(viewModel);
-            dataModel = _repository.Update(dataModel);
-            if (dataModel == null)
+            try
             {
-                return new JsonResult(new { Message = $"Nothing is updated. Author({viewModel.Id}) is not found." });
+                var dataModel = _dataModelMapper.Map<DataModels.Author>(viewModel);
+                dataModel = _repository.Update(dataModel);
+                if (dataModel == null)
+                {
+                    return new JsonResult(new { Message = $"Nothing is updated. Author({viewModel.Id}) is not found." });
+                }
+                viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);
+                return Ok(viewModel);
             }
-            viewModel = _viewModelMapper.Map<ViewModels.Author>(dataModel);             
-            return Ok(viewModel);
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Update Author [id:{0}]  is failed. {0}", viewModel.Id, viewModel);
+                throw;
+            }
         }
 
         // DELETE: api/Author/5
         [HttpDelete("{id}")]
         public ActionResult<ViewModels.Author> Delete(long id)
         {
-            var dataModel = _repository.Read(id);
-            if (dataModel == null)
+            try
             {
-                return new JsonResult(new { Message = $"Nothing is deleted. Author({id}) is not found." });
+                var dataModel = _repository.Read(id);
+                if (dataModel == null)
+                {
+                    return new JsonResult(new { Message = $"Nothing is deleted. Author({id}) is not found." });
+                }
+                _repository.Delete(id);
+                return Ok(new JsonResult(new { Message = $"Delete Author({id}) is succeed." }));
             }
-            _repository.Delete(id);
-            return Ok(new JsonResult(new { Message = $"Delete Author({id}) is succeed." }));
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Delete Author [id:{0}]  is failed. {0}", id);
+                throw;
+            }
         }
     }
 }
