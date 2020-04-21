@@ -4,12 +4,12 @@
     "D:\\Desktop\\Article\\article-assignment\\article.assignment.repositorys\\Article.Assignment.Repositories.csproj": {}
   },
   "projects": {
-    "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj": {
+    "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj",
-        "projectName": "Article.Assignment.DataModels",
-        "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj",
+        "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj",
+        "projectName": "ArticleAssignment.DataModels",
+        "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj",
         "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
         "outputPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\obj\\",
         "projectStyle": "PackageReference",
@@ -65,12 +65,12 @@
         }
       }
     },
-    "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj": {
+    "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj",
-        "projectName": "Article.Assignment.Queries",
-        "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj",
+        "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj",
+        "projectName": "ArticleAssignment.Queries",
+        "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj",
         "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
         "outputPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\obj\\",
         "projectStyle": "PackageReference",
@@ -126,12 +126,12 @@
         }
       }
     },
-    "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\Article.Assignment.QueryExecuters.csproj": {
+    "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\ArticleAssignment.QueryExecuters.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\Article.Assignment.QueryExecuters.csproj",
-        "projectName": "Article.Assignment.QueryExecuters",
-        "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\Article.Assignment.QueryExecuters.csproj",
+        "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\ArticleAssignment.QueryExecuters.csproj",
+        "projectName": "ArticleAssignment.QueryExecuters",
+        "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\ArticleAssignment.QueryExecuters.csproj",
         "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
         "outputPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\obj\\",
         "projectStyle": "PackageReference",
@@ -217,14 +217,14 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj": {
-                "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj"
+              "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj": {
+                "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj"
               },
-              "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj": {
-                "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj"
+              "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj": {
+                "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj"
               },
-              "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\Article.Assignment.QueryExecuters.csproj": {
-                "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\Article.Assignment.QueryExecuters.csproj"
+              "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\ArticleAssignment.QueryExecuters.csproj": {
+                "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\ArticleAssignment.QueryExecuters.csproj"
               }
             }
           }

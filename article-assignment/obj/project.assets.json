@@ -2757,33 +2757,33 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Article.Assignment.DataModels/1.0.0": {
+      "ArticleAssignment.DataModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Serilog.AspNetCore": "3.2.0"
         },
         "compile": {
-          "bin/placeholder/Article.Assignment.DataModels.dll": {}
+          "bin/placeholder/ArticleAssignment.DataModels.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Article.Assignment.DataModels.dll": {}
+          "bin/placeholder/ArticleAssignment.DataModels.dll": {}
         }
       },
-      "Article.Assignment.Queries/1.0.0": {
+      "ArticleAssignment.Queries/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Serilog.AspNetCore": "3.2.0"
         },
         "compile": {
-          "bin/placeholder/Article.Assignment.Queries.dll": {}
+          "bin/placeholder/ArticleAssignment.Queries.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Article.Assignment.Queries.dll": {}
+          "bin/placeholder/ArticleAssignment.Queries.dll": {}
         }
       },
-      "Article.Assignment.QueryExecuters/1.0.0": {
+      "ArticleAssignment.QueryExecuters/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -2791,41 +2791,41 @@
           "Serilog.AspNetCore": "3.2.0"
         },
         "compile": {
-          "bin/placeholder/Article.Assignment.QueryExecuters.dll": {}
+          "bin/placeholder/ArticleAssignment.QueryExecuters.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Article.Assignment.QueryExecuters.dll": {}
+          "bin/placeholder/ArticleAssignment.QueryExecuters.dll": {}
         }
       },
-      "Article.Assignment.Repositories/1.0.0": {
+      "ArticleAssignment.Repositories/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "Article.Assignment.DataModels": "1.0.0",
-          "Article.Assignment.Queries": "1.0.0",
-          "Article.Assignment.QueryExecuters": "1.0.0",
+          "ArticleAssignment.DataModels": "1.0.0",
+          "ArticleAssignment.Queries": "1.0.0",
+          "ArticleAssignment.QueryExecuters": "1.0.0",
           "Dapper": "2.0.35",
           "Microsoft.Extensions.Configuration": "3.1.3",
           "Serilog.AspNetCore": "3.2.0"
         },
         "compile": {
-          "bin/placeholder/Article.Assignment.Repositories.dll": {}
+          "bin/placeholder/ArticleAssignment.Repositories.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Article.Assignment.Repositories.dll": {}
+          "bin/placeholder/ArticleAssignment.Repositories.dll": {}
         }
       },
-      "Article.Assignment.ViewModels/1.0.0": {
+      "ArticleAssignment.ViewModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
           "Serilog.AspNetCore": "3.2.0"
         },
         "compile": {
-          "bin/placeholder/Article.Assignment.ViewModels.dll": {}
+          "bin/placeholder/ArticleAssignment.ViewModels.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Article.Assignment.ViewModels.dll": {}
+          "bin/placeholder/ArticleAssignment.ViewModels.dll": {}
         }
       }
     }
@@ -8733,37 +8733,37 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "Article.Assignment.DataModels/1.0.0": {
+    "ArticleAssignment.DataModels/1.0.0": {
       "type": "project",
-      "path": "../Article.Assignment.DataModels/Article.Assignment.DataModels.csproj",
-      "msbuildProject": "../Article.Assignment.DataModels/Article.Assignment.DataModels.csproj"
+      "path": "../Article.Assignment.DataModels/ArticleAssignment.DataModels.csproj",
+      "msbuildProject": "../Article.Assignment.DataModels/ArticleAssignment.DataModels.csproj"
     },
-    "Article.Assignment.Queries/1.0.0": {
+    "ArticleAssignment.Queries/1.0.0": {
       "type": "project",
-      "path": "../Article.Assignment.Queries/Article.Assignment.Queries.csproj",
-      "msbuildProject": "../Article.Assignment.Queries/Article.Assignment.Queries.csproj"
+      "path": "../Article.Assignment.Queries/ArticleAssignment.Queries.csproj",
+      "msbuildProject": "../Article.Assignment.Queries/ArticleAssignment.Queries.csproj"
     },
-    "Article.Assignment.QueryExecuters/1.0.0": {
+    "ArticleAssignment.QueryExecuters/1.0.0": {
       "type": "project",
-      "path": "../Article.Assignment.QueryExecuters/Article.Assignment.QueryExecuters.csproj",
-      "msbuildProject": "../Article.Assignment.QueryExecuters/Article.Assignment.QueryExecuters.csproj"
+      "path": "../Article.Assignment.QueryExecuters/ArticleAssignment.QueryExecuters.csproj",
+      "msbuildProject": "../Article.Assignment.QueryExecuters/ArticleAssignment.QueryExecuters.csproj"
     },
-    "Article.Assignment.Repositories/1.0.0": {
+    "ArticleAssignment.Repositories/1.0.0": {
       "type": "project",
-      "path": "../article.assignment.repositorys/Article.Assignment.Repositories.csproj",
-      "msbuildProject": "../article.assignment.repositorys/Article.Assignment.Repositories.csproj"
+      "path": "../article.assignment.repositorys/ArticleAssignment.Repositories.csproj",
+      "msbuildProject": "../article.assignment.repositorys/ArticleAssignment.Repositories.csproj"
     },
-    "Article.Assignment.ViewModels/1.0.0": {
+    "ArticleAssignment.ViewModels/1.0.0": {
       "type": "project",
-      "path": "../Article.Assignment.ViewModels/Article.Assignment.ViewModels.csproj",
-      "msbuildProject": "../Article.Assignment.ViewModels/Article.Assignment.ViewModels.csproj"
+      "path": "../Article.Assignment.ViewModels/ArticleAssignment.ViewModels.csproj",
+      "msbuildProject": "../Article.Assignment.ViewModels/ArticleAssignment.ViewModels.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "Article.Assignment.DataModels >= 1.0.0",
-      "Article.Assignment.Repositories >= 1.0.0",
-      "Article.Assignment.ViewModels >= 1.0.0",
+      "ArticleAssignment.DataModels >= 1.0.0",
+      "ArticleAssignment.Repositories >= 1.0.0",
+      "ArticleAssignment.ViewModels >= 1.0.0",
       "AutoMapper >= 9.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.2",
@@ -8778,9 +8778,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\article-assignment\\Article.Assignment.API.csproj",
-      "projectName": "Article.Assignment.API",
-      "projectPath": "D:\\Desktop\\Article\\article-assignment\\article-assignment\\Article.Assignment.API.csproj",
+      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\article-assignment\\ArticleAssignment.API.csproj",
+      "projectName": "ArticleAssignment.API",
+      "projectPath": "D:\\Desktop\\Article\\article-assignment\\article-assignment\\ArticleAssignment.API.csproj",
       "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
       "outputPath": "D:\\Desktop\\Article\\article-assignment\\article-assignment\\obj\\",
       "projectStyle": "PackageReference",
@@ -8801,14 +8801,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj": {
-              "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj"
+            "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj": {
+              "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj"
             },
-            "D:\\Desktop\\Article\\article-assignment\\article.assignment.repositorys\\Article.Assignment.Repositories.csproj": {
-              "projectPath": "D:\\Desktop\\Article\\article-assignment\\article.assignment.repositorys\\Article.Assignment.Repositories.csproj"
+            "D:\\Desktop\\Article\\article-assignment\\article.assignment.repositorys\\ArticleAssignment.Repositories.csproj": {
+              "projectPath": "D:\\Desktop\\Article\\article-assignment\\article.assignment.repositorys\\ArticleAssignment.Repositories.csproj"
             },
-            "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\Article.Assignment.ViewModels.csproj": {
-              "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\Article.Assignment.ViewModels.csproj"
+            "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\ArticleAssignment.ViewModels.csproj": {
+              "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\ArticleAssignment.ViewModels.csproj"
             }
           }
         }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5N/G15GanQJ+b4aeaR+BRDemcFvFtdsToOi5SKji+B95lBd6G4FEVXN0NaymxqB8uiNEAFIBtm/+CAmHH/gNKA==",
+  "dgSpecHash": "pP8riiu666L+RgIvnKwl8UYJJnMoRztH3WFGqjMzOkQa0TMSLIqYgsOthTQYwGv5KpcWFmftC97JdbZ30JP8Fg==",
   "success": true,
-  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\article-assignment\\Article.Assignment.API.csproj",
+  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\article-assignment\\ArticleAssignment.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saim_\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\saim_\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",

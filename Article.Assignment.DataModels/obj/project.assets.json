@@ -3850,9 +3850,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj",
-      "projectName": "Article.Assignment.DataModels",
-      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj",
+      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj",
+      "projectName": "ArticleAssignment.DataModels",
+      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj",
       "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
       "outputPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\obj\\",
       "projectStyle": "PackageReference",

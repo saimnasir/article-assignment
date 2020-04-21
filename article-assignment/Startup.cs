@@ -1,6 +1,6 @@
-using Article.Assignment.Queries;
-using Article.Assignment.QueryExecuters;
-using Article.Assignment.Repositories;
+using ArticleAssignment.Queries;
+using ArticleAssignment.QueryExecuters;
+using ArticleAssignment.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

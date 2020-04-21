@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Article.Assignment.Repositories
+namespace ArticleAssignment.Repositories
 {
     public interface  IBaseRepository
     {

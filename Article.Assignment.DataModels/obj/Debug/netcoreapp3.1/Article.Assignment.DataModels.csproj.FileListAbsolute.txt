@@ -6,4 +6,3 @@ D:\Desktop\Article\article-assignment\Article.Assignment.DataModels\obj\Debug\ne
 D:\Desktop\Article\article-assignment\Article.Assignment.DataModels\obj\Debug\netcoreapp3.1\Article.Assignment.DataModels.AssemblyInfo.cs
 D:\Desktop\Article\article-assignment\Article.Assignment.DataModels\obj\Debug\netcoreapp3.1\Article.Assignment.DataModels.dll
 D:\Desktop\Article\article-assignment\Article.Assignment.DataModels\obj\Debug\netcoreapp3.1\Article.Assignment.DataModels.pdb
-D:\Desktop\Article\article-assignment\Article.Assignment.DataModels\obj\Debug\netcoreapp3.1\Article.Assignment.DataModels.csprojAssemblyReference.cache

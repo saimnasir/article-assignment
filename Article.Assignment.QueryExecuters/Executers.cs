@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Article.Assignment.QueryExecuters
+namespace ArticleAssignment.QueryExecuters
 {
     public class Executers : IExecuters
     {

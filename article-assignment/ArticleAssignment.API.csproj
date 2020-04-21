@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Article.Assignment.API</RootNamespace>
+    <RootNamespace>ArticleAssignment.API</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,9 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Article.Assignment.DataModels\Article.Assignment.DataModels.csproj" />
-    <ProjectReference Include="..\article.assignment.repositorys\Article.Assignment.Repositories.csproj" />
-    <ProjectReference Include="..\Article.Assignment.ViewModels\Article.Assignment.ViewModels.csproj" />
+    <ProjectReference Include="..\Article.Assignment.DataModels\ArticleAssignment.DataModels.csproj" />
+    <ProjectReference Include="..\article.assignment.repositorys\ArticleAssignment.Repositories.csproj" />
+    <ProjectReference Include="..\Article.Assignment.ViewModels\ArticleAssignment.ViewModels.csproj" />
   </ItemGroup>
 
 

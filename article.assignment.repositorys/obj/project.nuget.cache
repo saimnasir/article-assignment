@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "of9uf3qk8T+g46I9ob2+v221ZqlAWwc8vgrfrOcDqMrzXOeIiRiJAot/d7YpuSu0ArKmK8K9TF5umQUAyxI9UA==",
+  "dgSpecHash": "CMS1N20I2Rx3CBLO4qIWd4vKhz5krLsqOov4Ad/MOVfjmsXuIzVoJyU5XNL61IcFze7vdi0Xl6+e7dbpYZpZTw==",
   "success": true,
-  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\article.assignment.repositorys\\Article.Assignment.Repositories.csproj",
+  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\article.assignment.repositorys\\ArticleAssignment.Repositories.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saim_\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
     "C:\\Users\\saim_\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.0.0\\microsoft.aspnetcore.hosting.abstractions.2.0.0.nupkg.sha512",

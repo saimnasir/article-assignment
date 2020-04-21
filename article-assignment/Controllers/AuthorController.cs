@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Article.Assignment.Repositories;
+using ArticleAssignment.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace Article.Assignment.API.Controllers
+namespace ArticleAssignment.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

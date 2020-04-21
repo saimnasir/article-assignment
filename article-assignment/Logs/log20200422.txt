@@ -1,0 +1,317 @@
+2020-04-22 00:00:33.796 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:00:33.807 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:00:33.807 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:01:51.001 +03:00 [INF] Starting web host
+2020-04-22 00:01:52.453 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2020-04-22 00:01:52.465 +03:00 [INF] Hosting environment: Development
+2020-04-22 00:01:52.466 +03:00 [INF] Content root path: D:\Desktop\Article\article-assignment\article-assignment
+2020-04-22 00:01:52.490 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/author  
+2020-04-22 00:01:52.549 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:01:52.604 +03:00 [INF] Route matched with {action = "Get", controller = "Author"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Author]] Get() on controller ArticleAssignment.API.Controllers.AuthorController (ArticleAssignment.API).
+2020-04-22 00:01:53.517 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Author, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:01:53.563 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API) in 952.6791ms
+2020-04-22 00:01:53.565 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:01:53.568 +03:00 [INF] Request finished in 1084.7109ms 200 application/json; charset=utf-8
+2020-04-22 00:06:31.286 +03:00 [INF] Starting web host
+2020-04-22 00:06:32.685 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2020-04-22 00:06:32.688 +03:00 [INF] Hosting environment: Development
+2020-04-22 00:06:32.689 +03:00 [INF] Content root path: D:\Desktop\Article\article-assignment\article-assignment
+2020-04-22 00:06:32.709 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/author  
+2020-04-22 00:06:32.755 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:06:32.819 +03:00 [INF] Route matched with {action = "Get", controller = "Author"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Author]] Get() on controller ArticleAssignment.API.Controllers.AuthorController (ArticleAssignment.API).
+2020-04-22 00:06:33.737 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Author, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:06:33.783 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API) in 957.081ms
+2020-04-22 00:06:33.786 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:06:33.789 +03:00 [INF] Request finished in 1082.8983ms 200 application/json; charset=utf-8
+2020-04-22 00:07:04.489 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:07:04.491 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:07:04.503 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:07:22.033 +03:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-04-22 00:07:22.035 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API) in 17531.9961ms
+2020-04-22 00:07:22.035 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:07:22.036 +03:00 [INF] Request finished in 17550.6463ms 200 application/json; charset=utf-8
+2020-04-22 00:07:58.802 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:07:58.804 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:07:58.805 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:08:04.390 +03:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-04-22 00:08:04.502 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API) in 5696.7138ms
+2020-04-22 00:08:04.502 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:08:04.502 +03:00 [INF] Request finished in 5700.5573ms 200 application/json; charset=utf-8
+2020-04-22 00:08:12.041 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:08:12.042 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:08:12.043 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:08:16.309 +03:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-04-22 00:08:16.310 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API) in 4266.6821ms
+2020-04-22 00:08:16.310 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:08:16.310 +03:00 [INF] Request finished in 4270.0328ms 200 application/json; charset=utf-8
+2020-04-22 00:08:49.848 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:08:49.848 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:08:49.849 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:16:21.094 +03:00 [INF] Starting web host
+2020-04-22 00:16:22.619 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2020-04-22 00:16:22.637 +03:00 [INF] Hosting environment: Development
+2020-04-22 00:16:22.638 +03:00 [INF] Content root path: D:\Desktop\Article\article-assignment\article-assignment
+2020-04-22 00:16:22.656 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/author  
+2020-04-22 00:16:22.724 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:16:22.780 +03:00 [INF] Route matched with {action = "Get", controller = "Author"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Author]] Get() on controller ArticleAssignment.API.Controllers.AuthorController (ArticleAssignment.API).
+2020-04-22 00:16:23.749 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Author, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:16:23.794 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API) in 1008.7404ms
+2020-04-22 00:16:23.797 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:16:23.801 +03:00 [INF] Request finished in 1147.0024ms 200 application/json; charset=utf-8
+2020-04-22 00:16:28.257 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article  
+2020-04-22 00:16:28.258 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:16:28.262 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:16:28.286 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:16:28.288 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 26.7364ms
+2020-04-22 00:16:28.289 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:16:28.289 +03:00 [INF] Request finished in 32.792ms 200 application/json; charset=utf-8
+2020-04-22 00:16:34.773 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:16:34.774 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:16:34.788 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:18:29.399 +03:00 [INF] Starting web host
+2020-04-22 00:18:31.132 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2020-04-22 00:18:31.143 +03:00 [INF] Hosting environment: Development
+2020-04-22 00:18:31.144 +03:00 [INF] Content root path: D:\Desktop\Article\article-assignment\article-assignment
+2020-04-22 00:18:31.167 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/author  
+2020-04-22 00:18:31.167 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:18:31.222 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:18:31.222 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:18:31.288 +03:00 [INF] Route matched with {action = "Get", controller = "Author"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Author]] Get() on controller ArticleAssignment.API.Controllers.AuthorController (ArticleAssignment.API).
+2020-04-22 00:18:31.291 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:19:40.304 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Author, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:19:57.910 +03:00 [INF] Executing ObjectResult, writing value of type 'null'.
+2020-04-22 00:19:57.913 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API) in 86617.4302ms
+2020-04-22 00:19:57.913 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API) in 86618.8851ms
+2020-04-22 00:19:57.916 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:19:57.916 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:19:57.919 +03:00 [INF] Request finished in 86755.6224ms 200 application/json; charset=utf-8
+2020-04-22 00:19:57.919 +03:00 [INF] Request finished in 86756.4817ms 204 
+2020-04-22 00:21:16.821 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article application/json 173
+2020-04-22 00:21:16.823 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:21:16.823 +03:00 [INF] Route matched with {action = "Post", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult Post(ArticleAssignment.ViewModels.Article) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:21:28.851 +03:00 [INF] Executing ObjectResult, writing value of type 'ArticleAssignment.ViewModels.Article'.
+2020-04-22 00:21:28.855 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API) in 12031.3463ms
+2020-04-22 00:21:28.856 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Post (ArticleAssignment.API)'
+2020-04-22 00:21:28.861 +03:00 [INF] Request finished in 12039.0082ms 200 application/json; charset=utf-8
+2020-04-22 00:21:43.136 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/21  
+2020-04-22 00:21:43.137 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:21:43.141 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[ArticleAssignment.ViewModels.Article] Get(Int64) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:21:51.697 +03:00 [INF] Executing ObjectResult, writing value of type 'ArticleAssignment.ViewModels.Article'.
+2020-04-22 00:21:51.700 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 8557.2772ms
+2020-04-22 00:21:51.705 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:21:51.705 +03:00 [INF] Request finished in 8569.5115ms 200 application/json; charset=utf-8
+2020-04-22 00:21:58.914 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/  
+2020-04-22 00:21:58.915 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:21:58.917 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:21:58.933 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:21:58.934 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 16.9599ms
+2020-04-22 00:21:58.934 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:21:58.935 +03:00 [INF] Request finished in 20.966ms 200 application/json; charset=utf-8
+2020-04-22 00:22:12.452 +03:00 [INF] Request starting HTTP/2.0 DELETE https://localhost:44312/api/article/21 text/plain;charset=UTF-8 64
+2020-04-22 00:22:12.452 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API)'
+2020-04-22 00:22:12.455 +03:00 [INF] Route matched with {action = "Delete", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[ArticleAssignment.ViewModels.Article] Delete(Int64) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:22:27.368 +03:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-04-22 00:22:27.371 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API) in 14914.4075ms
+2020-04-22 00:22:27.371 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API)'
+2020-04-22 00:22:27.376 +03:00 [INF] Request finished in 14924.0086ms 200 application/json; charset=utf-8
+2020-04-22 00:23:23.857 +03:00 [INF] Request starting HTTP/2.0 DELETE https://localhost:44312/api/article/21 text/plain;charset=UTF-8 64
+2020-04-22 00:23:23.860 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API)'
+2020-04-22 00:23:23.861 +03:00 [INF] Route matched with {action = "Delete", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[ArticleAssignment.ViewModels.Article] Delete(Int64) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:23:29.991 +03:00 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.JsonResult'.
+2020-04-22 00:23:30.008 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API) in 6145.6785ms
+2020-04-22 00:23:30.012 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API)'
+2020-04-22 00:23:30.012 +03:00 [INF] Request finished in 6156.0629ms 200 application/json; charset=utf-8
+2020-04-22 00:23:34.696 +03:00 [INF] Request starting HTTP/2.0 DELETE https://localhost:44312/api/article/1 text/plain;charset=UTF-8 64
+2020-04-22 00:23:36.344 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API)'
+2020-04-22 00:23:36.344 +03:00 [INF] Route matched with {action = "Delete", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[ArticleAssignment.ViewModels.Article] Delete(Int64) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:23:40.406 +03:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-04-22 00:23:40.407 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API) in 4062.6096ms
+2020-04-22 00:23:40.408 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Delete (ArticleAssignment.API)'
+2020-04-22 00:23:40.408 +03:00 [INF] Request finished in 5711.3625ms 200 application/json; charset=utf-8
+2020-04-22 00:25:01.596 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article/search application/json 23
+2020-04-22 00:25:01.597 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API)'
+2020-04-22 00:25:01.600 +03:00 [INF] Route matched with {action = "Search", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ArticleAssignment.ViewModels.Article]] Search(ArticleAssignment.DataModels.Dto.SearchArticleInput) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:25:39.753 +03:00 [ERR] Search Articles is failed.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Procedure or function 'LST_SEARCHARTICLE_SP' expects parameter '@Content', which was not supplied.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) in /_/Dapper/SqlMapper.cs:line 1051
+   at Dapper.SqlMapper.QueryImpl[T](IDbConnection cnn, CommandDefinition command, Type effectiveType)+MoveNext() in /_/Dapper/SqlMapper.cs:line 1079
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) in /_/Dapper/SqlMapper.cs:line 721
+   at ArticleAssignment.Repositories.ArticleRepository.<>c__DisplayClass10_0.<Search>b__0(SqlConnection conn) in D:\Desktop\Article\article-assignment\article.assignment.repositorys\ArticleRepository.cs:line 142
+   at ArticleAssignment.QueryExecuters.Executers.ExecuteCommand[T](String connStr, Func`2 task) in D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\Executers.cs:line 24
+   at ArticleAssignment.Repositories.ArticleRepository.Search(SearchArticleInput input) in D:\Desktop\Article\article-assignment\article.assignment.repositorys\ArticleRepository.cs:line 141
+   at ArticleAssignment.API.Controllers.ArticleController.Search(SearchArticleInput input) in D:\Desktop\Article\article-assignment\article-assignment\Controllers\ArticleController.cs:line 151
+ClientConnectionId:b48a741d-f25c-4f0a-b2e0-2b083891cb0a
+Error Number:201,State:4,Class:16
+2020-04-22 00:25:42.255 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API) in 40654.1928ms
+2020-04-22 00:25:42.256 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API)'
+2020-04-22 00:25:42.259 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Procedure or function 'LST_SEARCHARTICLE_SP' expects parameter '@Content', which was not supplied.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) in /_/Dapper/SqlMapper.cs:line 1051
+   at Dapper.SqlMapper.QueryImpl[T](IDbConnection cnn, CommandDefinition command, Type effectiveType)+MoveNext() in /_/Dapper/SqlMapper.cs:line 1079
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) in /_/Dapper/SqlMapper.cs:line 721
+   at ArticleAssignment.Repositories.ArticleRepository.<>c__DisplayClass10_0.<Search>b__0(SqlConnection conn) in D:\Desktop\Article\article-assignment\article.assignment.repositorys\ArticleRepository.cs:line 142
+   at ArticleAssignment.QueryExecuters.Executers.ExecuteCommand[T](String connStr, Func`2 task) in D:\Desktop\Article\article-assignment\Article.Assignment.QueryExecuters\Executers.cs:line 24
+   at ArticleAssignment.Repositories.ArticleRepository.Search(SearchArticleInput input) in D:\Desktop\Article\article-assignment\article.assignment.repositorys\ArticleRepository.cs:line 141
+   at ArticleAssignment.API.Controllers.ArticleController.Search(SearchArticleInput input) in D:\Desktop\Article\article-assignment\article-assignment\Controllers\ArticleController.cs:line 151
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+ClientConnectionId:b48a741d-f25c-4f0a-b2e0-2b083891cb0a
+Error Number:201,State:4,Class:16
+2020-04-22 00:25:42.289 +03:00 [INF] Request finished in 40693.2601ms 500 text/plain
+2020-04-22 00:25:45.377 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article/search application/json 23
+2020-04-22 00:25:45.377 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API)'
+2020-04-22 00:25:45.378 +03:00 [INF] Route matched with {action = "Search", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ArticleAssignment.ViewModels.Article]] Search(ArticleAssignment.DataModels.Dto.SearchArticleInput) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:26:03.344 +03:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2020-04-22 00:26:03.345 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API) in 17967.3832ms
+2020-04-22 00:26:03.345 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API)'
+2020-04-22 00:26:03.345 +03:00 [INF] Request finished in 17968.7283ms 200 application/json; charset=utf-8
+2020-04-22 00:27:17.639 +03:00 [INF] Starting web host
+2020-04-22 00:27:19.268 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2020-04-22 00:27:19.271 +03:00 [INF] Hosting environment: Development
+2020-04-22 00:27:19.272 +03:00 [INF] Content root path: D:\Desktop\Article\article-assignment\article-assignment
+2020-04-22 00:27:19.292 +03:00 [INF] Request starting HTTP/2.0 POST https://localhost:44312/api/article/search application/json 177
+2020-04-22 00:27:19.292 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/author  
+2020-04-22 00:27:19.341 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API)'
+2020-04-22 00:27:19.342 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:27:19.412 +03:00 [INF] Route matched with {action = "Get", controller = "Author"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Author]] Get() on controller ArticleAssignment.API.Controllers.AuthorController (ArticleAssignment.API).
+2020-04-22 00:27:19.414 +03:00 [INF] Route matched with {action = "Search", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[ArticleAssignment.ViewModels.Article]] Search(ArticleAssignment.DataModels.Dto.SearchArticleInput) on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:27:31.003 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Author, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:27:31.015 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:27:31.034 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API) in 11615.1767ms
+2020-04-22 00:27:31.034 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API) in 11613.908ms
+2020-04-22 00:27:31.037 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Search (ArticleAssignment.API)'
+2020-04-22 00:27:31.037 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:27:31.041 +03:00 [INF] Request finished in 11751.0082ms 200 application/json; charset=utf-8
+2020-04-22 00:27:31.041 +03:00 [INF] Request finished in 11750.9851ms 200 application/json; charset=utf-8
+2020-04-22 00:27:56.916 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:27:56.918 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:27:56.920 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:27:56.931 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:27:56.932 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 11.9863ms
+2020-04-22 00:27:56.933 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:27:56.937 +03:00 [INF] Request finished in 42.1198ms 200 application/json; charset=utf-8
+2020-04-22 00:29:19.662 +03:00 [INF] Starting web host
+2020-04-22 00:29:21.191 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2020-04-22 00:29:21.193 +03:00 [INF] Hosting environment: Development
+2020-04-22 00:29:21.194 +03:00 [INF] Content root path: D:\Desktop\Article\article-assignment\article-assignment
+2020-04-22 00:29:21.211 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/author  
+2020-04-22 00:29:21.264 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:21.318 +03:00 [INF] Route matched with {action = "Get", controller = "Author"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Author]] Get() on controller ArticleAssignment.API.Controllers.AuthorController (ArticleAssignment.API).
+2020-04-22 00:29:22.127 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Author, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:22.168 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API) in 844.149ms
+2020-04-22 00:29:22.171 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.AuthorController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:22.174 +03:00 [INF] Request finished in 965.6911ms 200 application/json; charset=utf-8
+2020-04-22 00:29:24.874 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:24.876 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:24.880 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:24.941 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:24.948 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 67.5333ms
+2020-04-22 00:29:24.948 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:24.948 +03:00 [INF] Request finished in 75.0613ms 200 application/json; charset=utf-8
+2020-04-22 00:29:26.078 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:26.079 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:26.079 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:26.087 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:26.088 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 8.6849ms
+2020-04-22 00:29:26.088 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:26.089 +03:00 [INF] Request finished in 11.0382ms 200 application/json; charset=utf-8
+2020-04-22 00:29:26.984 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:26.985 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:26.985 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:26.992 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:26.993 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 8.1488ms
+2020-04-22 00:29:26.993 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:26.994 +03:00 [INF] Request finished in 9.9725ms 200 application/json; charset=utf-8
+2020-04-22 00:29:27.540 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:27.541 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:27.542 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:27.549 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:27.551 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 7.6997ms
+2020-04-22 00:29:27.551 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:27.551 +03:00 [INF] Request finished in 11.0477ms 200 application/json; charset=utf-8
+2020-04-22 00:29:27.785 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:27.786 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:27.786 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:27.803 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:27.806 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 19.0015ms
+2020-04-22 00:29:27.806 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:27.806 +03:00 [INF] Request finished in 21.2302ms 200 application/json; charset=utf-8
+2020-04-22 00:29:28.016 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:28.016 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.017 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:28.023 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:28.024 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 7.2706ms
+2020-04-22 00:29:28.024 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.024 +03:00 [INF] Request finished in 8.289ms 200 application/json; charset=utf-8
+2020-04-22 00:29:28.258 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:28.259 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.259 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:28.268 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:28.271 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 11.2309ms
+2020-04-22 00:29:28.271 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.272 +03:00 [INF] Request finished in 13.409ms 200 application/json; charset=utf-8
+2020-04-22 00:29:28.543 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:28.543 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.544 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:28.571 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:28.572 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 27.7623ms
+2020-04-22 00:29:28.572 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.572 +03:00 [INF] Request finished in 29.6337ms 200 application/json; charset=utf-8
+2020-04-22 00:29:28.860 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:28.860 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.860 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:28.865 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:28.866 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 5.913ms
+2020-04-22 00:29:28.867 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:28.867 +03:00 [INF] Request finished in 7.4054ms 200 application/json; charset=utf-8
+2020-04-22 00:29:29.039 +03:00 [INF] Request starting HTTP/2.0 GET https://localhost:44312/api/article/ application/json 
+2020-04-22 00:29:29.039 +03:00 [INF] Executing endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:29.039 +03:00 [INF] Route matched with {action = "Get", controller = "Article"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[ArticleAssignment.ViewModels.Article]] Get() on controller ArticleAssignment.API.Controllers.ArticleController (ArticleAssignment.API).
+2020-04-22 00:29:29.044 +03:00 [INF] Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[ArticleAssignment.ViewModels.Article, ArticleAssignment.ViewModels, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2020-04-22 00:29:29.044 +03:00 [INF] Executed action ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API) in 5.1841ms
+2020-04-22 00:29:29.044 +03:00 [INF] Executed endpoint 'ArticleAssignment.API.Controllers.ArticleController.Get (ArticleAssignment.API)'
+2020-04-22 00:29:29.044 +03:00 [INF] Request finished in 5.8377ms 200 application/json; charset=utf-8

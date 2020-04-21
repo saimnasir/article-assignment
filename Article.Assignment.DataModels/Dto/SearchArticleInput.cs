@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Article.Assignment.DataModels.Dto
+namespace ArticleAssignment.DataModels.Dto
 {
     public class SearchArticleInput
     {

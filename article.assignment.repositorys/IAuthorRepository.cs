@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Article.Assignment.DataModels;
+using ArticleAssignment.DataModels;
 
-namespace Article.Assignment.Repositories
+namespace ArticleAssignment.Repositories
 {
     public interface IAuthorRepository
     {

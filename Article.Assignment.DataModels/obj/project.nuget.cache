@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QeDqopM7FEr5FCvgWFBq5wX6nmAN9meto7BTo9w0igkLci1dy6leAtnA/3EjTSjJcqgLT1F+nKBSnCwswX5a/A==",
+  "dgSpecHash": "FZ13/dw10lcEOa2AYX8UgvoLUwO264HS2W+QZ9YmTsa7vGEWXlAOvWrDy7yKJ76jv/8C+f8oEvbqXJi9T1jB3Q==",
   "success": true,
-  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\Article.Assignment.DataModels.csproj",
+  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.DataModels\\ArticleAssignment.DataModels.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saim_\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.0.0\\microsoft.aspnetcore.hosting.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\saim_\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.0.0\\microsoft.aspnetcore.hosting.server.abstractions.2.0.0.nupkg.sha512",
