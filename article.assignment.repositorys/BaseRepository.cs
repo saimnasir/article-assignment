@@ -1,11 +1,11 @@
-﻿using Article.Assignment.Queries;
-using Article.Assignment.QueryExecuters;
+﻿using ArticleAssignment.Queries;
+using ArticleAssignment.QueryExecuters;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Article.Assignment.Repositories
+namespace ArticleAssignment.Repositories
 {
     public class BaseRepository : IBaseRepository
     {

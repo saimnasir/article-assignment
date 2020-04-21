@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Article.Assignment.API", "Article.Assignment.API.csproj", "{50AE6CE1-1F2C-4105-9BA8-E9AA7AC76E1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.API", "ArticleAssignment.API.csproj", "{50AE6CE1-1F2C-4105-9BA8-E9AA7AC76E1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Article.Assignment.Repositories", "..\article.assignment.repositorys\Article.Assignment.Repositories.csproj", "{BDF1F768-6EF1-4397-A5BF-FD225BB417EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.Repositories", "..\article.assignment.repositorys\ArticleAssignment.Repositories.csproj", "{BDF1F768-6EF1-4397-A5BF-FD225BB417EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Article.Assignment.DataModels", "..\Article.Assignment.DataModels\Article.Assignment.DataModels.csproj", "{F26FCF54-159E-40FC-B44E-14D2E7C1A93C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.DataModels", "..\Article.Assignment.DataModels\ArticleAssignment.DataModels.csproj", "{F26FCF54-159E-40FC-B44E-14D2E7C1A93C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Article.Assignment.ViewModels", "..\Article.Assignment.ViewModels\Article.Assignment.ViewModels.csproj", "{E98FBBFD-D1A1-45AB-AD6C-76BEB41E8D22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.ViewModels", "..\Article.Assignment.ViewModels\ArticleAssignment.ViewModels.csproj", "{E98FBBFD-D1A1-45AB-AD6C-76BEB41E8D22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Article.Assignment.Queries", "..\Article.Assignment.Queries\Article.Assignment.Queries.csproj", "{834C483A-114A-48C9-8C58-678FAD4BEE7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.Queries", "..\Article.Assignment.Queries\ArticleAssignment.Queries.csproj", "{834C483A-114A-48C9-8C58-678FAD4BEE7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Article.Assignment.QueryExecuters", "..\Article.Assignment.QueryExecuters\Article.Assignment.QueryExecuters.csproj", "{90BB1EBA-6DC6-4598-860A-ACF4F6DC6C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.QueryExecuters", "..\Article.Assignment.QueryExecuters\ArticleAssignment.QueryExecuters.csproj", "{90BB1EBA-6DC6-4598-860A-ACF4F6DC6C21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

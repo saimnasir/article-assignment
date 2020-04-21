@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Article.Assignment.DataModels\Article.Assignment.DataModels.csproj" />
-    <ProjectReference Include="..\Article.Assignment.Queries\Article.Assignment.Queries.csproj" />
-    <ProjectReference Include="..\Article.Assignment.QueryExecuters\Article.Assignment.QueryExecuters.csproj" />
+    <ProjectReference Include="..\Article.Assignment.DataModels\ArticleAssignment.DataModels.csproj" />
+    <ProjectReference Include="..\Article.Assignment.Queries\ArticleAssignment.Queries.csproj" />
+    <ProjectReference Include="..\Article.Assignment.QueryExecuters\ArticleAssignment.QueryExecuters.csproj" />
   </ItemGroup>
 
 </Project>

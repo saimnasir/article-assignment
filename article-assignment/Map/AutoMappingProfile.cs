@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 
-namespace Article.Assignment.API.Map
+namespace ArticleAssignment.API.Map
 {
     public class AutoMappingProfile : Profile
     {
         public AutoMappingProfile()
         {
             ViceVersa<DataModels.Article, ViewModels.Article>();
-            CreateMap<DataModels.Author, ViewModels.Author>(); // means you want to map from User to UserDTO
+            ViceVersa<DataModels.Author, ViewModels.Author>(); 
         }
         protected virtual void ViceVersa<T1, T2>()
         {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Article.Assignment.DataModels
+namespace ArticleAssignment.DataModels
 {
     public class Article
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Article.Assignment.Queries
+namespace ArticleAssignment.Queries
 {
 
     public interface ICommandText

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Article.Assignment.DataModels
+namespace ArticleAssignment.DataModels
 {
     public class Author
     {

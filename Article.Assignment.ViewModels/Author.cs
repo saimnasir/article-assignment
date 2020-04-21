@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Article.Assignment.ViewModels
+namespace ArticleAssignment.ViewModels
 {
     public class Author
     {

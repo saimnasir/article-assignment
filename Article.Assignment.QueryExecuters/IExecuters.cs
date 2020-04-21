@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 
-namespace Article.Assignment.QueryExecuters
+namespace ArticleAssignment.QueryExecuters
 {
 
     public interface IExecuters

@@ -6006,9 +6006,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\Article.Assignment.QueryExecuters.csproj",
-      "projectName": "Article.Assignment.QueryExecuters",
-      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\Article.Assignment.QueryExecuters.csproj",
+      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\ArticleAssignment.QueryExecuters.csproj",
+      "projectName": "ArticleAssignment.QueryExecuters",
+      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\ArticleAssignment.QueryExecuters.csproj",
       "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
       "outputPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.QueryExecuters\\obj\\",
       "projectStyle": "PackageReference",

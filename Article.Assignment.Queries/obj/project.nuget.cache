@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iN44eHOHxAJqgpAM+dsOQIozMLjU+chD+MqVU0jOMQ1NYN9x6VuUFdZH07o13R46rlRq1Cx6wq4TgNzzWr1Krg==",
+  "dgSpecHash": "YvOoTDuq3nwVgIbwdFQftmAqg3dpx4lT2RWoxgZP0Nu3/J+X/QDb28a2zVNAUXBlIp3osRlnrytG2BUzn+nplg==",
   "success": true,
-  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj",
+  "projectFilePath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\saim_\\.nuget\\packages\\microsoft.aspnetcore.hosting.abstractions\\2.0.0\\microsoft.aspnetcore.hosting.abstractions.2.0.0.nupkg.sha512",
     "C:\\Users\\saim_\\.nuget\\packages\\microsoft.aspnetcore.hosting.server.abstractions\\2.0.0\\microsoft.aspnetcore.hosting.server.abstractions.2.0.0.nupkg.sha512",

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Article.Assignment.Queries;
-using Article.Assignment.QueryExecuters;
+using ArticleAssignment.Queries;
+using ArticleAssignment.QueryExecuters;
 using Microsoft.Extensions.Configuration;
 using Dapper;
 using System.Linq;
-using Article.Assignment.DataModels.Dto;
+using ArticleAssignment.DataModels.Dto;
+using System.Data;
+using ArticleAssignment.DataModels;
 
-namespace Article.Assignment.Repositories
+namespace ArticleAssignment.Repositories
 {
     public class ArticleRepository : IArticleRepository
     {
@@ -16,7 +18,10 @@ namespace Article.Assignment.Repositories
         private readonly IExecuters _executers;
         private readonly string _connStr;
 
-        public ArticleRepository(IConfiguration configuration, ICommandText commandText, IExecuters executers)
+        public ArticleRepository(
+            IConfiguration configuration,
+            ICommandText commandText,
+            IExecuters executers)
         {
             _commandText = commandText;
             _configuration = configuration;
@@ -25,112 +30,120 @@ namespace Article.Assignment.Repositories
             _executers = executers;
         }
 
-        public DataModels.Article Read(long id)
+        public Article Read(long id)
         {
-            return _executers.ExecuteCommand(_connStr,
-                           conn => conn.Query<DataModels.Article>(_commandText.ReadArticleCommand,
-                           new
-                           {
-                               @Id = id,
-                               @Deleted = false
-                           }).SingleOrDefault());
+            var parameters = new
+            {
+                @Id = id
+            };
+
+            return _executers.ExecuteCommand(
+                _connStr,
+                conn => conn.QueryFirstOrDefault<Article>(
+                    _commandText.ReadArticleCommand,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                ));
         }
 
-        public DataModels.Article Create(DataModels.Article article)
+        public Article Create(Article article)
         {
-            article.CreateDate = DateTime.Now;
-            article.UpdateDate = null;
-            article.Deleted = false;
+            var parameters = new
+            {
+                article.Title,
+                article.Author,
+                article.Content
+            };
 
-            var id = _executers.ExecuteCommand(_connStr,
+            var result = _executers.ExecuteCommand(
+                _connStr,
                 conn =>
                 {
-                    var query = conn.Query<long>(
+                    return conn.ExecuteScalar<long>(
                         _commandText.CreateArticleCommand,
-                        new
-                        {
-                            article.Title,
-                            article.Author,
-                            article.Content,
-                            article.CreateDate,
-                            article.UpdateDate,
-                            article.Deleted
-                        }).SingleOrDefault();
-                    return query;
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
                 });
-
-            return Read(id);
+             
+            return Read(result);
         }
 
-        public DataModels.Article Update(DataModels.Article article)
+        public Article Update(Article article)
         {
-            article.UpdateDate = DateTime.Now;
+            var parameters = new
+            {
+                article.Id,
+                article.Title,
+                article.Author,
+                article.Content,
+                article.UpdateDate,
+                article.Deleted
+            };
 
-            _executers.ExecuteCommand(_connStr,
+            article = _executers.ExecuteCommand(
+                _connStr,
                 conn =>
                 {
-                    var query = conn.Query<DataModels.Article>(
+                    return conn.QueryFirstOrDefault<Article>(
                         _commandText.UpdateArticleCommand,
-                        new
-                        {
-                            article.Id,
-                            article.Title,
-                            article.Author,
-                            article.Content,
-                            article.UpdateDate,
-                            article.Deleted
-                        });
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
                 });
 
-            return Read(article.Id);
+            return article;
         }
 
         public bool Delete(long id)
         {
-            if (Read(id) == null)
+            var parameters = new
             {
-                return false;
-            }
-            _executers.ExecuteCommand(_connStr,
+                Id = id
+            };
+
+            var isDeleted = _executers.ExecuteCommand(
+                _connStr,
                 conn =>
                 {
-                    var query = conn.Query<DataModels.Article>(
+                    return conn.ExecuteScalar<bool>(
                         _commandText.DeleteArticleCommand,
-                        new
-                        {
-                            Id = id,
-                            Deleted = true
-                        });
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
                 });
-            return true;
+
+            return isDeleted;
         }
 
-        public List<DataModels.Article> ListAll()
+        public List<Article> ListAll()
         {
-            return _executers.ExecuteCommand(_connStr,
-                conn => conn.Query<DataModels.Article>(
+            return _executers.ExecuteCommand(
+                _connStr,
+                conn => conn.Query<Article>(
                     _commandText.ListAllArticlesCommand,
-                    new
-                    {
-                        @Deleted = false
-                    })).ToList();
+                   commandType: CommandType.StoredProcedure
+                )).ToList();
         }
 
-        public List<DataModels.Article> Search(SearchArticleInput input)
+        public List<Article> Search(SearchArticleInput input)
         {
-            var articles = _executers.ExecuteCommand(_connStr,
-                conn => conn.Query<DataModels.Article>(
-                    _commandText.SearchArticlesCommand, new
-                    {
-                        Author = input.Author,
-                        CreateDateStart = input.CreateDateInterval?.Start,
-                        CreateDateEnd = input.CreateDateInterval?.End,
-                        UpdateDateStart = input.UpdateDateInterval?.Start,
-                        UpdateDateEnd = input.UpdateDateInterval?.End,
-                        Title = input.Title,
-                        Deleted = false
-                    })).ToList();
-            return articles;
+            var parameters = new
+            {
+                input.Author,
+                CreateDateStart = input.CreateDateInterval?.Start,
+                CreateDateEnd = input.CreateDateInterval?.End,
+                UpdateDateStart = input.UpdateDateInterval?.Start,
+                UpdateDateEnd = input.UpdateDateInterval?.End,
+                input.Title
+            };
+
+            return _executers.ExecuteCommand(_connStr,
+                 conn => conn.Query<Article>(
+                     _commandText.SearchArticlesCommand,
+                     parameters,
+                     commandType: CommandType.StoredProcedure
+                 )).ToList();
         }
 
     }

@@ -1,8 +1,8 @@
-﻿using Article.Assignment.DataModels.Dto;
+﻿using ArticleAssignment.DataModels.Dto;
 using System;
 using System.Collections.Generic;
 
-namespace Article.Assignment.Repositories
+namespace ArticleAssignment.Repositories
 {
     public interface IArticleRepository
     {

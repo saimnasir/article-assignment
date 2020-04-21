@@ -3850,9 +3850,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj",
-      "projectName": "Article.Assignment.Queries",
-      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\Article.Assignment.Queries.csproj",
+      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj",
+      "projectName": "ArticleAssignment.Queries",
+      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\ArticleAssignment.Queries.csproj",
       "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
       "outputPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.Queries\\obj\\",
       "projectStyle": "PackageReference",

@@ -3850,9 +3850,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\Article.Assignment.ViewModels.csproj",
-      "projectName": "Article.Assignment.ViewModels",
-      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\Article.Assignment.ViewModels.csproj",
+      "projectUniqueName": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\ArticleAssignment.ViewModels.csproj",
+      "projectName": "ArticleAssignment.ViewModels",
+      "projectPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\ArticleAssignment.ViewModels.csproj",
       "packagesPath": "C:\\Users\\saim_\\.nuget\\packages\\",
       "outputPath": "D:\\Desktop\\Article\\article-assignment\\Article.Assignment.ViewModels\\obj\\",
       "projectStyle": "PackageReference",
