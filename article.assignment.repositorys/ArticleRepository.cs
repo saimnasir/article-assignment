@@ -65,7 +65,7 @@ namespace ArticleAssignment.Repositories
                         commandType: CommandType.StoredProcedure
                     );
                 });
-             
+
             return Read(result);
         }
 
@@ -76,9 +76,7 @@ namespace ArticleAssignment.Repositories
                 article.Id,
                 article.Title,
                 article.Author,
-                article.Content,
-                article.UpdateDate,
-                article.Deleted
+                article.Content
             };
 
             article = _executers.ExecuteCommand(

@@ -25,7 +25,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Article
         [HttpGet]
-        public ActionResult<IEnumerable<ViewModels.Article>> Get()
+        public ActionResult<IEnumerable<ViewModels.Article>> ListAll()
         {
             try
             {
@@ -51,14 +51,18 @@ namespace ArticleAssignment.API.Controllers
         // GET: api/Article/5
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<ViewModels.Article> Get(long id)
+        public ActionResult<ViewModels.Article> Read(long id)
         {
             try
             {
                 var dataModel = _repository.Read(id);
+                if (dataModel == null)
+                {
+                    return new JsonResult(new { Message = $"Article({id}) is not found." });
+                }
                 var viewModel = _mapper.Map<ViewModels.Article>(dataModel);
-               
-                    fillAuthorInformations(viewModel);
+
+                fillAuthorInformations(viewModel);
 
                 return viewModel;
             }
@@ -71,7 +75,7 @@ namespace ArticleAssignment.API.Controllers
 
         // POST: api/Article
         [HttpPost]
-        public ActionResult Post(ViewModels.Article viewModel)
+        public ActionResult Create(ViewModels.Article viewModel)
         {
             try
             {
@@ -149,7 +153,7 @@ namespace ArticleAssignment.API.Controllers
             try
             {
                 var dataModels = _repository.Search(input);
-               
+
                 var viewModels = _mapper.Map<List<ViewModels.Article>>(dataModels);
 
                 viewModels.ForEach(article =>

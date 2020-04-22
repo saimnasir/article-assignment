@@ -25,7 +25,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Author
         [HttpGet]
-        public ActionResult<IEnumerable<ViewModels.Author>> Get()
+        public ActionResult<IEnumerable<ViewModels.Author>> ListAll()
         {
             try
             {
@@ -43,11 +43,15 @@ namespace ArticleAssignment.API.Controllers
         // GET: api/Author/5
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<ViewModels.Author> Get(long id)
+        public ActionResult<ViewModels.Author> Read(long id)
         {
             try
             {
                 var dataModel = _repository.Read(id);
+                if (dataModel == null)
+                {
+                    return new JsonResult(new { Message = $"Author({id}) is not found." });
+                }
                 var viewModel = _mapper.Map<ViewModels.Author>(dataModel);
                 return viewModel;
             }
@@ -60,7 +64,7 @@ namespace ArticleAssignment.API.Controllers
 
         // POST: api/Author
         [HttpPost]
-        public ActionResult Post(ViewModels.Author viewModel)
+        public ActionResult Create(ViewModels.Author viewModel)
         {
             try
             {
