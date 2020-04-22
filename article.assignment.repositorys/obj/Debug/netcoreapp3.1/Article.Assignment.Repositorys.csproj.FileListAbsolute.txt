@@ -1,6 +1,0 @@
-D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.DataModels.dll
-D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositorys.csprojAssemblyReference.cache
-D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositorys.AssemblyInfoInputs.cache
-D:\Desktop\Article\article-assignment\article.assignment.repositorys\obj\Debug\netcoreapp3.1\Article.Assignment.Repositorys.AssemblyInfo.cs
-D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.Queries.dll
-D:\Desktop\Article\article-assignment\article.assignment.repositorys\bin\Debug\netcoreapp3.1\Article.Assignment.QueryExecuters.dll
