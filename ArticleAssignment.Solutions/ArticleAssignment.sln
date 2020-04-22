@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.API", "ArticleAssignment.API.csproj", "{50AE6CE1-1F2C-4105-9BA8-E9AA7AC76E1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.API", "..\ArticleAssignment.API\ArticleAssignment.API.csproj", "{50AE6CE1-1F2C-4105-9BA8-E9AA7AC76E1D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.DataModels", "..\ArticleAssignment.DataModels\ArticleAssignment.DataModels.csproj", "{F1990B20-0344-46AD-B143-56830E149E89}"
 EndProject
