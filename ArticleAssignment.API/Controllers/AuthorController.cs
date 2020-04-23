@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ArticleAssignment.Repositories;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -30,13 +28,24 @@ namespace ArticleAssignment.API.Controllers
             try
             {
                 var dataModels = _repository.ListAll();
+                if (dataModels == null || !dataModels.Any())
+                {
+                    Log.Warning("No Authors were found");
+                    return new JsonResult(new
+                    {
+                        Message = $"No Authors are found."
+                    });
+                }
                 var viewModels = _mapper.Map<List<ViewModels.Author>>(dataModels);
                 return viewModels;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Get Author is failed.");
-                throw;
+                Log.Error(ex, "List All Authors failed.");
+                return new JsonResult(new
+                {
+                    Message = $"List All Authors failed. Error: {ex.Message}"
+                });
             }
         }
 
@@ -50,15 +59,22 @@ namespace ArticleAssignment.API.Controllers
                 var dataModel = _repository.Read(id);
                 if (dataModel == null)
                 {
-                    return new JsonResult(new { Message = $"Author({id}) is not found." });
+                    Log.Warning("Author not found. [id:{0}]", id);
+                    return new JsonResult(new
+                    {
+                        Message = $"Author not found. [id:{id}]"
+                    });
                 }
                 var viewModel = _mapper.Map<ViewModels.Author>(dataModel);
                 return viewModel;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Get Author [id:{0}] is failed.", id);
-                throw;
+                Log.Error(ex, "Read Author failed. [id:{0}]", id);
+                return new JsonResult(new
+                {
+                    Message = $"Read Author failed. [id:{id}]\n\tError: {ex.Message}"
+                });
             }
         }
 
@@ -75,8 +91,11 @@ namespace ArticleAssignment.API.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Create Author is failed. {0}", viewModel);
-                throw;
+                Log.Error(ex, "Create Author failed.", viewModel);
+                return new JsonResult(new
+                {
+                    Message = $"Create Author failed.[name:{viewModel.Name}]\n\tError: {ex.Message}"
+                });
             }
         }
 
@@ -90,15 +109,22 @@ namespace ArticleAssignment.API.Controllers
                 dataModel = _repository.Update(dataModel);
                 if (viewModel == null)
                 {
-                    return new JsonResult(new { Message = $"Nothing is updated. Author({viewModel.Id}) is not found." });
+                    Log.Warning("Nothing updated. Author not found. [id: {0}]", viewModel.Id);
+                    return new JsonResult(new
+                    {
+                        Message = $"Nothing updated. Author not found. [id :{viewModel.Id}]"
+                    });
                 }
                 viewModel = _mapper.Map<ViewModels.Author>(dataModel);
                 return Ok(viewModel);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Update Author [id:{0}]  is failed. {0}", viewModel.Id, viewModel);
-                throw;
+                Log.Error(ex, "Update Author failed. [id: {0}]", viewModel.Id);
+                return new JsonResult(new
+                {
+                    Message = $"Read Author failed.[id: {viewModel.Id}]\n\tError: {ex.Message}"
+                });
             }
         }
 
@@ -110,14 +136,26 @@ namespace ArticleAssignment.API.Controllers
             {
                 if (!_repository.Delete(id))
                 {
-                    return new JsonResult(new { Message = $"Nothing is deleted. Author({id}) is not found." });
+                    Log.Warning("Nothing deleted. Author not found. [id:{0}]", id);
+                    return new JsonResult(new
+                    {
+                        Message = $"Nothing deleted. Author not found. [id:{id}]"
+                    });
                 }
-                return Ok(new JsonResult(new { Message = $"Delete Author({id}) is succeed." }));
+                
+                Log.Warning("Delete Author succeed. [id:{0}]", id);
+                return new JsonResult(new
+                {
+                    Message = $"Delete Author succeed."
+                });
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Delete Author [id:{0}]  is failed. {0}", id);
-                throw;
+                Log.Error(ex, "Delete Author failed. [id:{0}]", id);
+                return new JsonResult(new
+                {
+                    Message = $"Delete Author failed. [id:{id}]\n\tError: {ex.Message}"
+                });
             }
         }
     }

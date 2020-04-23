@@ -30,21 +30,24 @@ namespace ArticleAssignment.API.Controllers
             try
             {
                 var dataModels = _repository.ListAll();
-                var viewModels = _mapper.Map<List<ViewModels.Article>>(dataModels);
-                if (!viewModels.Any())
+                if (dataModels == null || !dataModels.Any())
                 {
-                    return viewModels;
+                    Log.Warning("No Articles were found.");
+                    return new JsonResult(new
+                    {
+                        Message = $"No Articles were found."
+                    });
                 }
-                viewModels.ForEach(article =>
-                {
-                    fillAuthorInformations(article);
-                });
+                var viewModels = _mapper.Map<List<ViewModels.Article>>(dataModels);
                 return viewModels;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Get Articles is failed.");
-                throw;
+                Log.Error(ex, "List All Articles failed.");
+                return new JsonResult(new
+                {
+                    Message = $"List All Articles failed. Error: {ex.Message}"
+                });
             }
         }
 
@@ -58,44 +61,52 @@ namespace ArticleAssignment.API.Controllers
                 var dataModel = _repository.Read(id);
                 if (dataModel == null)
                 {
-                    return new JsonResult(new { Message = $"Article({id}) is not found." });
+                    Log.Warning("Article not found. [id:{0}]", id);
+                    return new JsonResult(new
+                    {
+                        Message = $"Article not found. [id:{id}]"
+                    });
                 }
                 var viewModel = _mapper.Map<ViewModels.Article>(dataModel);
-
-                fillAuthorInformations(viewModel);
-
                 return viewModel;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Get Article [id:{0}] is failed.", id);
-                throw;
+                Log.Error(ex, "Read Article failed. [id:{0}]", id);
+                return new JsonResult(new
+                {
+                    Message = $"Read Article failed. [id:{id}]\n\tError: {ex.Message}"
+                });
             }
         }
 
         // POST: api/Article
         [HttpPost]
-        public ActionResult Create(ViewModels.Article viewModel)
+        public ActionResult<ViewModels.Article> Create(ViewModels.Article viewModel)
         {
             try
             {
                 var author = _authorRepository.Read(viewModel.Author);
                 if (author == null)
                 {
-                    return new JsonResult(new { Message = $"Create Article is failed. Author ({viewModel.Author}) is not exists or deleted." });
+                    Log.Warning("Create Article failed. Author not found or deleted.", viewModel);
+                    return new JsonResult(new
+                    {
+                        Message = $"Create Article failed. Author not found or deleted. [id:{viewModel.Author}]"
+                    });
                 }
                 var dataModel = _mapper.Map<DataModels.Article>(viewModel);
                 dataModel = _repository.Create(dataModel);
                 viewModel = _mapper.Map<ViewModels.Article>(dataModel);
-
-                fillAuthorInformations(viewModel);
-
-                return Ok(viewModel);
+                return viewModel;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Create Article is failed. {0}", viewModel);
-                throw;
+                Log.Error(ex, "Create Article failed. [title:{0}]", viewModel.Title);
+                return new JsonResult(new
+                {
+                    Message = $"Create Article failed.[title:{viewModel.Title}]\n\tError: {ex.Message}"
+                });
             }
         }
 
@@ -109,38 +120,53 @@ namespace ArticleAssignment.API.Controllers
                 dataModel = _repository.Update(dataModel);
                 if (dataModel == null)
                 {
-                    return new JsonResult(new { Message = $"Nothing is updated. Article({viewModel.Id}) is not found." });
+                    Log.Warning("Nothing updated. Article not found. Input:\n\t {@viewModel}", viewModel);
+                    return new JsonResult(new
+                    {
+                        Message = $"Nothing updated. Article not found. [id:{viewModel.Id}]"
+                    });
                 }
-
                 viewModel = _mapper.Map<ViewModels.Article>(dataModel);
-                fillAuthorInformations(viewModel);
-
                 return Ok(viewModel);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Update Article [id:{0}]  is failed. {0}", viewModel.Id, viewModel);
-                throw;
+                Log.Error(ex, "Update Article failed. [id:{0}]", viewModel.Id);
+                return new JsonResult(new
+                {
+                    Message = $"Read Article failed.[id:{viewModel.Id}]\n\tError: {ex.Message}"
+                });
             }
         }
 
-
         // DELETE: api/Article/5
         [HttpDelete("{id}")]
-        public ActionResult<ViewModels.Article> Delete(long id)
+        public ActionResult Delete(long id)
         {
             try
             {
                 if (!_repository.Delete(id))
                 {
-                    return new JsonResult(new { Message = $"Nothing is deleted. Article({id}) is not found." });
+                    Log.Warning("Nothing deleted. Article not found. [id:{0}]", id);
+                    return new JsonResult(new
+                    {
+                        Message = $"Nothing deleted. Article not found. [id:{id}]"
+                    });
                 }
-                return Ok(new JsonResult(new { Message = $"Delete Article({id}) is succeed." }));
+
+                Log.Warning("Delete Article succeed. [id:{0}]", id);
+                return new JsonResult(new
+                {
+                    Message = $"Delete Article succeed."
+                });
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Delete Article [id:{0}]  is failed. {0}", id);
-                throw;
+                Log.Error(ex, "Delete Article failed. [id:{0}]", id);
+                return new JsonResult(new
+                {
+                    Message = $"Delete Article failed. [id:{id}]\n\tError: {ex.Message}"
+                });
             }
         }
 
@@ -153,30 +179,21 @@ namespace ArticleAssignment.API.Controllers
             try
             {
                 var dataModels = _repository.Search(input);
-
-                var viewModels = _mapper.Map<List<ViewModels.Article>>(dataModels);
-
-                viewModels.ForEach(article =>
+                if (dataModels == null || !dataModels.Any())
                 {
-                    fillAuthorInformations(article);
-                });
-
+                    Log.Warning("No Articles were found.");
+                    return new JsonResult(new { Message = $"No Articles were found." });
+                }
+                var viewModels = _mapper.Map<List<ViewModels.Article>>(dataModels);
                 return viewModels;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Search Articles is failed.");
-                throw;
-            }
-        }
-
-        private void fillAuthorInformations(ViewModels.Article viewModel)
-        {
-            if (viewModel != null)
-            {
-                var author = _authorRepository.Read(viewModel.Author);
-                viewModel.AuthorName = author.Name;
-                viewModel.AuthorSurname = author.Surname;
+                Log.Error(ex, "Search Articles failed.");
+                return new JsonResult(new
+                {
+                    Message = $"Search Articles failed. Error: {ex.Message}"
+                });
             }
         }
 
