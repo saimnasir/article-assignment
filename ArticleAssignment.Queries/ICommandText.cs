@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ArticleAssignment.Queries
+﻿namespace ArticleAssignment.Queries
 {
 
     public interface ICommandText
