@@ -1,5 +1,4 @@
 ﻿using ArticleAssignment.DataModels.Dto;
-using System;
 using System.Collections.Generic;
 
 namespace ArticleAssignment.Repositories

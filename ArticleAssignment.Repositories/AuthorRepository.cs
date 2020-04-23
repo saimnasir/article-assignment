@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Dapper;
 using System.Linq;
@@ -35,12 +34,14 @@ namespace ArticleAssignment.Repositories
                 @Id = id
             };
 
-            return _executers.ExecuteCommand(_connStr,
+            var author = _executers.ExecuteCommand(_connStr,
                 conn => conn.QueryFirstOrDefault<Author>(
                     _commandText.ReadAuthorCommand,
                     parameters,
                     commandType: CommandType.StoredProcedure
                 ));
+
+            return author;
         }
 
         public Author Create(Author author)
@@ -54,7 +55,7 @@ namespace ArticleAssignment.Repositories
                 author.BirthDate
             };
 
-            var id = _executers.ExecuteCommand(
+            author.Id = _executers.ExecuteCommand(
                 _connStr,
                 conn =>
                 {
@@ -65,7 +66,7 @@ namespace ArticleAssignment.Repositories
                     );
                 });
 
-            return Read(id);
+            return Read(author.Id);
         }
 
         public Author Update(Author author)
@@ -117,12 +118,14 @@ namespace ArticleAssignment.Repositories
 
         public List<Author> ListAll()
         {
-            return _executers.ExecuteCommand(
+            var authors = _executers.ExecuteCommand(
                 _connStr,
                 conn => conn.Query<Author>(
                     _commandText.ListAllAuthorsCommand,
                     commandType: CommandType.StoredProcedure
                 )).ToList();
+
+            return authors;
         }
     }
 }

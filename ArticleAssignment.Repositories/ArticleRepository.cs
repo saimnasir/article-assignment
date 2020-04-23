@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ArticleAssignment.Queries;
 using ArticleAssignment.QueryExecuters;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +24,6 @@ namespace ArticleAssignment.Repositories
         {
             _commandText = commandText;
             _configuration = configuration;
-
             _connStr = _configuration.GetConnectionString("ArticleAssignmentDbConnection");
             _executers = executers;
         }
@@ -37,13 +35,16 @@ namespace ArticleAssignment.Repositories
                 @Id = id
             };
 
-            return _executers.ExecuteCommand(
+            var article = _executers.ExecuteCommand(
                 _connStr,
                 conn => conn.QueryFirstOrDefault<Article>(
                     _commandText.ReadArticleCommand,
                     parameters,
                     commandType: CommandType.StoredProcedure
                 ));
+
+            fillAuthorInformationsForSingle(article);
+            return article;
         }
 
         public Article Create(Article article)
@@ -55,7 +56,7 @@ namespace ArticleAssignment.Repositories
                 article.Content
             };
 
-            var result = _executers.ExecuteCommand(
+            article.Id = _executers.ExecuteCommand(
                 _connStr,
                 conn =>
                 {
@@ -66,7 +67,7 @@ namespace ArticleAssignment.Repositories
                     );
                 });
 
-            return Read(result);
+            return Read(article.Id);
         }
 
         public Article Update(Article article)
@@ -90,6 +91,7 @@ namespace ArticleAssignment.Repositories
                     );
                 });
 
+            fillAuthorInformationsForSingle(article);
             return article;
         }
 
@@ -116,12 +118,15 @@ namespace ArticleAssignment.Repositories
 
         public List<Article> ListAll()
         {
-            return _executers.ExecuteCommand(
+            var articles = _executers.ExecuteCommand(
                 _connStr,
                 conn => conn.Query<Article>(
                     _commandText.ListAllArticlesCommand,
                    commandType: CommandType.StoredProcedure
                 )).ToList();
+
+            fillAuthorInformationsForAll(articles);
+            return articles;
         }
 
         public List<Article> Search(SearchArticleInput input)
@@ -136,12 +141,75 @@ namespace ArticleAssignment.Repositories
                 input.Title
             };
 
-            return _executers.ExecuteCommand(_connStr,
+            var articles = _executers.ExecuteCommand(_connStr,
                  conn => conn.Query<Article>(
                      _commandText.SearchArticlesCommand,
                      parameters,
                      commandType: CommandType.StoredProcedure
                  )).ToList();
+
+            fillAuthorInformationsForAll(articles);
+            return articles;
+        }
+
+        private void fillAuthorInformationsForAll(List<Article> articles)
+        {
+            if (articles.Any())
+            {
+                var authors = listAuthorsOfArticles(articles);
+                if (authors.Any())
+                {
+                    articles.ForEach(article =>
+                    {
+                        var author = authors.FirstOrDefault(a => a.Id == article.Author);
+                        fillAuthorInformationsForSingle(article, author);
+                    });
+                }
+            }
+        }
+
+        private List<Author> listAuthorsOfArticles(List<Article> articles)
+        {
+            var authors = _executers.ExecuteCommand(_connStr,
+                conn => conn.Query<Author>(
+                    _commandText.ListAllAuthorsCommand,
+                    commandType: CommandType.StoredProcedure
+                ).Where(author => articles.Any(article => article.Author == author.Id))
+                .ToList());
+
+            return authors;
+        }
+
+        private void fillAuthorInformationsForSingle(Article article, Author author = null)
+        {
+            if (article != null)
+            {
+                if (author == null)
+                {
+                    author = readAuthor(article.Author);
+                }
+                if (author != null)
+                {
+                    article.AuthorName = author.Name;
+                    article.AuthorSurname = author.Surname;
+                }
+            };
+        }
+
+        private Author readAuthor(long authorId)
+        {
+            var parameters = new
+            {
+                @Id = authorId
+            };
+            var author= _executers.ExecuteCommand(_connStr,
+                conn => conn.QueryFirstOrDefault<Author>(
+                    _commandText.ReadAuthorCommand,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                ));
+
+            return author;
         }
 
     }
