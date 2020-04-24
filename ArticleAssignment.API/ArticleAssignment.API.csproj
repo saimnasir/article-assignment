@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ArticleAssignment.DataModels\ArticleAssignment.DataModels.csproj" />
+    <ProjectReference Include="..\ArticleAssignment.Extensions\ArticleAssignment.Extensions.csproj" />
     <ProjectReference Include="..\ArticleAssignment.Repositories\ArticleAssignment.Repositories.csproj" />
     <ProjectReference Include="..\ArticleAssignment.ViewModels\ArticleAssignment.ViewModels.csproj" />
   </ItemGroup>

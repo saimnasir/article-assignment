@@ -46,8 +46,8 @@ namespace article_assignment
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var logConfig = new LoggerConfiguration()
                              .Enrich.FromLogContext()
-                             .WriteTo.File(
-                                path: "Logs\\log{Date}.json",
+                             .WriteTo.RollingFile(
+                                pathFormat: "Logs\\log{Date}.json",
                                 outputTemplate: "[{Level:u3}] {Timestamp:yyyy:MM:dd HH:mm:ss} {Message:lj}{NewLine}{Exception}"
                             );
 
@@ -56,7 +56,7 @@ namespace article_assignment
             {
                 logConfig.MinimumLevel.Debug();
             }
-            else if (environment == Microsoft.AspNetCore.Hosting.EnvironmentName.Development)
+            else if (environment == Microsoft.AspNetCore.Hosting.EnvironmentName.Staging)
             {
                 logConfig.MinimumLevel.Information();
             }

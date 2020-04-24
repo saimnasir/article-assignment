@@ -1,3 +1,4 @@
+using ArticleAssignment.Extensions;
 using ArticleAssignment.Queries;
 using ArticleAssignment.QueryExecuters;
 using ArticleAssignment.Repositories;
@@ -22,11 +23,12 @@ namespace article_assignment
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup)); 
-            services.AddTransient<IExecuters, Executers>();
+            services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IArticleRepository, ArticleRepository>();
             services.AddTransient<IAuthorRepository, AuthorRepository>();
-            services.AddTransient<ICommandText, CommandText>(); 
+            services.AddSingleton<IExecuters, Executers>();
+            services.AddSingleton<ICommandText, CommandText>(); 
+            services.AddSingleton<IErrorText, ErrorText>();
             services.AddControllers();
         }
 

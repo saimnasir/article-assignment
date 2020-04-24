@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.Repositor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArticleAssignment.ViewModels", "..\ArticleAssignment.ViewModels\ArticleAssignment.ViewModels.csproj", "{841C7733-C132-4F8E-B6BC-1A8FF1E8D2EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArticleAssignment.Extensions", "..\ArticleAssignment.Extensions\ArticleAssignment.Extensions.csproj", "{B4F2B042-105A-4232-B62B-F144C780524A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{841C7733-C132-4F8E-B6BC-1A8FF1E8D2EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{841C7733-C132-4F8E-B6BC-1A8FF1E8D2EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{841C7733-C132-4F8E-B6BC-1A8FF1E8D2EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F2B042-105A-4232-B62B-F144C780524A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F2B042-105A-4232-B62B-F144C780524A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F2B042-105A-4232-B62B-F144C780524A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F2B042-105A-4232-B62B-F144C780524A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

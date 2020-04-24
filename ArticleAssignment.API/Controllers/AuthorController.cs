@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using ArticleAssignment.Extensions;
 using ArticleAssignment.Repositories;
+using ArticleAssignment.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -15,147 +16,114 @@ namespace ArticleAssignment.API.Controllers
         private readonly IAuthorRepository _repository;
         private readonly IMapper _mapper;
 
-        public AuthorController(IAuthorRepository repository, IMapper mapper)
+        private readonly IErrorText _errorGenerator;
+        public AuthorController(
+            IAuthorRepository repository,
+            IMapper mapper,
+            IErrorText errorGenerator)
         {
             _repository = repository;
             _mapper = mapper;
+            _errorGenerator = errorGenerator;
         }
 
         // GET: api/Author
         [HttpGet]
-        public ActionResult<IEnumerable<ViewModels.Author>> ListAll()
+        public ActionResult<IEnumerable<Author>> ListAll()
         {
             try
             {
-                var dataModels = _repository.ListAll();
-                if (dataModels == null || !dataModels.Any())
-                {
-                    Log.Warning("No Authors were found");
-                    return new JsonResult(new
-                    {
-                        Message = $"No Authors are found."
-                    });
-                }
-                var viewModels = _mapper.Map<List<ViewModels.Author>>(dataModels);
+                var dataModels = _repository.ListAll();               
+                var viewModels = _mapper.Map<List<Author>>(dataModels);
                 return viewModels;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "List All Authors failed.");
-                return new JsonResult(new
-                {
-                    Message = $"List All Authors failed. Error: {ex.Message}"
-                });
+                var messageResponse = _errorGenerator.GetMessageResponse<Author>(ActionType.List, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message);
+                throw new Exception(messageResponse.Message);
             }
         }
 
         // GET: api/Author/5
         [HttpGet]
         [Route("{id}")]
-        public ActionResult<ViewModels.Author> Read(long id)
+        public ActionResult<Author> Read(long id)
         {
             try
             {
-                var dataModel = _repository.Read(id);
-                if (dataModel == null)
-                {
-                    Log.Warning("Author not found. [id:{0}]", id);
-                    return new JsonResult(new
-                    {
-                        Message = $"Author not found. [id:{id}]"
-                    });
-                }
-                var viewModel = _mapper.Map<ViewModels.Author>(dataModel);
+                var dataModel = _repository.Read(id);               
+                var viewModel = _mapper.Map<Author>(dataModel);
                 return viewModel;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Read Author failed. [id:{0}]", id);
-                return new JsonResult(new
-                {
-                    Message = $"Read Author failed. [id:{id}]\n\tError: {ex.Message}"
-                });
+                var input = new { Id = id };
+                var messageResponse = _errorGenerator.GetMessageResponse<Author, object>(ActionType.Read, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+                throw new Exception(messageResponse.Message);
             }
         }
 
         // POST: api/Author
         [HttpPost]
-        public ActionResult Create(ViewModels.Author viewModel)
+        public ActionResult Create(Author viewModel)
         {
             try
             {
                 var dataModel = _mapper.Map<DataModels.Author>(viewModel);
                 dataModel = _repository.Create(dataModel);
-                viewModel = _mapper.Map<ViewModels.Author>(dataModel);
+                viewModel = _mapper.Map<Author>(dataModel);
                 return Ok(viewModel);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Create Author failed.", viewModel);
-                return new JsonResult(new
-                {
-                    Message = $"Create Author failed.[name:{viewModel.Name}]\n\tError: {ex.Message}"
-                });
+                var messageResponse = _errorGenerator.GetMessageResponse<Author, Author>(ActionType.Create, viewModel, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, viewModel);
+                throw new Exception(messageResponse.Message);
             }
         }
 
         // PUT: api/Author/5
         [HttpPut]
-        public ActionResult<ViewModels.Author> Update(ViewModels.Author viewModel)
+        public ActionResult<Author> Update(Author viewModel)
         {
             try
             {
                 var dataModel = _mapper.Map<DataModels.Author>(viewModel);
-                dataModel = _repository.Update(dataModel);
-                if (viewModel == null)
-                {
-                    Log.Warning("Nothing updated. Author not found. [id: {0}]", viewModel.Id);
-                    return new JsonResult(new
-                    {
-                        Message = $"Nothing updated. Author not found. [id :{viewModel.Id}]"
-                    });
-                }
-                viewModel = _mapper.Map<ViewModels.Author>(dataModel);
+                dataModel = _repository.Update(dataModel);               
+                viewModel = _mapper.Map<Author>(dataModel);
                 return Ok(viewModel);
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Update Author failed. [id: {0}]", viewModel.Id);
-                return new JsonResult(new
-                {
-                    Message = $"Read Author failed.[id: {viewModel.Id}]\n\tError: {ex.Message}"
-                });
+                var messageResponse = _errorGenerator.GetMessageResponse<Author, Author>(ActionType.Update, viewModel, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, viewModel);
+                throw new Exception(messageResponse.Message);
             }
         }
 
         // DELETE: api/Author/5
         [HttpDelete("{id}")]
-        public ActionResult<ViewModels.Author> Delete(long id)
+        public ActionResult<Author> Delete(long id)
         {
             try
             {
                 if (!_repository.Delete(id))
                 {
-                    Log.Warning("Nothing deleted. Author not found. [id:{0}]", id);
-                    return new JsonResult(new
-                    {
-                        Message = $"Nothing deleted. Author not found. [id:{id}]"
-                    });
+                    throw new Exception(_errorGenerator.GetExceptionResponse<Author>(ActionType.Delete));
                 }
-                
-                Log.Warning("Delete Author succeed. [id:{0}]", id);
-                return new JsonResult(new
-                {
-                    Message = $"Delete Author succeed."
-                });
+
+                var messageResponse = _errorGenerator.GetMessageResponse<Author>(ActionType.Delete, id, success: true);
+                Log.Warning(messageResponse.LogTemplate, messageResponse.Message);
+                return new JsonResult(new { messageResponse.Message });
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Delete Author failed. [id:{0}]", id);
-                return new JsonResult(new
-                {
-                    Message = $"Delete Author failed. [id:{id}]\n\tError: {ex.Message}"
-                });
+                var input = new { Id = id };
+                var messageResponse = _errorGenerator.GetMessageResponse<Author, object>(ActionType.Delete, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+                throw new Exception(messageResponse.Message);
             }
         }
     }
