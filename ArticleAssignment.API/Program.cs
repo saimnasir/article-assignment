@@ -54,7 +54,7 @@ namespace article_assignment
 
             if (environment == Microsoft.AspNetCore.Hosting.EnvironmentName.Development)
             {
-                logConfig.MinimumLevel.Warning();
+                logConfig.MinimumLevel.Debug();
             }
             else if (environment == Microsoft.AspNetCore.Hosting.EnvironmentName.Staging)
             {
