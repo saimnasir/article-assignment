@@ -57,6 +57,27 @@ namespace ArticleAssignment.Repositories
                 input.State
             };
             return base.Search(parameters);
-        }       
+        }
+
+        public Article Check(long id)
+        {
+            var article = Read(id);
+            article.State = States.Checking;
+            return Update(article);
+        }
+
+        public Article Approve(long id)
+        {
+            var article = Read(id);
+            article.State = States.Approved;
+            return Update(article);
+        }
+
+        public Article Reject(long id)
+        {
+            var article = Read(id); 
+            article.State = States.Rejected;
+            return Update(article);
+        }
     }
 }
