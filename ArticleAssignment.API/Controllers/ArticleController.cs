@@ -7,6 +7,7 @@ using System;
 using ArticleAssignment.ViewModels;
 using ArticleAssignment.Core;
 using ArticleAssignment.Core.Enums;
+using System.Linq;
 
 namespace ArticleAssignment.API.Controllers
 {
@@ -244,6 +245,118 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
+        // POST: api/Article/AddComment/{id}
+        [HttpPost]
+        [Route("AddComment/{id}")]
+        public ActionResult<Article> AddComment(long id, Comment input)
+        {
+            try
+            {
+                var dataModel = _articleRepository.Read(id);
+                if (dataModel == null)
+                {
+                    throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
+                }
+
+                var comment = _repositoryFactory.CommentRepository.Read(input.Id);
+                if (comment == null)
+                {
+                    comment = _mapper.Map<DataModels.Comment>(input);
+                    comment = _repositoryFactory.CommentRepository.Create(comment);
+                }
+
+                var articleComment = _repositoryFactory.ArticleCommentRepository.Search(
+                    new SearchArticleCommentInput
+                    {
+                        ArticleId = id,
+                        CommentId = comment.Id
+                    }).SingleOrDefault();
+
+                if (articleComment == null)
+                {
+                    articleComment = new DataModels.ArticleComment
+                    {
+                        ArticleId = id,
+                        CommentId = comment.Id
+                    };
+                    articleComment = _repositoryFactory.ArticleCommentRepository.Create(articleComment);
+                }
+
+                var viewModel = _mapper.Map<Article>(dataModel);
+
+                getArticleDetails(viewModel);
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                var logInput = new
+                {
+                    Id = id,
+                    Comment = input
+                };
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, object>(ActionType.Update, logInput, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, id);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
+
+        // POST: api/Article/AddTag/{id}
+        [HttpPost]
+        [Route("AddTag/{id}")]
+        public ActionResult<Article> AddTag(long id, Tag input)
+        {
+            try
+            {
+                var dataModel = _articleRepository.Read(id);
+                if (dataModel == null)
+                {
+                    throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
+                }
+                var tag = _repositoryFactory.TagRepository.Read(input.Id);
+
+                if (tag == null)
+                {
+                    tag = _mapper.Map<DataModels.Tag>(input);
+                    tag = _repositoryFactory.TagRepository.Create(tag);
+                }
+
+                var articleTag = _repositoryFactory.ArticleTagRepository.Search(
+                    new SearchArticleTagInput
+                    {
+                        ArticleId = id,
+                        TagId = tag.Id
+                    }).SingleOrDefault();
+
+                if (articleTag == null)
+                {
+                    articleTag = new DataModels.ArticleTag
+                    {
+                        ArticleId = id,
+                        TagId = tag.Id
+                    };
+
+                    articleTag = _repositoryFactory.ArticleTagRepository.Create(articleTag);
+                }
+                var viewModel = _mapper.Map<Article>(dataModel);
+
+                getArticleDetails(viewModel);
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                var logInput = new
+                {
+                    Id = id,
+                    Tag = input
+                };
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, object>(ActionType.Update, logInput, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, id);
+                throw new Exception(messageResponse.Message);
+            }
+        }
 
         private void getArticleDetails(Article article)
         {
@@ -292,11 +405,10 @@ namespace ArticleAssignment.API.Controllers
             var input = new SearchTagInput
             {
                 ArticleId = article.Id
-            }; 
+            };
             var tags = _repositoryFactory.TagRepository.Search(input);
             article.Tags = _mapper.Map<List<Tag>>(tags);
         }
-
 
         private void readState(Article article)
         {
