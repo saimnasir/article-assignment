@@ -1,32 +1,30 @@
-﻿using System;
+﻿using ArticleAssignment.Core.Enums;
+using System.Collections.Generic;
 
 namespace ArticleAssignment.ViewModels
 {
-    public class Article
+    public class Article : ViewModel
     {
-       
-
-        public long Id { get; set; }
-
         public string Title { get; set; }
-
-        public long Author { get; set; }
 
         public string Content { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public long AuthorId { get; set; }
 
-        private DateTime? _updateDate;
-        public DateTime? UpdateDate
-        {
-            get { return _updateDate ?? CreateDate; }
-            set { _updateDate = value; }
-        }
+        public long CategoryId { get; set; }
 
-        public bool Deleted { get; set; }
+        public States State { get; set; }
 
-        public string AuthorName { get; set; }
+        public Author Author { get; set; }
 
-        public string AuthorSurname { get; set; }
+        public Category Category { get; set; }
+
+        public List<Tag> Tags { get; set; }
+
+        public List<Comment> Comments { get; set; }
+
+        public string Status { get; set; }
+
+
     }
 }

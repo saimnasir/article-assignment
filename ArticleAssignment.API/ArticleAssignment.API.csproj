@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\launchSettings.json~RF33bc7ed.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
@@ -17,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ArticleAssignment.DataModels\ArticleAssignment.DataModels.csproj" />
-    <ProjectReference Include="..\ArticleAssignment.Extensions\ArticleAssignment.Extensions.csproj" />
     <ProjectReference Include="..\ArticleAssignment.Repositories\ArticleAssignment.Repositories.csproj" />
     <ProjectReference Include="..\ArticleAssignment.ViewModels\ArticleAssignment.ViewModels.csproj" />
   </ItemGroup>

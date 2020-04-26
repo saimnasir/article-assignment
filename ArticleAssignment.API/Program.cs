@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
-namespace article_assignment
+namespace ArticleAssignment
 {
     [Obsolete]
     public class Program

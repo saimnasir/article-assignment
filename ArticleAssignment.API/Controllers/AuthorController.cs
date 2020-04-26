@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ArticleAssignment.Extensions;
+using ArticleAssignment.Core;
 using ArticleAssignment.Repositories;
 using ArticleAssignment.ViewModels;
 using AutoMapper;
@@ -13,16 +13,18 @@ namespace ArticleAssignment.API.Controllers
     [ApiController]
     public class AuthorController : ControllerBase
     {
+        private readonly IRepositoryFactory _repositoryFactory;
         private readonly IAuthorRepository _repository;
         private readonly IMapper _mapper;
 
         private readonly IErrorText _errorGenerator;
         public AuthorController(
-            IAuthorRepository repository,
+            IRepositoryFactory repositoryFactory,
             IMapper mapper,
             IErrorText errorGenerator)
         {
-            _repository = repository;
+            _repositoryFactory = repositoryFactory;
+            _repository = _repositoryFactory.AuthorRepository;
             _mapper = mapper;
             _errorGenerator = errorGenerator;
         }
@@ -33,7 +35,7 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                var dataModels = _repository.ListAll();               
+                var dataModels = _repository.ListAll();
                 var viewModels = _mapper.Map<List<Author>>(dataModels);
                 return viewModels;
             }
@@ -52,7 +54,7 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                var dataModel = _repository.Read(id);               
+                var dataModel = _repository.Read(id);
                 var viewModel = _mapper.Map<Author>(dataModel);
                 return viewModel;
             }
@@ -72,6 +74,7 @@ namespace ArticleAssignment.API.Controllers
             try
             {
                 var dataModel = _mapper.Map<DataModels.Author>(viewModel);
+               
                 dataModel = _repository.Create(dataModel);
                 viewModel = _mapper.Map<Author>(dataModel);
                 return Ok(viewModel);
@@ -90,8 +93,8 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                var dataModel = _mapper.Map<DataModels.Author>(viewModel);
-                dataModel = _repository.Update(dataModel);               
+                var dataModel = _mapper.Map<DataModels.Author>(viewModel);                
+                dataModel = _repository.Update(dataModel);
                 viewModel = _mapper.Map<Author>(dataModel);
                 return Ok(viewModel);
             }
@@ -109,7 +112,7 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                if (!_repository.Delete(id))
+                if (_repository.Delete(id) != EntityStates.Deleted)
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Author>(ActionType.Delete));
                 }
@@ -126,5 +129,26 @@ namespace ArticleAssignment.API.Controllers
                 throw new Exception(messageResponse.Message);
             }
         }
+
+
+        // POST: api/Author/Search
+        [HttpPost]
+        [Route("Search")]
+        public ActionResult<List<Author>> Search(SearchInputBase input)
+        {
+            try
+            {
+                var dataModels = _repository.Search(input);
+                var viewModels = _mapper.Map<List<Author>>(dataModels);
+                return viewModels;
+            }
+            catch (Exception ex)
+            {
+                var messageResponse = _errorGenerator.GetMessageResponse<Author, SearchInputBase>(ActionType.List, input, ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
     }
 }

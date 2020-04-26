@@ -1,6 +1,5 @@
-using ArticleAssignment.Extensions;
+using ArticleAssignment.Core;
 using ArticleAssignment.Queries;
-using ArticleAssignment.QueryExecuters;
 using ArticleAssignment.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace article_assignment
+namespace ArticleAssignment
 {
     public class Startup
     {
@@ -24,10 +23,9 @@ namespace article_assignment
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
-            services.AddTransient<IArticleRepository, ArticleRepository>();
-            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IRepositoryFactory, RepositoryFactory>();
             services.AddSingleton<IExecuters, Executers>();
-            services.AddSingleton<ICommandText, CommandText>(); 
+            services.AddTransient<ICommandText, CommandText>();
             services.AddSingleton<IErrorText, ErrorText>();
             services.AddControllers();
         }

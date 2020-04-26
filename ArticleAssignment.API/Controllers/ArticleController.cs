@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using ArticleAssignment.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using ArticleAssignment.DataModels.Dto;
 using Serilog;
 using System;
-using ArticleAssignment.Extensions;
 using ArticleAssignment.ViewModels;
+using ArticleAssignment.Core;
 
 namespace ArticleAssignment.API.Controllers
 {
@@ -15,20 +13,20 @@ namespace ArticleAssignment.API.Controllers
     [ApiController]
     public class ArticleController : ControllerBase
     {
-        private readonly IArticleRepository _repository;
-        private readonly IAuthorRepository _authorRepository;
+        private readonly IRepositoryFactory _repositoryFactory;
+        private readonly IArticleRepository _articleRepository;
         private readonly IMapper _mapper;
         private readonly IErrorText _errorGenerator;
         public ArticleController(
-            IArticleRepository repository,
-            IAuthorRepository authorRepository,
-            IMapper mapper,
-            IErrorText errorGenerator)
+           IRepositoryFactory repositoryFactory,
+           IMapper mapper,
+           IErrorText errorGenerator)
         {
-            _repository = repository;
-            _authorRepository = authorRepository;
+            _repositoryFactory = repositoryFactory;
             _mapper = mapper;
             _errorGenerator = errorGenerator;
+
+            _articleRepository = _repositoryFactory.ArticleRepository;
         }
 
         // GET: api/Article
@@ -37,8 +35,12 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                var dataModels = _repository.ListAll();
+                var dataModels = _articleRepository.ListAll();
                 var viewModels = _mapper.Map<List<Article>>(dataModels);
+                viewModels.ForEach(viewModel =>
+                {
+                    getArticleDetails(viewModel);
+                });
                 return viewModels;
             }
             catch (Exception ex)
@@ -56,8 +58,9 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                var dataModel = _repository.Read(id);
+                var dataModel = _articleRepository.Read(id);
                 var viewModel = _mapper.Map<Article>(dataModel);
+                getArticleDetails(viewModel);
                 return viewModel;
             }
             catch (Exception ex)
@@ -75,15 +78,11 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                var author = _authorRepository.Read(viewModel.Author);
-                if (author == null)
-                {
-                    throw new Exception(_errorGenerator.GetExceptionResponse<Article, Author>(ActionType.Create));
-                }
-
                 var dataModel = _mapper.Map<DataModels.Article>(viewModel);
-                dataModel = _repository.Create(dataModel);
+                dataModel = _articleRepository.Create(dataModel, null);
                 viewModel = _mapper.Map<Article>(dataModel);
+                getArticleDetails(viewModel);
+
                 return viewModel;
             }
             catch (Exception ex)
@@ -101,9 +100,11 @@ namespace ArticleAssignment.API.Controllers
             try
             {
                 var dataModel = _mapper.Map<DataModels.Article>(viewModel);
-                dataModel = _repository.Update(dataModel);
+                dataModel = _articleRepository.Update(dataModel, null);
 
                 viewModel = _mapper.Map<Article>(dataModel);
+                getArticleDetails(viewModel);
+
                 return Ok(viewModel);
             }
             catch (Exception ex)
@@ -121,7 +122,7 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                if (!_repository.Delete(id))
+                if (_articleRepository.Delete(id) != EntityStates.Deleted)
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Delete));
                 }
@@ -147,25 +148,77 @@ namespace ArticleAssignment.API.Controllers
         {
             try
             {
-                divideByZero();
-
-                var dataModels = _repository.Search(input);
+                var dataModels = _articleRepository.Search(input);
                 var viewModels = _mapper.Map<List<Article>>(dataModels);
+                viewModels.ForEach(viewModel =>
+                {
+                    getArticleDetails(viewModel);
+                });
                 return viewModels;
             }
             catch (Exception ex)
             {
                 var messageResponse = _errorGenerator.GetMessageResponse<Article, SearchArticleInput>(ActionType.List, input, ex);
-                Log.Error(messageResponse.LogTemplate,  messageResponse.Message, input);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
                 throw new Exception(messageResponse.Message);
             }
         }
 
-        private void divideByZero()
+        private void getArticleDetails(Article article)
         {
-            int i = 0;
-            i = 1 / i;
+            readAuthor(article);
+
+            readCategory(article);
+
+            listComments(article);
+
+            listTags(article);
+
+            readState(article);
         }
+
+        private void readAuthor(Article article)
+        {
+            var author = _repositoryFactory.AuthorRepository.Read(article.AuthorId);
+            if (author == null)
+            {
+                throw new Exception(_errorGenerator.GetExceptionResponse<Article, Author>(ActionType.Create));
+            }
+            article.Author = _mapper.Map<Author>(author);
+        }
+        private void readCategory(Article article)
+        {
+            var category = _repositoryFactory.CategoryRepository.Read(article.CategoryId);
+            if (category == null)
+            {
+                throw new Exception(_errorGenerator.GetExceptionResponse<Article, Author>(ActionType.Read));
+            }
+            article.Category = _mapper.Map<Category>(category);
+        }
+
+        private void listComments(Article article)
+        {
+            var comments = _repositoryFactory.CommentRepository.Search(new SearchCommentInput { ArticleId = article.Id });
+            article.Comments = _mapper.Map<List<Comment>>(comments);
+        }
+
+        private void listTags(Article article)
+        {
+            var tags = _repositoryFactory.TagRepository.Search(new SearchTagInput { ArticleId = article.Id });
+            article.Tags = _mapper.Map<List<Tag>>(tags);
+        }
+
+
+        private void readState(Article article)
+        {
+            var state = _repositoryFactory.StateRepository.Read((long)article.State);
+            if (state == null)
+            {
+                throw new Exception(_errorGenerator.GetExceptionResponse<Article, Author>(ActionType.Read));
+            }
+            article.Status = state.Name;
+        }
+
 
     }
 }
