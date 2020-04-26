@@ -24,8 +24,6 @@ namespace ArticleAssignment
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IRepositoryFactory, RepositoryFactory>();
-            services.AddSingleton<IExecuters, Executers>();
-            services.AddTransient<ICommandText, CommandText>();
             services.AddSingleton<IErrorText, ErrorText>();
             services.AddControllers();
         }

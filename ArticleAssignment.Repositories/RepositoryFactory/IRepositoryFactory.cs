@@ -1,7 +1,12 @@
-﻿namespace ArticleAssignment.Repositories
+﻿using ArticleAssignment.Queries;
+
+namespace ArticleAssignment.Repositories
 {
     public interface IRepositoryFactory
     {
+      //  IConfiguration Configuration { get; }
+        IExecuters Executers { get; }
+        ICommandText CommandText { get; }
         ITagRepository TagRepository { get; }
         IArticleRepository ArticleRepository { get; }
         IAuthorRepository AuthorRepository { get; }
