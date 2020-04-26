@@ -6,6 +6,7 @@ using Serilog;
 using System;
 using ArticleAssignment.ViewModels;
 using ArticleAssignment.Core;
+using ArticleAssignment.Core.Enums;
 
 namespace ArticleAssignment.API.Controllers
 {
@@ -100,7 +101,7 @@ namespace ArticleAssignment.API.Controllers
             try
             {
                 var dataModel = _mapper.Map<DataModels.Article>(viewModel);
-                dataModel = _articleRepository.Update(dataModel, null);
+                dataModel = _articleRepository.Update(dataModel);
 
                 viewModel = _mapper.Map<Article>(dataModel);
                 getArticleDetails(viewModel);
@@ -164,6 +165,86 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
+        // POST: api/Article/Check
+        [HttpPost]
+        [Route("Check/{id}")]
+        public ActionResult<Article> Check(long id)
+        {
+            try
+            {
+                var dataModel = _articleRepository.Check(id);
+                var viewModel = _mapper.Map<Article>(dataModel);
+                getArticleDetails(viewModel);
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                var input = new
+                {
+                    Id = id,
+                    Action = "Check"
+                };
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, object>(ActionType.Update, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
+
+        // POST: api/Article/Check
+        [HttpPost]
+        [Route("Approve/{id}")]
+        public ActionResult<Article> Approve(long id)
+        {
+            try
+            {
+                var dataModel = _articleRepository.Approve(id);
+                var viewModel = _mapper.Map<Article>(dataModel);
+                getArticleDetails(viewModel);
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                var input = new
+                {
+                    Id = id,
+                    Action = "Approve"
+                };
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, object>(ActionType.Update, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
+        // POST: api/Article/Check/5
+        [HttpPost]
+        [Route("Reject/{id}")]
+        public ActionResult<Article> Reject(long id)
+        {
+            try
+            {
+                var dataModel = _articleRepository.Reject(id);
+                var viewModel = _mapper.Map<Article>(dataModel);
+                getArticleDetails(viewModel);
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                var input = new
+                {
+                    Id = id,
+                    Action = "Approve"
+                };
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, object>(ActionType.Update, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, id);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
+
         private void getArticleDetails(Article article)
         {
             readAuthor(article);
@@ -191,20 +272,28 @@ namespace ArticleAssignment.API.Controllers
             var category = _repositoryFactory.CategoryRepository.Read(article.CategoryId);
             if (category == null)
             {
-                throw new Exception(_errorGenerator.GetExceptionResponse<Article, Author>(ActionType.Read));
+                throw new Exception(_errorGenerator.GetExceptionResponse<Article, Category>(ActionType.Read));
             }
             article.Category = _mapper.Map<Category>(category);
         }
 
         private void listComments(Article article)
         {
-            var comments = _repositoryFactory.CommentRepository.Search(new SearchCommentInput { ArticleId = article.Id });
+            var input = new SearchCommentInput
+            {
+                ArticleId = article.Id
+            };
+            var comments = _repositoryFactory.CommentRepository.Search(input);
             article.Comments = _mapper.Map<List<Comment>>(comments);
         }
 
         private void listTags(Article article)
         {
-            var tags = _repositoryFactory.TagRepository.Search(new SearchTagInput { ArticleId = article.Id });
+            var input = new SearchTagInput
+            {
+                ArticleId = article.Id
+            }; 
+            var tags = _repositoryFactory.TagRepository.Search(input);
             article.Tags = _mapper.Map<List<Tag>>(tags);
         }
 
@@ -214,7 +303,7 @@ namespace ArticleAssignment.API.Controllers
             var state = _repositoryFactory.StateRepository.Read((long)article.State);
             if (state == null)
             {
-                throw new Exception(_errorGenerator.GetExceptionResponse<Article, Author>(ActionType.Read));
+                throw new Exception(_errorGenerator.GetExceptionResponse<Article, State>(ActionType.Read));
             }
             article.Status = state.Name;
         }

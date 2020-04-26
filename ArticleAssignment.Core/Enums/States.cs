@@ -4,7 +4,8 @@
     {
         None = 0,
         Waiting = 1,
-        Published = 2,
-        Discard = 3,
+        Checking = 2,
+        Approved = 3,
+        Rejected = 3,
     }
 }
