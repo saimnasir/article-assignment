@@ -16,17 +16,14 @@ namespace ArticleAssignment.Repositories
         private ICategoryRepository _categoryRepository;
         private IArticleCommentRepository _articleCommentRepository;
         private IArticleTagRepository _articleTagRepository;
+        private IExecuters _executers;
+        private ICommandText _commandText;
 
+        private IConfiguration _configuration;
 
-        private readonly IConfiguration _configuration;
-        private readonly ICommandText _commandText;
-        private readonly IExecuters _executers;
-
-        public RepositoryFactory(IConfiguration configuration, ICommandText commandText, IExecuters executers)
+        public RepositoryFactory(IConfiguration configuration)
         {
             _configuration = configuration;
-            _commandText = commandText;
-            _executers = executers;
         }
 
         public string TableName<M>()
@@ -42,7 +39,7 @@ namespace ArticleAssignment.Repositories
             {
                 if (_tagRepository == null)
                 {
-                    _tagRepository = new TagRepository(_configuration, _commandText, _executers, TableName<Tag>());
+                    _tagRepository = new TagRepository(_configuration, CommandText, Executers, TableName<Tag>());
                 }
                 return _tagRepository;
             }
@@ -54,7 +51,7 @@ namespace ArticleAssignment.Repositories
             {
                 if (_articleRepository == null)
                 {
-                    _articleRepository = new ArticleRepository(_configuration, _commandText, _executers, TableName<Article>());
+                    _articleRepository = new ArticleRepository(_configuration, CommandText, Executers, TableName<Article>());
                 }
                 return _articleRepository;
             }
@@ -67,7 +64,7 @@ namespace ArticleAssignment.Repositories
             {
                 if (_authorRepository == null)
                 {
-                    _authorRepository = new AuthorRepository(_configuration, _commandText, _executers, TableName<Author>());
+                    _authorRepository = new AuthorRepository(_configuration, CommandText, Executers, TableName<Author>());
                 }
                 return _authorRepository;
             }
@@ -80,7 +77,7 @@ namespace ArticleAssignment.Repositories
             {
                 if (_stateRepository == null)
                 {
-                    _stateRepository = new StateRepository(_configuration, _commandText, _executers, TableName<State>());
+                    _stateRepository = new StateRepository(_configuration, CommandText, Executers, TableName<State>());
                 }
                 return _stateRepository;
             }
@@ -92,20 +89,20 @@ namespace ArticleAssignment.Repositories
             {
                 if (_entityStateRepository == null)
                 {
-                    _entityStateRepository = new EntityStateRepository(_configuration, _commandText, _executers, TableName<EntityState>());
+                    _entityStateRepository = new EntityStateRepository(_configuration, CommandText, Executers, TableName<EntityState>());
                 }
                 return _entityStateRepository;
             }
         }
 
-        
+
         public ICommentRepository CommentRepository
         {
             get
             {
                 if (_commentRepository == null)
                 {
-                    _commentRepository = new CommentRepository(_configuration, _commandText, _executers, TableName<Comment>());
+                    _commentRepository = new CommentRepository(_configuration, CommandText, Executers, TableName<Comment>());
                 }
                 return _commentRepository;
             }
@@ -117,20 +114,20 @@ namespace ArticleAssignment.Repositories
             {
                 if (_categoryRepository == null)
                 {
-                    _categoryRepository = new CategoryRepository(_configuration, _commandText, _executers, TableName<Category>());
+                    _categoryRepository = new CategoryRepository(_configuration, CommandText, Executers, TableName<Category>());
                 }
                 return _categoryRepository;
             }
         }
 
-        
+
         public IArticleCommentRepository ArticleCommentRepository
         {
             get
             {
                 if (_articleCommentRepository == null)
                 {
-                    _articleCommentRepository = new ArticleCommentRepository(_configuration, _commandText, _executers, TableName<ArticleComment>());
+                    _articleCommentRepository = new ArticleCommentRepository(_configuration, CommandText, Executers, TableName<ArticleComment>());
                 }
                 return _articleCommentRepository;
             }
@@ -141,11 +138,33 @@ namespace ArticleAssignment.Repositories
             {
                 if (_articleTagRepository == null)
                 {
-                    _articleTagRepository = new ArticleTagRepository(_configuration, _commandText, _executers, TableName<ArticleTag>());
+                    _articleTagRepository = new ArticleTagRepository(_configuration, CommandText, Executers, TableName<ArticleTag>());
                 }
                 return _articleTagRepository;
             }
         }
 
+        public IExecuters Executers
+        {
+            get
+            {
+                if (_executers == null)
+                {
+                    _executers = new Executers();
+                }
+                return _executers;
+            }
+        }
+        public ICommandText CommandText
+        {
+            get
+            {
+                if (_commandText == null)
+                {
+                    _commandText = new CommandText();
+                }
+                return _commandText;
+            }
+        }      
     }
 }
