@@ -1,30 +1,17 @@
-﻿using System;
+﻿using ArticleAssignment.Core.Enums;
 
 namespace ArticleAssignment.DataModels
 {
-    public class Article
+    public class Article : DataModel
     {
-        public long Id { get; set; }
-
         public string Title { get; set; }
-
-        public long Author { get; set; }
 
         public string Content { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public long AuthorId { get; set; }
 
-        private DateTime? _updateDate;
-        public DateTime? UpdateDate
-        {
-            get { return _updateDate ?? CreateDate; }
-            set { _updateDate = value; }
-        }
+        public long CategoryId { get; set; }
 
-        public bool Deleted { get; set; }
-
-        public string AuthorName { get; set; }
-
-        public string AuthorSurname { get; set; }
+        public States State { get; set; }
     }
 }

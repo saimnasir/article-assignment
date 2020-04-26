@@ -12,17 +12,17 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/author",
+      "launchUrl": "api/article",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "sqlDebugging": true,
       "nativeDebugging": false
     },
-    "article_assignment": {
+    "ArticleAssignment": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/author",
+      "launchUrl": "api/article",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
