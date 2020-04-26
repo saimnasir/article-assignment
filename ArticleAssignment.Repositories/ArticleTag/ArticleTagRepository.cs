@@ -43,7 +43,7 @@ namespace ArticleAssignment.Repositories
                 CreateDateEnd = input.CreateDateInterval?.End,
                 UpdateDateStart = input.UpdateDateInterval?.Start,
                 UpdateDateEnd = input.UpdateDateInterval?.End,
-                input.QueryText,
+                input.TagId,
                 input.ArticleId
             };
             return base.Search(parameters);
