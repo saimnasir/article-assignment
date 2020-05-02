@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace ArticleAssignment.API.Controllers
 {
-    [Microsoft.AspNetCore.Cors.EnableCors("MyCors")]
+    //[Microsoft.AspNetCore.Cors.EnableCors("MyCors")]
     [ApiController]
     [Route("api/[controller]")]
     public class ArticleController : ControllerBase

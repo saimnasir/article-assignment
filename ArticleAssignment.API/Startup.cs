@@ -11,31 +11,29 @@ namespace ArticleAssignment
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "MyCors"; 
-        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
-                
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {           
+        {
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IRepositoryFactory, RepositoryFactory>();
             services.AddSingleton<IErrorText, ErrorText>();
 
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyOrigin();
-                                  });
-            }); 
-            
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyOrigin();
+                    });
+            });
+
             services.AddControllers();
         }
 
@@ -53,7 +51,7 @@ namespace ArticleAssignment
 
             app.UseRouting();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
 
             app.UseAuthorization();
 
