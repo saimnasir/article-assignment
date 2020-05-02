@@ -1,5 +1,7 @@
-# article-assignment
- Within the scope of the project, article api will be developed using ASP.NET Core Web API. 
- Through this api article listing, searching, adding, updating and deletion can be done by REST calls it must be. 
- Any blog system example to model the data structure of an article receivable.
+# Article Assignment
+The subject of this repository is to develop a **WEP API for a basic article blog using the ASP.NET Core Web API.**
+**SQL Server** was preferred as the database and **Dapper** was used as ORM.
+Adding, deleting, updating, listing and searching can be done for this article and all other entities.
+The script required for the database is located in the repository.
+
  
