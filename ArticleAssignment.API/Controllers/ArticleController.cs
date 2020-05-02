@@ -6,13 +6,13 @@ using Serilog;
 using System;
 using ArticleAssignment.ViewModels;
 using ArticleAssignment.Core;
-using ArticleAssignment.Core.Enums;
 using System.Linq;
 
 namespace ArticleAssignment.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Cors.EnableCors("MyCors")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ArticleController : ControllerBase
     {
         private readonly IRepositoryFactory _repositoryFactory;
@@ -33,6 +33,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Article
         [HttpGet]
+        [Route("ListAll")]
         public ActionResult<IEnumerable<Article>> ListAll()
         {
             try
