@@ -59,7 +59,7 @@ namespace ArticleAssignment
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireCors(MyAllowSpecificOrigins);
+                endpoints.MapControllers();
             });
         }
     }
