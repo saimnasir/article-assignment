@@ -1,6 +1,6 @@
-export class Article {
+export class SearchCommentInput {
  
-    public id :number;
+    public ArticleId :number;
     public title :string;
     public content :string;
     public createDate :Date;

@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Article } from '../models/article.model';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class ArticleService {
 
 
   articleList: Article[];
+  articleListChanged = new Subject<Article[]>();
   model: 'Article';
   constructor(private httpClient: HttpClient , @Inject('BASE_URL') private apiUrl : string) {
   }
@@ -21,7 +22,7 @@ export class ArticleService {
     resultSubscription.subscribe(
       list => {
         this.articleList = list;
-        console.log(' this.articleList',  this.articleList);
+        this.articleListChanged.next(this.articleList); 
         
         return this.articleList;
       },

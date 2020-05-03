@@ -31,6 +31,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Author
         [HttpGet]
+        [Route("ListAll")]
         public ActionResult<IEnumerable<Author>> ListAll()
         {
             try
@@ -134,7 +135,7 @@ namespace ArticleAssignment.API.Controllers
         // POST: api/Author/Search
         [HttpPost]
         [Route("Search")]
-        public ActionResult<List<Author>> Search(SearchInputBase input)
+        public ActionResult<List<Author>> Search(SearchAuthorInput input)
         {
             try
             {
@@ -144,7 +145,7 @@ namespace ArticleAssignment.API.Controllers
             }
             catch (Exception ex)
             {
-                var messageResponse = _errorGenerator.GetMessageResponse<Author, SearchInputBase>(ActionType.List, input, ex);
+                var messageResponse = _errorGenerator.GetMessageResponse<Author, SearchAuthorInput>(ActionType.List, input, ex);
                 Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
                 throw new Exception(messageResponse.Message);
             }

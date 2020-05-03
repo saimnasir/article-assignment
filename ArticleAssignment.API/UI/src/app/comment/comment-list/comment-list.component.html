@@ -1,0 +1,11 @@
+<div class="col-12   align-middle">
+    <div class="row text-secondary ml-1" *ngFor="let comment of commentService.commentList">
+        <app-comment  [author]="author" [comment]="comment"></app-comment>
+    </div>
+    <form class="form-group row mt-4">
+        <textarea class="form-control col-9" type="search" placeholder="Comment" aria-label="Comment"></textarea>
+        <div class="col-3   align-self-end">
+            <button class="btn btn-outline-primary form-control" type="submit">Add Comment</button>
+        </div>
+    </form>
+</div>

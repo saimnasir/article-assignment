@@ -1,0 +1,45 @@
+<div class="row mt-2 alert alert-info">
+    <div class="col-12 mb-2" style="border-bottom: darkcyan solid;">
+        <div class="row  mb-2">
+            <button class="btn btn-outline-success my-2 my-sm-0 col-12">
+                <h4 class="text-left" (click)="toggleCollapse()">{{article.title }} </h4>
+            </button>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-9">
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <div class="row" *ngIf="collapsed">{{article.content | slice :1:200}} ..</div>
+                        <div class="row" *ngIf="!collapsed">{{article.content }}</div>
+                        <div class="row mt-2">
+                            <span class="btn btn-outline-secondary badge badge-pill bagde-dark mr-1 col-3">44
+                                likes</span>
+                            <span class="btn btn-outline-secondary badge badge-pill bagde-dark mr-1 col-3">44
+                                Comments</span>
+                            <span class="btn btn-outline-secondary badge badge-pill bagde-dark mr-1 col-3">44
+                                Views</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row " *ngIf="!collapsed" >
+                    <app-comment-list [author]="author" [articleId]="article.id"></app-comment-list>                   
+                </div>
+            </div>
+            <div class="col-3">
+                <app-user-info [author]="author"></app-user-info>
+                <span *ngFor="let tag of tags" class="btn btn-outline-primary badge badge-pill bagde-dark  mr-1"
+                    routerLink="/authors" routerLinkActive="active">{{tag}}</span>
+            </div>
+        </div>
+        <div class="row" *ngIf="collapsed">
+            <button class="btn btn-outline-primary my-2 my-sm-0 col-2" (click)="toggleCollapse()"
+                style="min-width: 13%;" type="submit">Read more</button>
+        </div>
+        <div class="row" *ngIf="!collapsed">
+            <button class="btn btn-outline-secondary my-2 my-sm-0 col-2" (click)="toggleCollapse()"
+                style="min-width: 13%;" type="submit">Collapse</button>
+        </div>
+    </div>
+</div>
