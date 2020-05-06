@@ -147,6 +147,28 @@ namespace ArticleAssignment.API.Controllers
                 Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
                 throw new Exception(messageResponse.Message);
             }
-        }      
+        }
+
+
+        //// GET: api/Comment/ListByMaster/
+        //[HttpGet]
+        //[Route("ListByMaster/{masterId}")]
+        //public ActionResult<IEnumerable<ViewModels.Tag>> ListByMaster(long masterId)
+        //{
+        //    var input = new SearchTagInput { ArticleId = masterId };
+        //    try
+        //    {
+        //        var dataModels = _repository.Search(input);
+        //        var viewModels = _mapper.Map<List<ViewModels.Tag>>(dataModels);
+        //        return viewModels;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var messageResponse = _errorGenerator.GetMessageResponse<DataModels.Tag, SearchTagInput>(ActionType.List, input, ex);
+        //        Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+        //        throw new Exception(messageResponse.Message);
+        //    }
+        //}
+
     }
 }

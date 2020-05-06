@@ -9,18 +9,15 @@ import { ArticleService } from 'src/app/services/article.service';
 })
 export class ArticleListComponent implements OnInit {
 
-
   articleList: Article[];
 
   constructor(public articleService: ArticleService) { }
 
   ngOnInit(): void {
-    if (!this.articleService.articleList) {
+    if (!this.articleService.completeList) {
       this.articleService.listAll();
-      this.articleList = this.articleService.articleList;
+      this.articleList = this.articleService.completeList;
     }
-
   }
-
 
 }

@@ -4,5 +4,4 @@
     {
         public long? ArticleId { get; set; }
     }
-
 }

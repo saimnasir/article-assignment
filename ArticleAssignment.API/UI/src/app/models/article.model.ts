@@ -5,4 +5,5 @@ export class Article {
     public content :string;
     public createDate :Date;
     public updateDate :Date;
+    public Collapsed : true;
 }

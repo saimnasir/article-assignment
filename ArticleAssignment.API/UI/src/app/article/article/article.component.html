@@ -23,22 +23,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="row " *ngIf="!collapsed" >
-                    <app-comment-list [author]="author" [articleId]="article.id"></app-comment-list>                   
+                <div class="row " *ngIf="!collapsed">
+                    <app-comment-list [author]="author" [articleId]="article.id"></app-comment-list>
                 </div>
             </div>
             <div class="col-3">
                 <app-user-info [author]="author"></app-user-info>
-                <span *ngFor="let tag of tags" class="btn btn-outline-primary badge badge-pill bagde-dark  mr-1"
-                    routerLink="/authors" routerLinkActive="active">{{tag}}</span>
+                <app-tag-list [articleId]="article.id"> </app-tag-list>
             </div>
         </div>
         <div class="row" *ngIf="collapsed">
             <button class="btn btn-outline-primary my-2 my-sm-0 col-2" (click)="toggleCollapse()"
                 style="min-width: 13%;" type="submit">Read more</button>
         </div>
-        <div class="row" *ngIf="!collapsed">
-            <button class="btn btn-outline-secondary my-2 my-sm-0 col-2" (click)="toggleCollapse()"
+        <div class="row p-2" *ngIf="!collapsed"  style="border-top: darkcyan solid;">
+            <button class="btn btn-outline-secondary mt-4 my-2 my-sm-0 col-2" (click)="toggleCollapse()"
                 style="min-width: 13%;" type="submit">Collapse</button>
         </div>
     </div>

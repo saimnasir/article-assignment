@@ -4,9 +4,11 @@
             <div class="row  alert alert-dark" role="alert">
                 <h3 class="col-10 text-success">Articles</h3>
                 <button class="btn btn-success my-2 my-sm-0 col-2" style="min-width: 13%;" type="submit">Create
-                     Article</button>
+                    Article</button>
             </div>
         </div>
     </div>
-    <app-article *ngFor="let article of articleService.articleList" [article]="article"></app-article>
+    <div class="row">
+        <app-article class="col-12" *ngFor="let article of articleService.completeList" [article]="article"></app-article>
+    </div>
 </div>

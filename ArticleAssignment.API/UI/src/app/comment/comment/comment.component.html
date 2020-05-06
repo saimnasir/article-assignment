@@ -1,10 +1,8 @@
-<div class="row commentStyle" style="border-bottom: darkcyan dotted 1px;">
-    <div class="col-12">
-        <div class="row">
-            <div class="col-4 mt-2 ml-2">
-                <app-user-info [author]="author"></app-user-info>
-            </div>
-            <div class="col-7">{{comment.content}}</div>
-        </div>
+<div class="row" style="border-bottom: darkcyan dotted 1px;">
+    <div class="col-4 mt-2 ml-2">
+        <app-user-info [author]="author"></app-user-info>
+    </div>
+    <div class="col-7">
+        <span class="col-12"> {{comment.content}}</span>
     </div>
 </div>

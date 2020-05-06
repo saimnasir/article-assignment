@@ -23,6 +23,7 @@ export class ArticleComponent implements OnInit {
     this.author.FirstName = 'Saim';
     this.author.MiddleName = 'Nasır';
     this.author.LastName = 'Rojivan';
+    this.author.Id = 4;
   }
 
   toggleCollapse() {

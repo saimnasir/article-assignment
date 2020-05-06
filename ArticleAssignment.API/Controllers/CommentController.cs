@@ -29,6 +29,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Comment
         [HttpGet]
+        [Route("ListAll")]
         public ActionResult<IEnumerable<ViewModels.Comment>> ListAll()
         {
             try
@@ -47,7 +48,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Comment/5
         [HttpGet]
-        [Route("{id}")]
+        [Route("Read/{id}")]
         public ActionResult<ViewModels.Comment> Read(long id)
         {
             try
@@ -67,6 +68,7 @@ namespace ArticleAssignment.API.Controllers
 
         // POST: api/Comment
         [HttpPost]
+        [Route("Create")]
         public ActionResult<ViewModels.Comment> Create(ViewModels.Comment viewModel)
         {
             try
@@ -86,6 +88,7 @@ namespace ArticleAssignment.API.Controllers
 
         // PUT: api/Comment/5
         [HttpPut]
+        [Route("Update")]
         public ActionResult<ViewModels.Comment> Update(ViewModels.Comment viewModel)
         {
             try
@@ -106,7 +109,8 @@ namespace ArticleAssignment.API.Controllers
 
 
         // DELETE: api/Comment/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("Delete/{id}")]
         public ActionResult Delete(long id)
         {
             try
@@ -133,7 +137,7 @@ namespace ArticleAssignment.API.Controllers
         // POST: api/Comment/Search
         [HttpPost]
         [Route("Search")]
-        public ActionResult<List<ViewModels.Comment>> Search(SearchCommentInput input)
+        public ActionResult<IEnumerable<ViewModels.Comment>> Search(SearchCommentInput input)
         {
             try
             {
@@ -148,6 +152,26 @@ namespace ArticleAssignment.API.Controllers
                 throw new Exception(messageResponse.Message);
             }
         }
+
+        //// GET: api/Comment/ListByMaster/
+        //[HttpGet]
+        //[Route("ListByMaster/{masterId}")]
+        //public ActionResult<IEnumerable<ViewModels.Comment>> ListByMaster(long masterId)
+        //{
+        //    var input = new SearchCommentInput { ArticleId = masterId };
+        //    try
+        //    {
+        //        var dataModels = _repository.Search(input);
+        //        var viewModels = _mapper.Map<List<ViewModels.Comment>>(dataModels);
+        //        return viewModels;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var messageResponse = _errorGenerator.GetMessageResponse<DataModels.Comment, SearchInputBase>(ActionType.List, input, ex);
+        //        Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+        //        throw new Exception(messageResponse.Message);
+        //    }
+        //}
 
     }
 }

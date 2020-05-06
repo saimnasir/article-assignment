@@ -27,11 +27,15 @@ namespace ArticleAssignment
 
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyOrigin();
-                    });
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()); 
+                //options.AddDefaultPolicy(
+                //    builder =>
+                //    {
+                //        builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyOrigin().AllowCredentials().AllowAnyOrigin();
+                //    });
             });
 
             services.AddControllers();
@@ -51,7 +55,8 @@ namespace ArticleAssignment
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors("CorsPolicy");
+            // app.UseCors();
 
             app.UseAuthorization();
 

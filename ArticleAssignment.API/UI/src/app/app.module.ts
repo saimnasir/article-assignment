@@ -15,6 +15,9 @@ import { CommentComponent } from './comment/comment/comment.component';
 import { CommentListComponent } from './comment/comment-list/comment-list.component';
 import { AuthorService } from './services/author.service';
 import { CommentService } from './services/comment.service';
+import { TagListComponent } from './tag/tag-list/tag-list.component';
+import { TagComponent } from './tag/tag/tag.component';
+import { FormBuilder, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,19 +28,22 @@ import { CommentService } from './services/comment.service';
     ArticleComponent,
     CommentComponent,
     UserInfoComponent,
-    CommentListComponent
+    CommentListComponent,
+    TagListComponent,
+    TagComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [
-    { provide: 'BASE_URL', useValue: 'https://localhost:44312/api/' },
     ArticleService,
     AuthorService,
-    CommentService
+    CommentService,
+    FormBuilder
   ],
   bootstrap: [AppComponent]
 })

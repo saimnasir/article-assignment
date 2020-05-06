@@ -11,7 +11,7 @@ export class AuthorListComponent implements OnInit {
   constructor(public authorService: AuthorService) { }
 
   ngOnInit(): void {
-    if (!this.authorService.authorList) {
+    if (!this.authorService.completeList) {
       this.authorService.listAll();
     }
   }

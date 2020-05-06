@@ -1,11 +1,20 @@
 <div class="col-12   align-middle">
-    <div class="row text-secondary ml-1" *ngFor="let comment of commentService.commentList">
-        <app-comment  [author]="author" [comment]="comment"></app-comment>
+    <div class="row text-secondary ml-1" *ngFor="let comment of comments">
+        <app-comment class="col-12" [author]="author" [comment]="comment"></app-comment>
     </div>
-    <form class="form-group row mt-4">
-        <textarea class="form-control col-9" type="search" placeholder="Comment" aria-label="Comment"></textarea>
-        <div class="col-3   align-self-end">
-            <button class="btn btn-outline-primary form-control" type="submit">Add Comment</button>
+    <div class="row" *ngIf="!showCommentFrom">
+        <!-- <button class="btn btn-outline-secondary my-2 my-sm-0 col-2" (click)="toggleShowCommentFrom()"
+            style="min-width: 13%;" type="submit">Add Comment</button> -->
+        <button type="button" class="btn btn-link   my-2 my-sm-0 col-2" (click)="toggleShowCommentFrom()">add
+            comment</button>
+    </div>
+    <form class="form-group row mt-4" *ngIf="showCommentFrom">
+        <textarea class="form-control col-8" type="search" [(ngModel)]="content" name="content" placeholder="Comment"
+            aria-label="Comment"></textarea>
+        <div class="col-4 ">
+            <button class="btn btn-outline-primary col-8" (click)="addComment()">Add Comment</button>
+            <button class="btn btn-outline-primary col-4" (click)="toggleShowCommentFrom()"><i
+                    class="fas fa-times"></i></button>
         </div>
     </form>
 </div>

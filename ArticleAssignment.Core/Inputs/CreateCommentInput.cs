@@ -1,9 +1,10 @@
-﻿namespace ArticleAssignment.ViewModels
+﻿namespace ArticleAssignment.Core
 {
-    public class Comment : ViewModel
+    public class CreateCommentInput 
     {
         public string Content { get; set; }
         public long AuthorId { get; set; }
         public long ArticleId { get; set; }
     }
+
 }
