@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-header mr-2" href="#">
+            <img style="max-height: 40px;" src="../assets/images/article-icon.png" alt="Home" class="img-thumbnail">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" >
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/authors" routerLinkActive="active">Authors</a>
+                </li> 
+            </ul>
+            <form class="form-inline my-2 my-lg-1" style="min-width: 70%;">
+                <input class="form-control mr-sm-2" style="min-width: 85%;" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-primary my-2 my-sm-0" style="min-width: 13%;" type="submit">Search</button>
+            </form>
+
+            <div class="my-sm-0 ml-2">
+                <div class="col">
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-success" id="dropdownUser" ngbDropdownToggle>saim.nasir</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownUser">
+                            <button ngbDropdownItem>Log Out</button>
+                            <button ngbDropdownItem>My Profile</button>
+                            <button ngbDropdownItem>Change Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- The routed views render in the <router-outlet>-->
+<router-outlet></router-outlet>

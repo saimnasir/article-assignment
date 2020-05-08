@@ -9,6 +9,6 @@ namespace ArticleAssignment.Repositories
         public Author Create(Author tag);
         public Author Update(Author tag);
         
-        public IEnumerable<Author> Search(SearchInputBase input);
+        public IEnumerable<Author> Search(SearchAuthorInput input);
     }
 }

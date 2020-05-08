@@ -1,0 +1,16 @@
+<span class="btn btn-outline-secondary badge badge-pill bagde-dark  mr-1 d-inline-block " 
+    (click)="toggleShowTagFrom()"
+data-toggle="tooltip" data-placement="left"
+    title="Edit">{{tag.title}}</span> 
+    
+<form class="form-group row mt-4" *ngIf="showFrom">
+    <input class="form-control col-12" type="text" [(ngModel)]="tag.title" name="title" placeholder="Tag"
+        aria-label="Title" />
+    <div class="col-12">
+        <div class="row">
+            <button class="btn btn-outline-success col-8" (click)="update()">Update Comment</button>
+            <button type="button" class="btn btn-link   my-2 my-sm-0 col-4"
+                (click)="toggleShowTagFrom()">close</button>
+        </div>
+    </div>
+</form>

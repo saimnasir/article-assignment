@@ -1,0 +1,6 @@
+<div class="container">
+    <div *ngFor="let author of authorService.completeList" class="row alert alert-info">
+        <p class="col-sm-6 alert alert-info"> {{author.firstName }} </p>
+        <p class="col-sm-6"> {{author.lastName }} </p>
+    </div>
+</div>

@@ -46,7 +46,7 @@ namespace ArticleAssignment.Repositories
             return base.Update(author, parameters);
         }
 
-        public IEnumerable<Author> Search(SearchInputBase input)
+        public IEnumerable<Author> Search(SearchAuthorInput input)
         {
             var parameters = new
             {

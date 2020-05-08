@@ -6,13 +6,12 @@ using Serilog;
 using System;
 using ArticleAssignment.ViewModels;
 using ArticleAssignment.Core;
-using ArticleAssignment.Core.Enums;
 using System.Linq;
 
 namespace ArticleAssignment.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ArticleController : ControllerBase
     {
         private readonly IRepositoryFactory _repositoryFactory;
@@ -33,6 +32,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Article
         [HttpGet]
+        [Route("ListAll")]
         public ActionResult<IEnumerable<Article>> ListAll()
         {
             try
@@ -95,8 +95,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // PUT: api/Article/5
+        // PUT: api/Article/Update
         [HttpPut]
+        [Route("Update")]
         public ActionResult<Article> Update(Article viewModel)
         {
             try
@@ -116,10 +117,11 @@ namespace ArticleAssignment.API.Controllers
                 throw new Exception(messageResponse.Message);
             }
         }
+         
 
-
-        // DELETE: api/Article/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Comment/Delete
+        [HttpDelete]
+        [Route("Delete")]
         public ActionResult Delete(long id)
         {
             try
@@ -245,42 +247,33 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // POST: api/Article/AddComment/{id}
+        // POST: api/Article/AddComment
         [HttpPost]
-        [Route("AddComment/{id}")]
-        public ActionResult<Article> AddComment(long id, Comment input)
+        [Route("AddComment")]
+        public ActionResult<Article> AddComment(Comment input)
         {
             try
             {
-                var dataModel = _articleRepository.Read(id);
+                var dataModel = _articleRepository.Read(input.ArticleId);
                 if (dataModel == null)
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
                 }
 
-                var comment = _repositoryFactory.CommentRepository.Read(input.Id);
-                if (comment == null)
+                var comment = new DataModels.Comment
                 {
-                    comment = _mapper.Map<DataModels.Comment>(input);
-                    comment = _repositoryFactory.CommentRepository.Create(comment);
-                }
+                    AuthorId = input.AuthorId,
+                    Content = input.Content
+                };
 
-                var articleComment = _repositoryFactory.ArticleCommentRepository.Search(
-                    new SearchArticleCommentInput
-                    {
-                        ArticleId = id,
-                        CommentId = comment.Id
-                    }).SingleOrDefault();
+                comment = _repositoryFactory.CommentRepository.Create(comment);
 
-                if (articleComment == null)
+                var articleComment = new DataModels.ArticleComment
                 {
-                    articleComment = new DataModels.ArticleComment
-                    {
-                        ArticleId = id,
-                        CommentId = comment.Id
-                    };
-                    articleComment = _repositoryFactory.ArticleCommentRepository.Create(articleComment);
-                }
+                    ArticleId = input.ArticleId,
+                    CommentId = comment.Id
+                };
+                articleComment = _repositoryFactory.ArticleCommentRepository.Create(articleComment);
 
                 var viewModel = _mapper.Map<Article>(dataModel);
 
@@ -289,14 +282,9 @@ namespace ArticleAssignment.API.Controllers
                 return viewModel;
             }
             catch (Exception ex)
-            {
-                var logInput = new
-                {
-                    Id = id,
-                    Comment = input
-                };
-                var messageResponse = _errorGenerator.GetMessageResponse<Article, object>(ActionType.Update, logInput, exception: ex);
-                Log.Error(messageResponse.LogTemplate, messageResponse.Message, id);
+            {               
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, Comment>(ActionType.Update, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
                 throw new Exception(messageResponse.Message);
             }
         }
@@ -304,12 +292,12 @@ namespace ArticleAssignment.API.Controllers
 
         // POST: api/Article/AddTag/{id}
         [HttpPost]
-        [Route("AddTag/{id}")]
-        public ActionResult<Article> AddTag(long id, Tag input)
+        [Route("AddTag")]
+        public ActionResult<Article> AddTag(Tag input)
         {
             try
             {
-                var dataModel = _articleRepository.Read(id);
+                var dataModel = _articleRepository.Read(input.ArticleId);
                 if (dataModel == null)
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
@@ -325,7 +313,7 @@ namespace ArticleAssignment.API.Controllers
                 var articleTag = _repositoryFactory.ArticleTagRepository.Search(
                     new SearchArticleTagInput
                     {
-                        ArticleId = id,
+                        ArticleId = input.ArticleId,
                         TagId = tag.Id
                     }).SingleOrDefault();
 
@@ -333,7 +321,7 @@ namespace ArticleAssignment.API.Controllers
                 {
                     articleTag = new DataModels.ArticleTag
                     {
-                        ArticleId = id,
+                        ArticleId = input.ArticleId,
                         TagId = tag.Id
                     };
 
@@ -346,14 +334,9 @@ namespace ArticleAssignment.API.Controllers
                 return viewModel;
             }
             catch (Exception ex)
-            {
-                var logInput = new
-                {
-                    Id = id,
-                    Tag = input
-                };
-                var messageResponse = _errorGenerator.GetMessageResponse<Article, object>(ActionType.Update, logInput, exception: ex);
-                Log.Error(messageResponse.LogTemplate, messageResponse.Message, id);
+            {               
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, Tag>(ActionType.Update, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
                 throw new Exception(messageResponse.Message);
             }
         }

@@ -1,0 +1,23 @@
+<div class="col-12   align-middle">
+    <div class="row text-secondary ml-1" *ngFor="let comment of comments">
+        <app-comment style="width: 100%;" [author]="author" [comment]="comment"></app-comment>
+    </div>
+    <div class="row" *ngIf="!showCommentFrom">
+        <button type="button" class="btn btn-link   my-2 mr-2 my-sm-0 col-2" (click)="toggleShowCommentFrom()">
+            Like</button>
+        <button type="button" class="btn btn-link   my-2 my-sm-0 col-2" (click)="toggleShowCommentFrom()">Add
+            Comment</button>
+    </div>
+
+    <form class="form-group row mt-4" *ngIf="showCommentFrom">
+        <textarea class="form-control col-9" type="search" [(ngModel)]="content" name="content" placeholder="Comment"
+            aria-label="Comment"></textarea>
+        <div class="col-3">
+            <div class="row">
+                <button class="btn btn-outline-primary col-12" (click)="addComment()">Add Comment</button>
+                <button type="button" class="btn btn-link   my-2 my-sm-0 col-2"
+                    (click)="toggleShowCommentFrom()">close</button>
+            </div>
+        </div>
+    </form>
+</div>

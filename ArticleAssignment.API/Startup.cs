@@ -1,5 +1,4 @@
 using ArticleAssignment.Core;
-using ArticleAssignment.Queries;
 using ArticleAssignment.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +24,20 @@ namespace ArticleAssignment
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IRepositoryFactory, RepositoryFactory>();
             services.AddSingleton<IErrorText, ErrorText>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()); 
+                //options.AddDefaultPolicy(
+                //    builder =>
+                //    {
+                //        builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyOrigin().AllowCredentials().AllowAnyOrigin();
+                //    });
+            });
+
             services.AddControllers();
         }
 
@@ -38,7 +51,12 @@ namespace ArticleAssignment
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
+            // app.UseCors();
 
             app.UseAuthorization();
 

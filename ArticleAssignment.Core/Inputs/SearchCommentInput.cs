@@ -2,7 +2,7 @@
 {
     public class SearchCommentInput : SearchInputBase
     {
-        public long ArticleId { get; set; }
+        public long? ArticleId { get; set; }
     }
 
 }
