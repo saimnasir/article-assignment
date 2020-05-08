@@ -18,6 +18,7 @@ import { CommentService } from './services/comment.service';
 import { TagListComponent } from './tag/tag-list/tag-list.component';
 import { TagComponent } from './tag/tag/tag.component';
 import { FormBuilder, FormsModule } from '@angular/forms';
+import { ToastComponent } from './tools/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormBuilder, FormsModule } from '@angular/forms';
     UserInfoComponent,
     CommentListComponent,
     TagListComponent,
-    TagComponent
+    TagComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

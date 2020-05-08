@@ -95,8 +95,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // PUT: api/Article/5
+        // PUT: api/Article/Update
         [HttpPut]
+        [Route("Update")]
         public ActionResult<Article> Update(Article viewModel)
         {
             try
@@ -116,10 +117,11 @@ namespace ArticleAssignment.API.Controllers
                 throw new Exception(messageResponse.Message);
             }
         }
+         
 
-
-        // DELETE: api/Article/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Comment/Delete
+        [HttpDelete]
+        [Route("Delete")]
         public ActionResult Delete(long id)
         {
             try

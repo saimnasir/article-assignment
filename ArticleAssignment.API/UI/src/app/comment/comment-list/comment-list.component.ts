@@ -14,21 +14,27 @@ import { SearchCommentInput } from 'src/app/models/inputs/search-comment.model';
 })
 export class CommentListComponent implements OnInit {
 
-  constructor(public articleService: ArticleService,
+  constructor(
+    public articleService: ArticleService,
     public commentService: CommentService,
-    public formBuilder: FormBuilder) { }
+    public formBuilder: FormBuilder) {
+
+  }
 
   @Input() articleId: number;
   @Input() author: Author;
 
   commentForm: FormGroup;
   comments: Comment[];
-  content: string = "saim";
+  content: '';
   showCommentFrom = false;
 
   ngOnInit(): void {
+    this.refreshList();
+  }
 
-    let input = new SearchCommentInput();
+  refreshList() {
+    const input = new SearchCommentInput();
     input.ArticleId = this.articleId;
 
     this.commentService.searchAsync(input, 'Search').subscribe(list => {
@@ -37,20 +43,22 @@ export class CommentListComponent implements OnInit {
 
     this.commentForm = this.formBuilder.group({
       Content: new FormControl(),
-      AuthorId: new FormControl(this.author.Id),
+      AuthorId: new FormControl(this.author.id),
       ArticleId: new FormControl(this.articleId)
     });
-
   }
 
   addComment() {
-    let comment = new Comment();
-    comment.ArticleId = this.articleId;
-    comment.AuthorId = this.author.Id;
+    const comment = new Comment();
+    comment.articleId = this.articleId;
+    comment.authorId = this.author.id;
     comment.content = this.content;
 
     this.articleService.create<Comment>(comment, 'AddComment').subscribe(result => {
-      console.log('result', result);
+      this.comments.push(comment);
+      this.content = '';
+      this.toggleShowCommentFrom();
+      this.refreshList();
     });
 
   }

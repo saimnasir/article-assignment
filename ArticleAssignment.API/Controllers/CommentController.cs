@@ -86,7 +86,7 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // PUT: api/Comment/5
+        // PUT: api/Comment/Update
         [HttpPut]
         [Route("Update")]
         public ActionResult<ViewModels.Comment> Update(ViewModels.Comment viewModel)
@@ -108,9 +108,9 @@ namespace ArticleAssignment.API.Controllers
         }
 
 
-        // DELETE: api/Comment/5
+        // DELETE: api/Comment/Delete
         [HttpDelete]
-        [Route("Delete/{id}")]
+        [Route("Delete")]
         public ActionResult Delete(long id)
         {
             try

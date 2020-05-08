@@ -24,7 +24,5 @@ namespace ArticleAssignment.ViewModels
         public List<Comment> Comments { get; set; }
 
         public string Status { get; set; }
-
-
     }
 }

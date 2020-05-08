@@ -1,9 +1,9 @@
 export class Author {
  
-    public Id :number;
-    public FirstName :string;
-    public MiddleName :string;
-    public LastName :string;
+    public id :number;
+    public firstName :string;
+    public middleName :string;
+    public lastName :string;
     public CreateDate :Date;
     public UpdateDate :Date;
 }

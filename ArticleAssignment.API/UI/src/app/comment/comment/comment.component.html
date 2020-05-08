@@ -1,8 +1,30 @@
-<div class="row" style="border-bottom: darkcyan dotted 1px;">
-    <div class="col-4 mt-2 ml-2">
+<div class="row mt-2  " style="border-bottom: darkcyan dotted 1px;">
+    <div class="col-3">
         <app-user-info [author]="author"></app-user-info>
     </div>
-    <div class="col-7">
-        <span class="col-12"> {{comment.content}}</span>
+    <div class="col-9">
+        <div class="row">
+            <span class="col-12"> {{comment.content}}
+            </span>
+        </div>
+        <div class="row">
+            <button *ngIf="!showFrom" type="button" class="btn btn-link btn-link"
+                (click)="toggleShowCommentFrom()">Edit</button>
+            <button *ngIf="!showFrom" type="button" class="btn btn-link btn-link text-danger"
+                (click)="delete()">Delete</button>
+        </div>
+    </div>
+    <div class="col-12">
+        <form class="form-group row mt-4" *ngIf="showFrom">
+            <textarea class="form-control col-10" type="search" [(ngModel)]="comment.content" name="content"
+                placeholder="Comment" aria-label="Comment"></textarea>
+            <div class="col-2">
+                <div class="row">
+                    <button class="btn btn-outline-success col-12" (click)="update()">Update</button>
+                    <button type="button" class="btn btn-link   my-2 my-sm-0 col-2"
+                        (click)="toggleShowCommentFrom()">close</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

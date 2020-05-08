@@ -1,8 +1,9 @@
 export class Comment {
- 
-    public content :string;
-    public AuthorId :number;
-    public ArticleId :number;
-    public CreateDate :Date;
-    public UpdateDate? :Date;
+
+    public id: number;
+    public content: string;
+    public authorId: number;
+    public articleId: number;
+    public createDate: Date;
+    public updateDate?: Date;
 }

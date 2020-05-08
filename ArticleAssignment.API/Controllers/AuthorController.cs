@@ -50,7 +50,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Author/5
         [HttpGet]
-        [Route("{id}")]
+        [Route("Read")]
         public ActionResult<Author> Read(long id)
         {
             try

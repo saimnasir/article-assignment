@@ -14,15 +14,14 @@ export abstract class CRUDLService<T> extends CRUDService<T> {
     activelistChanged = new Subject<{ data: T[], total: number }>();
 
     loading = false;
-    // activeList: T[];    
+    // activeList: T[];
     // activeListChanged = new Subject<T[]>();
 
-    y: T & Function;
     constructor(
         protected httpClient: HttpClient,
         protected model: string
     ) {
-        super(httpClient, model);  
+        super(httpClient, model);
     }
 
     listAll(action = 'ListAll') {
@@ -45,18 +44,24 @@ export abstract class CRUDLService<T> extends CRUDService<T> {
     }
 
     listAllAsync(action = 'ListAll', params = null) {
-        return this.httpClient.get<T[]>(this.baseRoute + action, { withCredentials: false, observe: 'body', responseType: 'json', params: params }).pipe(
-            catchError((err: HttpErrorResponse) => {
+        return this.httpClient.get<T[]>(
+            this.baseRoute + action,
+            {
+                withCredentials: false,
+                observe: 'body',
+                responseType: 'json',
+                params
+            }).pipe(catchError((err: HttpErrorResponse) => {
                 console.log('An error 1:', err);
                 if (err.error instanceof Error) {
                     console.log('An error:', err);
-                    console.log('An error occured:', err.error['message']);
+                    console.log('An error occured:', err.error.message);
                 } else {
-                    console.log(`Backend error:  status code: ${err.status}, body: ${err['message']} `);
+                    console.log(`Backend error:  status code: ${err.status}, body: ${err.message} `);
                 }
                 return EMPTY;
             })
-        );
+            );
     }
 
     search(input: any) {
@@ -76,21 +81,26 @@ export abstract class CRUDLService<T> extends CRUDService<T> {
     }
 
     searchAsync(input: any, action = 'Search') {
-        return this.httpClient.post<T[]>(this.baseRoute + action, input, { withCredentials: false, observe: 'body', responseType: 'json' }).pipe(
-            catchError((err: HttpErrorResponse) => {
+        return this.httpClient.post<T[]>(
+            this.baseRoute + action, input,
+            {
+                withCredentials: false,
+                observe: 'body',
+                responseType: 'json'
+            }).pipe(catchError((err: HttpErrorResponse) => {
                 console.log('An error 1:', err);
                 if (err.error instanceof Error) {
                     console.log('An error:', err);
-                    console.log('An error occured:', err.error['message']);
+                    console.log('An error occured:', err.error.message);
                 } else {
-                    console.log(`Backend error:  status code: ${err.status}, body: ${err['message']} `);
+                    console.log(`Backend error:  status code: ${err.status}, body: ${err.message} `);
                 }
                 return EMPTY;
             })
-        );
+            );
     }
 
-    
+
     /* listByMaster(action = 'ListAll') {
         if (this.loading) {
             return true;
@@ -111,7 +121,8 @@ export abstract class CRUDLService<T> extends CRUDService<T> {
     }
 
     listByMasterAsync(action = 'ListAll', input: any = null) {
-        return this.httpClient.post<T[]>(this.baseRoute + action, input, { withCredentials: false, observe: 'body', responseType: 'json' }).pipe(
+        return this.httpClient.post<T[]>(
+            this.baseRoute + action, input, { withCredentials: false, observe: 'body', responseType: 'json' }).pipe(
             catchError((err: HttpErrorResponse) => {
                 console.log('An error 1:', err);
                 if (err.error instanceof Error) {

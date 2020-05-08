@@ -1,6 +1,6 @@
 
 
-import { Component, OnInit, Input } from '@angular/core'; 
+import { Component, OnInit, Input } from '@angular/core';
 import { Author } from 'src/app/models/author.model';
 
 @Component({
@@ -11,11 +11,11 @@ import { Author } from 'src/app/models/author.model';
 export class UserInfoComponent implements OnInit {
 
   constructor() { }
-  
+
   @Input() author: Author;
   ngOnInit(): void {
   }
-  getFullName():string{
-    return  this.author.FirstName.concat(' ', this.author.MiddleName ,' ' ,this.author.LastName);
+  getFullName(): string {
+    return this.author.firstName.concat(' ', this.author.middleName, ' ', this.author.lastName);
   }
 }

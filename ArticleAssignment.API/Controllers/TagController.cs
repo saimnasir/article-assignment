@@ -5,6 +5,7 @@ using AutoMapper;
 using Serilog;
 using System;
 using ArticleAssignment.Core;
+using System.Linq;
 
 namespace ArticleAssignment.API.Controllers
 {
@@ -35,7 +36,7 @@ namespace ArticleAssignment.API.Controllers
             {
                 var dataModels = _repository.ListAll();
                 var viewModels = _mapper.Map<List<ViewModels.Tag>>(dataModels);
-                return viewModels;
+                return viewModels.OrderBy(tag => tag.Title).ToList();
             }
             catch (Exception ex)
             {
@@ -84,8 +85,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // PUT: api/Tag/5
+        // PUT: api/Tag/Update
         [HttpPut]
+        [Route("Update")]
         public ActionResult<ViewModels.Tag> Update(ViewModels.Tag viewModel)
         {
             try
@@ -139,7 +141,7 @@ namespace ArticleAssignment.API.Controllers
             {                
                 var dataModels = _repository.Search(input);
                 var viewModels = _mapper.Map<List<ViewModels.Tag>>(dataModels);
-                return viewModels;
+                return viewModels.OrderBy(tag => tag.Title).ToList();
             }
             catch (Exception ex)
             {
