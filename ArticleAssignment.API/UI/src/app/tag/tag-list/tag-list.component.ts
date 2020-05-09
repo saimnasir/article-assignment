@@ -14,10 +14,10 @@ export class TagListComponent implements OnInit {
   constructor(
     public tagService: TagService,
     private articleService: ArticleService) {
-
   }
 
   @Input() articleId: number;
+  @Input() editMode = false;
   tags: Tag[];
 
   title: '';

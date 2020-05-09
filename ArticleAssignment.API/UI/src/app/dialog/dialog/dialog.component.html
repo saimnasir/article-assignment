@@ -1,0 +1,14 @@
+<ng-template>
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <ng-content select="Header"></ng-content>
+        </h4>
+    </div>
+    <button class="close" type="button" data-dismis="modal" aria-label="close" (click)="close()"><span aria-hidden="true">X</span></button>
+    <div class="modal-body">
+        <ng-content></ng-content>
+    </div>
+    <div class="modal-footer">
+        <ng-content select="Footer"></ng-content>
+    </div>
+</ng-template>

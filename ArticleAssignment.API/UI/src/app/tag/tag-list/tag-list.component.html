@@ -1,6 +1,6 @@
 <div class="mt-2">
-    <app-tag *ngFor="let tag of tags" [tag]="tag"> </app-tag>
-    <div class="row" *ngIf="!showTagFrom">
+    <app-tag *ngFor="let tag of tags" [tag]="tag" [editMode]="editMode"> </app-tag>
+    <div class="row" *ngIf="editMode">
         <button type="button" class="btn btn-link   my-2 my-sm-0" (click)="toggleShowTagFrom()">Add Tag</button>
     </div>
     <div class="row">

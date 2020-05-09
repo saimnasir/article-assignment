@@ -1,16 +1,14 @@
 <div class="row mt-2 alert alert-info">
     <div class="col-12 mb-2" style="border-bottom: darkcyan solid;">
         <div class="row  mb-2">
-            <button class="btn  my-2 my-sm-0 col-9">
+            <button class="btn my-2 my-sm-0 col-10">
                 <h4 class="text-left" (click)="toggleCollapse()">{{article.title }} </h4>
             </button>
-            <div class="col-3">
-                <div class="row">
-                    <button class="btn btn-outline-primary my-2  my-sm-0 col-5" (click)="onEdit()">Edit
-                    </button>
-                    <button class="btn btn-outline-danger my-2 ml-2 my-sm-0 col-5" (click)="delete()">Delete
-                    </button>
-                </div>
+            <div class="col-2">
+                <div class="btn-group row align-items-right" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-primary my-2  ml-2  my-sm-0" (click)="onEdit()">Edit</button>
+                    <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0" (click)="delete()">Delete</button>
+                </div>               
             </div>
 
         </div>
@@ -22,7 +20,7 @@
                     <div class="col-12" *ngIf="!showForm">
                         <div class="row" *ngIf="collapsed">
                             <span class="col-12">
-                                {{article.content | slice :0:200}} ..
+                                {{article.content | slice :0:1000}} ..
                             </span>
                         </div>
                         <div class="row" *ngIf="!collapsed"><span class="col-12">
@@ -45,9 +43,9 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1 col-4">44 likes</span>
-                    <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-4">44 Comments</span>
-                    <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-4">44 Views</span>
+                    <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1 col-2">44 likes</span>
+                    <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-2">44 Comments</span>
+                    <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-2">44 Views</span>
                 </div>
                 <div class="row mt-4" *ngIf="!showForm && collapsed">
                     <button class="btn btn-outline-primary my-2 my-sm-0 col-2" (click)="toggleCollapse()"
@@ -60,7 +58,7 @@
             </div>
             <div class="col-3">
                 <app-user-info *ngIf="author" [author]="author"></app-user-info>
-                <app-tag-list [articleId]="article.id"> </app-tag-list>
+                <app-tag-list [articleId]="article.id" [editMode]="showForm"> </app-tag-list>
             </div>
         </div>
 

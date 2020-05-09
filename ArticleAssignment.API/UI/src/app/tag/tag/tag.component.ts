@@ -12,19 +12,29 @@ export class TagComponent implements OnInit {
   constructor(private tagService: TagService) { }
 
   @Input() tag: Tag;
+  @Input() editMode = false;
   showFrom = false;
 
   ngOnInit(): void {
   }
 
-  toggleShowTagFrom() {
+  toggleShowForm() {
     this.showFrom = !this.showFrom;
+  }
+
+  toggleEditMode() {
+    this.editMode = !this.editMode;
   }
 
   update() {
     this.tagService.update(this.tag).subscribe(result => {
-      console.log('result', result);
-      this.toggleShowTagFrom();
+      this.toggleShowForm();
+    });
+  }
+
+  delete() {
+    alert('ondelete');
+    this.tagService.delete(this.tag.id).subscribe(result => {
     });
   }
 }

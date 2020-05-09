@@ -1,6 +1,13 @@
 <div class="container">
-    <div *ngFor="let author of authorService.completeList" class="row alert alert-info">
-        <p class="col-sm-6 alert alert-info"> {{author.firstName }} </p>
-        <p class="col-sm-6"> {{author.lastName }} </p>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="row  alert alert-dark" role="alert">
+                <h3 class="col-10 text-success">Authors</h3>
+                <button class="btn btn-success my-2 my-sm-0 col-2" style="min-width: 13%;" routerLink="/author/new">Create
+                    Author</button>
+            </div>
+        </div>
     </div>
 </div>
+<app-author class="row mb-1" *ngFor="let author of authorService.completeList" [author]="author">
+</app-author>

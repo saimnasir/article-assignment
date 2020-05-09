@@ -17,8 +17,11 @@ import { AuthorService } from './services/author.service';
 import { CommentService } from './services/comment.service';
 import { TagListComponent } from './tag/tag-list/tag-list.component';
 import { TagComponent } from './tag/tag/tag.component';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastComponent } from './tools/toast/toast.component';
+import { AuthorComponent } from './author/author/author.component';
+import { EntityHistoryComponent } from './entity/entity-history/entity-history.component';
+import { DialogComponent } from './dialog/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,14 +35,18 @@ import { ToastComponent } from './tools/toast/toast.component';
     CommentListComponent,
     TagListComponent,
     TagComponent,
-    ToastComponent
+    ToastComponent,
+    AuthorComponent,
+    EntityHistoryComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ArticleService,

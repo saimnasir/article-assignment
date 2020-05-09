@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-12">
+        <span class="card-text mr-4" *ngIf="createDate">Joined : <span>
+                {{createDate| date:'dd-MM-yyyy hh:mm:ss'}}</span></span>
+        <span class="card-text" *ngIf="updateDate">Edited : <span>
+                {{updateDate| date:'dd-MM-yyyy hh:mm:ss'}}</span></span>
+    </div>
+</div>
