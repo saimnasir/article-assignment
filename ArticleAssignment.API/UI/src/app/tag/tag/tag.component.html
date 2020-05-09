@@ -1,16 +1,19 @@
-<span class="btn btn-outline-secondary badge badge-pill bagde-dark  mr-1 d-inline-block " 
-    (click)="toggleShowTagFrom()"
-data-toggle="tooltip" data-placement="left"
-    title="Edit">{{tag.title}}</span> 
-    
+<span ngbDropdown class="d-inline-block btn btn-outline-info badge badge-pill bagde-secondary  mr-1 d-inline-block "
+    (click)="toggleEditMode()">{{tag.title}}
+    <span *ngIf="editMode"
+        class="d-inline-block btn btn-outline-primary badge badge-pill bagde-dark  mr-1 d-inline-block "
+        (click)="toggleShowForm()" data-toggle="tooltip" data-placement="left" title="Edit">E</span>
+    <span *ngIf="editMode"
+        class="d-inline-block btn btn-outline-danger badge badge-pill bagde-dark  mr-1 d-inline-block "
+        data-toggle="tooltip" data-placement="left" title="Delete" (click)="delete()">D</span>
+</span>
 <form class="form-group row mt-4" *ngIf="showFrom">
     <input class="form-control col-12" type="text" [(ngModel)]="tag.title" name="title" placeholder="Tag"
         aria-label="Title" />
     <div class="col-12">
         <div class="row">
             <button class="btn btn-outline-success col-8" (click)="update()">Update Comment</button>
-            <button type="button" class="btn btn-link   my-2 my-sm-0 col-4"
-                (click)="toggleShowTagFrom()">close</button>
+            <button type="button" class="btn btn-link   my-2 my-sm-0 col-4" (click)="toggleShowForm()">close</button>
         </div>
     </div>
 </form>

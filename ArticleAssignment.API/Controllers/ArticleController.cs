@@ -119,7 +119,7 @@ namespace ArticleAssignment.API.Controllers
         }
          
 
-        // DELETE: api/Comment/Delete
+        // DELETE: api/Article/Delete
         [HttpDelete]
         [Route("Delete")]
         public ActionResult Delete(long id)

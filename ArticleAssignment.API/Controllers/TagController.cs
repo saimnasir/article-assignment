@@ -106,9 +106,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-
-        // DELETE: api/Tag/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Tag/Delete
+        [HttpDelete]
+        [Route("Delete")]
         public ActionResult Delete(long id)
         {
             try

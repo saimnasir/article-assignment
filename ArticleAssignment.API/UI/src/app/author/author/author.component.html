@@ -1,0 +1,131 @@
+<div class="container">
+    <div class="card row mt-2 alert-info">
+        <div class="card-header col-12" style="border-bottom: darkcyan solid;">
+            <div class="row">
+                <button class="btn my-2 my-sm-0 col-9">
+                    <h4 class="text-left">{{getFullName() }} </h4>
+                </button>
+                <div class="col-3 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="delete()">Delete</button>
+                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Discard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text" *ngIf="!showForm">{{author.about}}</p>
+            <div class="row" *ngIf="!showForm">
+                <p class="card-text col-12">Phone: <a href="tel:{{author.phone}}}">{{author.phone}}</a></p>
+                <p class="card-text col-12">Email: <a href="mailto:{{author.email}}}">{{author.email}}</a></p>
+
+                <p class="card-text col-12">Birth: <span> {{author.birthDate | date:'MMMM d, y'}}</span></p>
+            </div>
+
+            <form [formGroup]="authorForm" *ngIf="showForm">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="firstName" class="col-sm-3 col-form-label text-right">First Name :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="firstName"
+                                    placeholder="First Name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="middleName" class="col-sm-3 col-form-label  text-right">Middle Name :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="middleName"
+                                    placeholder="Middle Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="lastName" class="col-sm-3 col-form-label  text-right">Last Name :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="lastName"
+                                    placeholder="Last Name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="birthDate" class="col-sm-3 col-form-label  text-right">Birth Date :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="birthDate"
+                                    placeholder="Birth Date" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label  text-right">Email :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="phone" class="col-sm-3 col-form-label  text-right">Phone :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="phone" placeholder="Phone"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label  text-right">About :</label>
+                            <div class="col-sm-9">
+                                <textarea type="about" class="form-control" formControlName="about" placeholder="About"
+                                    required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                                (click)="update()">Update</button>
+                            <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                                (click)="toggleShowForm()">Discard</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-4">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="delete()">Delete</button>
+                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Discard</button>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <app-entity-history [createDate]="author.createDate" [updateDate]="author.updateDate">
+                    </app-entity-history>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

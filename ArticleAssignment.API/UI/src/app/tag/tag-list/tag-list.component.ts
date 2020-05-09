@@ -14,22 +14,26 @@ export class TagListComponent implements OnInit {
   constructor(
     public tagService: TagService,
     private articleService: ArticleService) {
-
   }
 
   @Input() articleId: number;
+  @Input() editMode = false;
   tags: Tag[];
 
   title: '';
-  showTagFrom = false;
+  showForm = false;
+
   ngOnInit(): void {
+    this.refreshList();
+  }
+
+  refreshList() {
     const input = new SearchTagInput();
     input.ArticleId = this.articleId;
     this.tagService.searchAsync(input, 'Search').subscribe(list => {
       this.tags = list;
     });
   }
-
   addTag() {
     const tag = new Tag();
     tag.title = this.title;
@@ -40,13 +44,14 @@ export class TagListComponent implements OnInit {
       console.log('result', result);
       this.tags.push(tag);
       this.title = '';
-      this.toggleShowTagFrom();
+      this.toggleShowForm();
+      this.refreshList();
     });
   }
 
 
-  toggleShowTagFrom() {
-    this.showTagFrom = !this.showTagFrom;
+  toggleShowForm() {
+    this.showForm = !this.showForm;
   }
 
 }

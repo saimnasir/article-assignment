@@ -88,8 +88,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // PUT: api/Author/5
+        // PUT: api/Author/Update
         [HttpPut]
+        [Route("Update")]
         public ActionResult<Author> Update(Author viewModel)
         {
             try
@@ -107,8 +108,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // DELETE: api/Author/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Author/Delete
+        [HttpDelete]
+        [Route("Delete")]
         public ActionResult<Author> Delete(long id)
         {
             try
