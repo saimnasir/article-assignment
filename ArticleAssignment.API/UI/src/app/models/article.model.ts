@@ -1,12 +1,12 @@
 export class Article {
 
     public id: number;
-    public authorId: number;
-    public categoryId: number;
-    public status: number;
     public title: string;
     public content: string;
+    public authorId: number;
+    public categoryId: number;
     public createDate: Date;
     public updateDate: Date;
-    public Collapsed: true;
+    public entityState: number;
+    public state: number;
 }

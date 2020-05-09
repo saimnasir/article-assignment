@@ -1,13 +1,10 @@
-<!-- <span ngbDropdown class="d-inline-block btn btn-outline-secondary badge badge-pill bagde-dark  mr-1 d-inline-block " 
-    (click)="toggleShowTagFrom()"
-data-toggle="tooltip" data-placement="left"
-    title="Edit">{{tag.title}} </span> 
-     -->
-<span ngbDropdown
-    class="d-inline-block btn btn-outline-info badge badge-pill bagde-secondary  mr-1 d-inline-block "  (click)="toggleEditMode()">{{tag.title}}
-    <span *ngIf="editMode" class="d-inline-block btn btn-outline-primary badge badge-pill bagde-dark  mr-1 d-inline-block "
+<span ngbDropdown class="d-inline-block btn btn-outline-info badge badge-pill bagde-secondary  mr-1 d-inline-block "
+    (click)="toggleEditMode()">{{tag.title}}
+    <span *ngIf="editMode"
+        class="d-inline-block btn btn-outline-primary badge badge-pill bagde-dark  mr-1 d-inline-block "
         (click)="toggleShowForm()" data-toggle="tooltip" data-placement="left" title="Edit">E</span>
-    <span  *ngIf="editMode" class="d-inline-block btn btn-outline-danger badge badge-pill bagde-dark  mr-1 d-inline-block "
+    <span *ngIf="editMode"
+        class="d-inline-block btn btn-outline-danger badge badge-pill bagde-dark  mr-1 d-inline-block "
         data-toggle="tooltip" data-placement="left" title="Delete" (click)="delete()">D</span>
 </span>
 <form class="form-group row mt-4" *ngIf="showFrom">

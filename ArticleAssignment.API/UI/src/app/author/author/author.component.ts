@@ -11,7 +11,7 @@ import { DialogComponent } from 'src/app/dialog/dialog/dialog.component';
   styleUrls: ['./author.component.css']
 })
 export class AuthorComponent implements OnInit {
-  @ViewChild(DialogComponent, { static: true }) modal: DialogComponent;
+
   @Input() author: Author;
   authorId: number;
   showForm = false;
@@ -25,8 +25,6 @@ export class AuthorComponent implements OnInit {
 
   ngOnInit(): void {
     this.authorId = +this.route.snapshot.paramMap.get('id');
-
-    // this.isNew = +this.route.snapshot.paramMap.get('new');
     if (this.authorId) {
       this.read(this.authorId);
     } else {
@@ -43,18 +41,17 @@ export class AuthorComponent implements OnInit {
       .subscribe(result => this.author = result);
   }
 
-  toggleShowFrom() {
+  toggleShowForm() {
     this.createForm();
   }
 
   update() {
-    console.log('this.authorForm', this.authorForm);
-
     if (this.authorForm.valid) {
       Object.assign(this.model, this.authorForm.value);
 
       this.authorService.update(this.model).subscribe(result => {
         this.author = result;
+        this.toggleShowForm();
       });
     }
     else {

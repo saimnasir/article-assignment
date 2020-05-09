@@ -2,23 +2,22 @@
     <div class="card row mt-2 alert-info">
         <div class="card-header col-12" style="border-bottom: darkcyan solid;">
             <div class="row">
-                <div class="col-10">
-                    <app-user-info [author]="author"></app-user-info>
-                </div>
-                <div class="col-2">
-                    <div class="btn-group row align-items-right" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-primary my-2  ml-2  my-sm-0"
-                            (click)="toggleShowFrom()">Edit</button>
-                        <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                <button class="btn my-2 my-sm-0 col-9">
+                    <h4 class="text-left">{{getFullName() }} </h4>
+                </button>
+                <div class="col-3 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
                             (click)="delete()">Delete</button>
+                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Discard</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <h5 class="card-title" *ngIf="!showForm">{{getFullName()}}</h5>
-            <h5 class="card-title" *ngIf="showForm">Update</h5>
-
             <p class="card-text" *ngIf="!showForm">{{author.about}}</p>
             <div class="row" *ngIf="!showForm">
                 <p class="card-text col-12">Phone: <a href="tel:{{author.phone}}}">{{author.phone}}</a></p>
@@ -26,7 +25,6 @@
 
                 <p class="card-text col-12">Birth: <span> {{author.birthDate | date:'MMMM d, y'}}</span></p>
             </div>
-            <a href="#" class="btn btn-primary" *ngIf="!showForm">Go somewhere</a>
 
             <form [formGroup]="authorForm" *ngIf="showForm">
                 <div class="row">
@@ -100,17 +98,34 @@
                         </div>
                     </div>
                     <div class="col-6 text-right">
-                        <div class="form-group text-right">
-                            <button class="btn btn-outline-success col-3" (click)="update()">Update</button>
-                            <button type="button" class="btn btn-link   my-2 my-sm-0 col-2"
-                                (click)="toggleShowFrom()">close</button>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                                (click)="update()">Update</button>
+                            <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                                (click)="toggleShowForm()">Discard</button>
                         </div>
+
                     </div>
                 </div>
             </form>
         </div>
-        <div class="card-footer  text-muted">
-            <app-entity-history [createDate]="author.createDate" [updateDate]="author.updateDate"></app-entity-history>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-4">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="delete()">Delete</button>
+                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Discard</button>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <app-entity-history [createDate]="author.createDate" [updateDate]="author.updateDate">
+                    </app-entity-history>
+                </div>
+            </div>
         </div>
     </div>
 </div>
