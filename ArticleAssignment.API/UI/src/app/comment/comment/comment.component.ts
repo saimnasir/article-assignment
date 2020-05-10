@@ -14,22 +14,32 @@ export class CommentComponent implements OnInit {
 
   @Input() comment: Comment;
   @Input() author: Author;
-  showFrom = false;
+  showForm = false;
+  deleteMode = false;
   ngOnInit(): void {
   }
 
-  toggleShowCommentFrom() {
-    this.showFrom = !this.showFrom;
+  toggleShowForm() {
+    this.showForm = !this.showForm;
   }
 
   update() {
     this.commentService.update(this.comment).subscribe(result => {
-      this.toggleShowCommentFrom();
+      this.toggleShowForm();
     });
+  }
+
+  toggleDeleteMode() {
+    this.deleteMode = !this.deleteMode;
   }
 
   delete() {
     this.commentService.delete(this.comment.id).subscribe(result => {
     });
+  }
+
+  discard() {
+    this.showForm = false;
+    this.deleteMode = false;
   }
 }

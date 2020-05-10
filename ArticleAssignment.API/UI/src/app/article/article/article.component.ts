@@ -19,6 +19,7 @@ export class ArticleComponent implements OnInit {
   @Input() article: Article;
   collapsed = true;
   showForm = false;
+  deleteMode = false;
 
   author: Author;
   model = new Article();
@@ -44,6 +45,10 @@ export class ArticleComponent implements OnInit {
 
   toggleShowForm() {
     this.createForm();
+  }
+
+  toggleDeleteMode() {
+    this.deleteMode = !this.deleteMode;
   }
 
   update() {
@@ -79,5 +84,10 @@ export class ArticleComponent implements OnInit {
       state: new FormControl(this.article.state),
     });
     this.showForm = !this.showForm;
+  }
+
+  discard() {
+    this.showForm = false;
+    this.deleteMode = false;
   }
 }

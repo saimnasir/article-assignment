@@ -15,7 +15,7 @@ export class AuthorComponent implements OnInit {
   @Input() author: Author;
   authorId: number;
   showForm = false;
-  isNew = true;
+  deleteMode = false;
   model = new Author();
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +59,9 @@ export class AuthorComponent implements OnInit {
     }
   }
 
+  toggleDeleteMode() {
+    this.deleteMode = !this.deleteMode;
+  }
   delete() {
     this.authorService.delete(this.authorId).subscribe(result => {
     });
@@ -78,5 +81,10 @@ export class AuthorComponent implements OnInit {
       updateDate: new FormControl(this.author.updateDate)
     });
     this.showForm = !this.showForm;
+  }
+
+  discard() {
+    this.showForm = false;
+    this.deleteMode = false;
   }
 }

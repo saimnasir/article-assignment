@@ -1,23 +1,32 @@
-<div class="col-12   align-middle">
-    <div class="row text-secondary ml-1" *ngFor="let comment of comments">
-        <app-comment style="width: 100%;" [author]="author" [comment]="comment"></app-comment>
-    </div>
-    <div class="row" *ngIf="!showCommentFrom">
-        <button type="button" class="btn btn-link   my-2 mr-2 my-sm-0 col-2" (click)="toggleShowCommentFrom()">
-            Like</button>
-        <button type="button" class="btn btn-link   my-2 my-sm-0 col-2" (click)="toggleShowCommentFrom()">Add
-            Comment</button>
-    </div>
-
-    <form class="form-group row mt-4" *ngIf="showCommentFrom">
-        <textarea class="form-control col-9" type="search" [(ngModel)]="content" name="content" placeholder="Comment"
-            aria-label="Comment"></textarea>
-        <div class="col-3">
-            <div class="row">
-                <button class="btn btn-outline-primary col-12" (click)="addComment()">Add Comment</button>
-                <button type="button" class="btn btn-link   my-2 my-sm-0 col-2"
-                    (click)="toggleShowCommentFrom()">close</button>
+<div class="container">
+    <div class="row">
+        <div class="col-12   align-middle">
+            <div class="row text-secondary ml-1" *ngFor="let comment of comments">
+                <app-comment style="width: 100%;" [author]="author" [comment]="comment"></app-comment>
             </div>
         </div>
-    </form>
+        <div class="col-12 text-right mt-2" *ngIf="!showCommentFrom">
+            <div class="btn-group" role="group" aria-label="Actions">
+                <button class="btn btn-outline-success" (click)="like()">Like</button>
+                <button type="button" class="btn btn-outline-primary ml-2  my-sm-0"
+                    (click)="toggleShowCommentFrom()">Add Comment</button>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="container">
+                <form class="form-group row mt-2" *ngIf="showCommentFrom">
+                    <textarea class="form-control" type="search" [(ngModel)]="content" name="content"
+                        placeholder="Comment" aria-label="Comment"></textarea>
+                    <div class="col-12 text-right mt-2">
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <button class="btn btn-success" (click)="addComment()">Add Comment</button>
+                            <button type="button" class="btn btn-outline-secondary ml-2  my-sm-0"
+                                (click)="toggleShowCommentFrom()">Discard</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -67,4 +67,7 @@ export class CommentListComponent implements OnInit {
     this.showCommentFrom = !this.showCommentFrom;
   }
 
+  like(){
+    
+  }
 }

@@ -1,19 +1,45 @@
-<span ngbDropdown class="d-inline-block btn btn-outline-info badge badge-pill bagde-secondary  mr-1 d-inline-block "
-    (click)="toggleEditMode()">{{tag.title}}
+<span ngbDropdown
+    [className]="showActions ? 'd-inline-block btn btn-outline-success badge badge-pill bagde-secondary  mr-1 d-inline-block' : 'd-inline-block btn btn-outline-info badge badge-pill bagde-secondary  mr-1 d-inline-block '"
+    (click)="toggleShowActions()">{{tag.title}}
     <span *ngIf="editMode"
         class="d-inline-block btn btn-outline-primary badge badge-pill bagde-dark  mr-1 d-inline-block "
         (click)="toggleShowForm()" data-toggle="tooltip" data-placement="left" title="Edit">E</span>
     <span *ngIf="editMode"
         class="d-inline-block btn btn-outline-danger badge badge-pill bagde-dark  mr-1 d-inline-block "
-        data-toggle="tooltip" data-placement="left" title="Delete" (click)="delete()">D</span>
-</span>
-<form class="form-group row mt-4" *ngIf="showFrom">
+        data-toggle="tooltip" data-placement="left" title="Delete" (click)="toggleDeleteMode()">D</span>
+</span> 
+<div class="row" *ngIf="showActions">
+    <div class="col-12 text-right">
+        <div class="btn-group" role="group" aria-label="Actions">
+            <button *ngIf="!showForm  && !deleteMode" class="btn btn-outline-secondary"
+                (click)="toggleShowActions()">Collapse</button>
+            <button *ngIf="!showForm  && !deleteMode" type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                (click)="toggleShowForm()">Edit</button>
+            <button *ngIf="!showForm  && !deleteMode" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                (click)="toggleDeleteMode()">Delete</button>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="deleteMode">
+    <div class="col-12 text-right">
+        <div class="alert alert-danger" role="alert">
+            Think twice before delete this tag!
+        </div>
+        <div class="btn-group" role="group" aria-label="Actions">
+            <button *ngIf="!showForm" class="btn btn-danger" (click)="delete()">Delete</button>
+            <button *ngIf="showForm || deleteMode" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                (click)="discard()">Discard</button>
+        </div>
+    </div>
+</div>
+<form class="form-group row mt-4" *ngIf="showForm">
     <input class="form-control col-12" type="text" [(ngModel)]="tag.title" name="title" placeholder="Tag"
         aria-label="Title" />
-    <div class="col-12">
-        <div class="row">
-            <button class="btn btn-outline-success col-8" (click)="update()">Update Comment</button>
-            <button type="button" class="btn btn-link   my-2 my-sm-0 col-4" (click)="toggleShowForm()">close</button>
+    <div class="col-12 text-right">
+        <div class="btn-group" role="group" aria-label="Actions">
+            <button class="btn btn-success" (click)="update()">Update</button>
+            <button *ngIf="showForm || deleteMode" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                (click)="discard()">Discard</button>
         </div>
     </div>
 </form>

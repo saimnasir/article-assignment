@@ -2,19 +2,19 @@
     <div class="card row mt-2 alert-info">
         <div class="card-header col-12" style="border-bottom: darkcyan solid;">
             <div class="row">
-                <button class="btn my-2 my-sm-0 col-9">
+                <div class="col-12 my-2 my-sm-0 ">
                     <h4 class="text-left">{{getFullName() }} </h4>
-                </button>
-                <div class="col-3 text-right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="delete()">Delete</button>
-                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Discard</button>
-                    </div>
                 </div>
+                <!-- <div class="col-3 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button *ngIf="!showForm && !deleteMode" type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                            (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm && !deleteMode" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="toggleDeleteMode()">Delete</button>
+                        <button *ngIf="showForm || deleteMode" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                            (click)="discard()">Discard</button>
+                    </div>
+                </div> -->
             </div>
         </div>
         <div class="card-body">
@@ -22,7 +22,6 @@
             <div class="row" *ngIf="!showForm">
                 <p class="card-text col-12">Phone: <a href="tel:{{author.phone}}}">{{author.phone}}</a></p>
                 <p class="card-text col-12">Email: <a href="mailto:{{author.email}}}">{{author.email}}</a></p>
-
                 <p class="card-text col-12">Birth: <span> {{author.birthDate | date:'MMMM d, y'}}</span></p>
             </div>
 
@@ -99,32 +98,48 @@
                     </div>
                     <div class="col-6 text-right">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
                                 (click)="update()">Update</button>
                             <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                                (click)="toggleShowForm()">Discard</button>
+                                (click)="discard()">Discard</button>
                         </div>
 
                     </div>
                 </div>
             </form>
+
+            <div class="row" *ngIf="deleteMode">
+                <div class="col-12 text-right">
+                    <div class="alert alert-danger" role="alert">
+                        Think twice before delete this author!
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-danger my-2 ml-2  my-sm-0"
+                            (click)="delete()">Delete</button>
+                        <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                            (click)="discard()">Discard</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-footer text-muted">
             <div class="row">
-                <div class="col-4">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="delete()">Delete</button>
-                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Discard</button>
-                    </div>
-                </div>
                 <div class="col-8">
                     <app-entity-history [createDate]="author.createDate" [updateDate]="author.updateDate">
                     </app-entity-history>
                 </div>
+                <div class="col-4 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button *ngIf="!showForm && !deleteMode" type="button"
+                            class="btn btn-outline-success my-2 ml-2  my-sm-0" (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm && !deleteMode" type="button"
+                            class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="toggleDeleteMode()">Delete</button>
+                        <button *ngIf="showForm || deleteMode" type="button"
+                            class="btn btn-outline-secondary my-2 ml-2  my-sm-0" (click)="discard()">Discard</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
