@@ -2,7 +2,7 @@
     <app-tag *ngFor="let tag of tags" [tag]="tag" [editMode]="editMode"> </app-tag>
     <div class="row mt-2">
         <div class="col-12 text-right">
-            <button *ngIf="!showForm" type="button" class="btn btn-outline-primary" (click)="toggleShowForm()">Add
+            <button *ngIf="!showForm" type="button" class="btn btn-outline-success" (click)="toggleShowForm()">Add
                 Tag</button>
         </div>
         <form class="form-group col-12 mt-2" *ngIf="showForm">
@@ -11,7 +11,7 @@
                     aria-label="Tag" />
                 <div class="col-12 text-right">
                     <div class="btn-group" role="group" aria-label="Actions">
-                        <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0" (click)="addTag()">Add
+                        <button type="button" class="btn btn-success my-2 ml-2  my-sm-0" (click)="addTag()">Add
                             Tag</button>
                         <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
                             (click)="toggleShowForm()">Discard</button>

@@ -2,21 +2,22 @@
     <div class="card row mt-2 alert-info">
         <div class="card-header col-12" style="border-bottom: darkcyan solid;">
             <div class="row">
-                <button class="btn my-2 my-sm-0 col-9">
-                    <h4 class="text-left" (click)="toggleCollapse()">{{article.title }} </h4>
-                </button>
-                <div class="col-3 text-right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button *ngIf="!showForm && collapsed " class="btn btn-outline-secondary"
-                            (click)="toggleCollapse()">Read more</button>
+                <div class="col-9">
+                    <h4 class="text-left">{{article.title }} </h4>
+                </div>
+                <div class="col-3 text-right" *ngIf="!collapsed " >
+                    <div class="btn-group" role="group" aria-label="Actions">
+                        <button *ngIf="!showForm && collapsed " class="btn btn-outline-primary"
+                            (click)="toggleCollapse()">Read More</button>
                         <button *ngIf="!showForm && !collapsed" class="btn btn-outline-secondary"
                             (click)="toggleCollapse()">Collapse</button>
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="delete()">Delete</button>
-                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Discard</button>
+                        <button *ngIf="!showForm  && !deleteMode" type="button"
+                            class="btn btn-outline-success my-2 ml-2  my-sm-0" (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm  && !deleteMode" type="button"
+                            class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="toggleDeleteMode()">Delete</button>
+                        <button *ngIf="showForm || deleteMode" type="button"
+                            class="btn btn-outline-secondary my-2 ml-2  my-sm-0" (click)="discard()">Discard</button>
                     </div>
                 </div>
             </div>
@@ -24,8 +25,10 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-9">
-                    <p class="card-text" *ngIf="!showForm && collapsed">{{article.content | slice :0:1000}}</p>
-                    <p class="card-text" *ngIf="!showForm && !collapsed">{{article.content}}</p>                   
+                    <p class="card-text" *ngIf="!showForm && collapsed">{{article.content | slice :0:1000}} ... <button
+                            *ngIf="!showForm && collapsed " class="btn btn-link" (click)="toggleCollapse()">Read
+                            More</button></p>
+                    <p class="card-text" *ngIf="!showForm && !collapsed">{{article.content}}</p>
                     <div class="row" *ngIf="!showForm && !collapsed">
                         <app-comment-list style="width:  100%;" [author]="author" [articleId]="article.id">
                         </app-comment-list>
@@ -54,22 +57,35 @@
                             </div>
                             <div class="col-12 text-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                                    <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
                                         (click)="update()">Update</button>
                                     <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                                        (click)="toggleShowForm()">Discard</button>
+                                        (click)="discard()">Discard</button>
                                 </div>
 
                             </div>
                         </div>
                     </form>
+                    <div class="row" *ngIf="deleteMode">
+                        <div class="col-12 text-right">
+                            <div class="alert alert-danger" role="alert">
+                                Think twice before delete this article!
+                            </div>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-danger my-2 ml-2  my-sm-0"
+                                    (click)="delete()">Delete</button>
+                                <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                                    (click)="discard()">Discard</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-3">
                     <app-user-info *ngIf="author" [author]="author"></app-user-info>
                     <div class="row mt-2" *ngIf="!showForm">
                         <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1 col-12">21 likes</span>
-                        <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-12">65 Comments</span>
-                        <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-12">72 Views</span>
+                        <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-12">65
+                            Comments</span>
                     </div>
                     <app-tag-list [articleId]="article.id" [editMode]="showForm"> </app-tag-list>
                 </div>
@@ -80,24 +96,26 @@
 
         <div class="card-footer text-muted">
             <div class="row">
-                <div class="col-4">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button *ngIf="!showForm && collapsed " class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                            (click)="toggleCollapse()">Read more</button>
-                        <button *ngIf="!showForm && !collapsed" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                            (click)="toggleCollapse()">Collapse</button>
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="delete()">Delete</button>
-                        <button *ngIf="showForm" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Discard</button>
-                    </div>
-                </div>
                 <div class="col-8">
                     <app-entity-history [createDate]="article.createDate" [updateDate]="article.updateDate">
                     </app-entity-history>
                 </div>
+                <div class="col-4 text-right">
+                    <div class="btn-group" role="group" aria-label="Actions">
+                        <button *ngIf="!showForm && collapsed " class="btn btn-outline-primary"
+                            (click)="toggleCollapse()">Read More</button>
+                        <button *ngIf="!showForm && !collapsed" class="btn btn-outline-secondary"
+                            (click)="toggleCollapse()">Collapse</button>
+                        <button *ngIf="!showForm  && !deleteMode" type="button"
+                            class="btn btn-outline-success my-2 ml-2  my-sm-0" (click)="toggleShowForm()">Edit</button>
+                        <button *ngIf="!showForm  && !deleteMode" type="button"
+                            class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="toggleDeleteMode()">Delete</button>
+                        <button *ngIf="showForm || deleteMode" type="button"
+                            class="btn btn-outline-secondary my-2 ml-2  my-sm-0" (click)="discard()">Discard</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
