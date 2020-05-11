@@ -22,6 +22,7 @@ import { ToastComponent } from './tools/toast/toast.component';
 import { AuthorComponent } from './author/author/author.component';
 import { EntityHistoryComponent } from './entity/entity-history/entity-history.component';
 import { DialogComponent } from './dialog/dialog/dialog.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DialogComponent } from './dialog/dialog/dialog.component';
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularEditorModule
   ],
   providers: [
     ArticleService,

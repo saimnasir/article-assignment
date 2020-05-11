@@ -5,7 +5,7 @@
                 <div class="col-9">
                     <h4 class="text-left">{{article.title }} </h4>
                 </div>
-                <div class="col-3 text-right" *ngIf="!collapsed " >
+                <div class="col-3 text-right" *ngIf="!collapsed ">
                     <div class="btn-group" role="group" aria-label="Actions">
                         <button *ngIf="!showForm && collapsed " class="btn btn-outline-primary"
                             (click)="toggleCollapse()">Read More</button>
@@ -25,10 +25,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-9">
-                    <p class="card-text" *ngIf="!showForm && collapsed">{{article.content | slice :0:1000}} ... <button
-                            *ngIf="!showForm && collapsed " class="btn btn-link" (click)="toggleCollapse()">Read
-                            More</button></p>
-                    <p class="card-text" *ngIf="!showForm && !collapsed">{{article.content}}</p>
+                    <p class="card-text" *ngIf="!showForm && collapsed"
+                        [innerHTML]="(article.content | slice :0:1000)+('  ...') ">
+                    </p>
+                    <div class="row">
+                        <button *ngIf="!showForm && collapsed " class="btn btn-link" (click)="toggleCollapse()">Read
+                            More </button>
+
+                    </div>
+                    <p class="card-text" *ngIf="!showForm && !collapsed" [innerHTML]="article.content">
+                        {{article.content}}</p>
                     <div class="row" *ngIf="!showForm && !collapsed">
                         <app-comment-list style="width:  100%;" [author]="author" [articleId]="article.id">
                         </app-comment-list>
@@ -49,9 +55,12 @@
                             <div class="col-12">
                                 <div class="form-group row">
                                     <label for="content" class="col-sm-2 col-form-label  text-right">Content :</label>
-                                    <div class="col-sm-10">
-                                        <textarea type="text" class="form-control" formControlName="content"
-                                            placeholder="Content" required></textarea>
+                                    <div class="col p-2 ml-3 mr-3" style="background-color: aliceblue;">
+                                        <div class="row">
+                                            <angular-editor class="col-12" [placeholder]="'Content'"
+                                                 formControlName="content">
+                                            </angular-editor>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
