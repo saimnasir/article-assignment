@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ArticleListComponent } from '../article/article-list/article-list.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,14 +10,14 @@ import { Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   navbarOpen = false;
-  constructor(private router: Router) { }
-
   ngOnInit(): void {
   }
-  
+
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
- 
+  search() {
+  }
+
 }
 

@@ -1,10 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
 import { Article } from 'src/app/models/article.model';
 import { Author } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { ArticleListComponent } from '../article-list/article-list.component';
+import { ActivatedRoute } from '@angular/router';
+import { CommentListComponent } from 'src/app/comment/comment-list/comment-list.component';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-article',
@@ -13,13 +17,15 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 })
 export class ArticleComponent implements OnInit {
 
+  @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
+  @Input() container: ArticleListComponent;
 
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: false,
-    height: '500px',
+    height: 'auto',
     minHeight: '0',
-    maxHeight: 'auto',
+    maxHeight: '20px',
     width: 'auto',
     minWidth: '0',
     translate: 'no',
@@ -53,54 +59,48 @@ export class ArticleComponent implements OnInit {
     uploadUrl: 'v1/image',
     uploadWithCredentials: false,
     sanitize: true,
-    toolbarPosition: 'top',
-    toolbarHiddenButtons: [
-      ['bold', 'italic'],
-      ['fontSize']
-    ]
+    toolbarPosition: 'top'
   };
 
-  constructor(
-    private articleService: ArticleService,
-    private authorService: AuthorService) { }
-
   @Input() article: Article;
-  collapsed = true;
-  showForm = false;
-  deleteMode = false;
-
+  articleId: number;
   author: Author;
   model = new Article();
-
   articleForm: FormGroup;
-  htmlContent: string;
+  modalConfig = new NgbModalConfig();
+
+  constructor(
+    private route: ActivatedRoute,
+    private articleService: ArticleService,
+    private authorService: AuthorService,
+    private modalService: NgbModal
+  ) { }
+
   ngOnInit(): void {
-    this.authorService.read(this.article.authorId).subscribe(author => {
-      this.author = author;
-    });
+    this.articleId = +this.route.snapshot.paramMap.get('id');
+    if (!this.articleId) {
+      this.articleId = this.article.id;
+    }
+    this.authorService.read(this.article.authorId)
+      .subscribe(result => this.author = result);
     this.createForm();
   }
 
-  toggleCollapse() {
-    this.collapsed = !this.collapsed;
+  onUpdate(modal: TemplateRef<any>) {
+    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
+    this.modalConfig.size = 'xl';
+    this.modalConfig.backdrop = 'static';
+    this.modalConfig.keyboard = false;
+    this.modalService.open(modal, this.modalConfig);
   }
 
-  onEdit() {
-    if (this.collapsed === true) {
-      this.toggleCollapse();
-    }
-    this.toggleShowForm();
-  }
-
-  toggleShowForm() {
-    this.showForm = !this.showForm;
-    if (this.collapsed) {
-      this.collapsed = !this.collapsed;
-    }
-  }
-
-  toggleDeleteMode() {
-    this.deleteMode = !this.deleteMode;
+  onDelete(modal: TemplateRef<any>) {
+    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
+    this.modalConfig.size = 'xl';
+    this.modalConfig.backdrop = 'static';
+    this.modalConfig.keyboard = false;
+    this.modalConfig.centered = false;
+    this.modalService.open(modal, this.modalConfig);
   }
 
   update() {
@@ -109,7 +109,8 @@ export class ArticleComponent implements OnInit {
 
       this.articleService.update(this.model).subscribe(result => {
         this.article = result;
-        this.toggleShowForm();
+        this.modalService.dismissAll();
+        // this.container.refreshList();
       });
     }
     else {
@@ -119,9 +120,10 @@ export class ArticleComponent implements OnInit {
 
   delete() {
     this.articleService.delete(this.article.id).subscribe(result => {
+      this.container.refreshList();
+      this.modalService.dismissAll();
     });
   }
-
 
   createForm() {
     this.articleForm = new FormGroup({
@@ -137,9 +139,14 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  discard() {
-    this.showForm = false;
-    this.deleteMode = false;
+  toggleComments() {
+    this.appComments.toggleComments();
+  }
+  toggleNewCommentForm() {
+    this.appComments.toggleNewCommentFrom();
   }
 
+  commentCounts(): number {
+    return this.appComments.commentCounts();
+  }
 }

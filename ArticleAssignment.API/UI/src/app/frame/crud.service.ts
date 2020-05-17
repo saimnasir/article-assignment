@@ -14,7 +14,7 @@ export abstract class CRUDService<T> extends ServiceBase {
         this.baseRoute = `${environment.baseRoute}/${model}/`;
     }
 
-    create<T>(model: T, action = 'Create') {
+    create(model: T, action = 'Create') {
         return this.httpClient.post<T>(
             this.baseRoute + action, model,
             {
@@ -38,6 +38,8 @@ export abstract class CRUDService<T> extends ServiceBase {
     }
 
     update(model: T, action = 'Update') {
+        console.log('Model T', model);
+
         return this.httpClient.put<T>(
             this.baseRoute + action, model,
             {

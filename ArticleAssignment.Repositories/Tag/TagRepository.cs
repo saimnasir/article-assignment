@@ -3,6 +3,7 @@ using ArticleAssignment.DataModels;
 using ArticleAssignment.Queries;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArticleAssignment.Repositories
 {
@@ -48,6 +49,15 @@ namespace ArticleAssignment.Repositories
                 input.ArticleId
             };
             return base.Search(parameters);
+        }
+
+        public Tag Find(string title)
+        {
+            var parameters = new
+            {
+                Title = title
+            };
+            return base.Find(parameters);
         }
     }
 }

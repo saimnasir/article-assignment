@@ -6,4 +6,5 @@ export class Comment {
     public articleId: number;
     public createDate: Date;
     public updateDate?: Date;
+    public entityState: number;
 }

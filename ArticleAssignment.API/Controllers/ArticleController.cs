@@ -74,14 +74,15 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // POST: api/Article
+        // PUT: api/Article/Create
         [HttpPost]
+        [Route("Create")]
         public ActionResult<Article> Create(Article viewModel)
         {
             try
             {
                 var dataModel = _mapper.Map<DataModels.Article>(viewModel);
-                dataModel = _articleRepository.Create(dataModel, null);
+                dataModel = _articleRepository.Create(dataModel);
                 viewModel = _mapper.Map<Article>(dataModel);
                 getArticleDetails(viewModel);
 
@@ -290,7 +291,7 @@ namespace ArticleAssignment.API.Controllers
         }
 
 
-        // POST: api/Article/AddTag/{id}
+        // POST: api/Article/AddTag
         [HttpPost]
         [Route("AddTag")]
         public ActionResult<Article> AddTag(Tag input)
@@ -302,7 +303,7 @@ namespace ArticleAssignment.API.Controllers
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
                 }
-                var tag = _repositoryFactory.TagRepository.Read(input.Id);
+                var tag = _repositoryFactory.TagRepository.Find(input.Title);
 
                 if (tag == null)
                 {

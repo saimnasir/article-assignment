@@ -68,8 +68,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // POST: api/Author
+        // PUT: api/Author/Create
         [HttpPost]
+        [Route("Create")]
         public ActionResult Create(Author viewModel)
         {
             try

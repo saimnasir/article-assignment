@@ -1,48 +1,85 @@
 <div class="container" style="border-bottom: darkcyan dotted 1px;">
-    <div class="row">
-        <div class="col-3">
-            <app-user-info [author]="author"></app-user-info>
-        </div>
-        <div class="col-9">
+    <div *ngIf="isReadAction()" class="card row mt-2 " [ngClass]="cardClass">
+        <div class="col-12 m-2">
             <div class="row">
-                <span class="col-12"> {{comment.content}}
-                </span>
-            </div>
-            <div class="row mb-2">
-                <div class="col-12 text-right">
-                    <div class="btn-group" role="group" aria-label="Actions">
-                        <button *ngIf="!showForm  && !deleteMode" type="button"
-                            class="btn btn-outline-success my-2 ml-2  my-sm-0" (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm  && !deleteMode" type="button"
-                            class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="toggleDeleteMode()">Delete</button>
+                <div class="col-3">
+                    <app-user-info [author]="author"></app-user-info>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <span class="col-12"> {{comment.content}}
+                        </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <div class="btn-group" role="group" aria-label="Actions">
+                                <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                                    (click)="onEdit()"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                                    (click)="toggleDeleteMode()"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row mb-2" *ngIf="deleteMode">
-        <div class="col-12 text-right">
-            <div class="alert alert-danger" role="alert">
-                Think twice before delete this comment!
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-danger my-2 ml-2  my-sm-0"
-                    (click)="delete()">Delete</button>
-                <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                    (click)="discard()">Discard</button>
+    <div *ngIf="showForm()" class="card row mt-2 " [ngClass]="cardClass">
+        <div class="col-12 m-2">
+            <div class="row">
+                <div class="col-3">
+                    <app-user-info [author]="author"></app-user-info>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-12">
+                            <form [formGroup]="commentForm" *ngIf="showForm">
+                                <div class="col-12">
+                                    <textarea type="text" class="form-control" formControlName="content"
+                                        placeholder="Your Comment" required></textarea>
+                                </div>
+                                <div class="col-12 text-right mt-2 ">
+                                    <div class="btn-group" role="group" aria-label="Actions">
+                                        <button *ngIf="isUpdateAction()" class="btn btn-success"
+                                            (click)="update()">Save</button>
+                                        <button *ngIf="isCreateAction()" class="btn btn-success"
+                                            (click)="create()">Create</button>
+                                        <button type="button" class="btn btn-outline-secondary ml-2 my-2 my-sm-0"
+                                            (click)="discard()">Discard</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <form class="form-group row mt-2" *ngIf="showForm">
-        <textarea class="form-control" type="search" [(ngModel)]="comment.content" name="content"
-            placeholder="Comment" aria-label="Comment"></textarea>
-        <div class="col-12 text-right mt-2">
-            <div class="btn-group" role="group" aria-label="Actions">
-                <button class="btn btn-success" (click)="update()">Update</button>
-                <button type="button" class="btn btn-outline-secondary ml-2 my-2 my-sm-0"
-                    (click)="toggleShowForm()">Discard</button>
+
+    <div *ngIf="isDeleteAction()" class="card row mt-2 alert-dark">
+        <div class="col-12 m-2">
+            <div class="row">
+                <div class="col-3">
+                    <app-user-info [author]="author"></app-user-info>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <span class="col-12"> {{comment.content}}
+                        </span>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <!-- <label  class="col-form-label  text-right">Are you sure?</label> -->
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-danger my-2 ml-2  my-sm-0"
+                                    (click)="delete()">Delete</button>
+                                <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                                    (click)="discard()">Discard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+    </div>
 </div>

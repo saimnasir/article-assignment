@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TagListComponent } from '../tag-list/tag-list.component';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-tag',
@@ -9,49 +12,89 @@ import { TagService } from 'src/app/services/tag.service';
 })
 export class TagComponent implements OnInit {
 
-  constructor(private tagService: TagService) { }
-
+  @Input() container: TagListComponent;
   @Input() tag: Tag;
-  @Input() editMode = false;
-  showForm = false;
+
+  modalConfig = new NgbModalConfig();
   showActions = false;
-  deleteMode = false;
+  tagForm: FormGroup;
+
+  constructor(
+    private tagService: TagService,
+    public modalService: NgbModal
+  ) { }
+
+
   ngOnInit(): void {
+    this.createForm();
   }
 
-  toggleShowForm() {
-    this.showForm = !this.showForm;
+  createForm() {
+    this.tagForm = new FormGroup({
+      id: new FormControl(this.tag.id),
+      articleId: new FormControl(this.tag.articleId),
+      title: new FormControl(this.tag.title),
+      description: new FormControl(this.tag.description),
+      createDate: new FormControl(this.tag.updateDate),
+      updateDate: new FormControl(this.tag.updateDate),
+    });
   }
 
-  toggleEditMode() {
-    this.editMode = !this.editMode;
+  openAcitonsModal(modal: TemplateRef<any>) {
+    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
+    this.modalConfig.size = 'md';
+    this.modalConfig.backdrop = 'static';
+    this.modalConfig.keyboard = false;
+    this.modalConfig.centered = false;
+    this.modalService.open(modal, this.modalConfig);
   }
 
+  onUpdate(modal: TemplateRef<any>) {
 
-  toggleShowActions() {
-    this.showActions = !this.showActions;
+    this.modalService.dismissAll();
+    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
+    this.modalConfig.size = 'md';
+    this.modalConfig.backdrop = 'static';
+    this.modalConfig.keyboard = false;
+    this.modalService.open(modal, this.modalConfig);
   }
 
-  toggleDeleteMode() {
-    this.deleteMode = !this.deleteMode;
+  onDelete(modal: TemplateRef<any>) {
+
+    this.modalService.dismissAll();
+    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
+    this.modalConfig.size = 'md';
+    this.modalConfig.backdrop = 'static';
+    this.modalConfig.keyboard = false;
+    this.modalService.open(modal, this.modalConfig);
   }
+
 
   update() {
-    this.tagService.update(this.tag).subscribe(result => {
-      this.discard();
-    });
+    if (this.tagForm.valid) {
+      console.log('tag', this.tag);
+      console.log('tagForm', this.tagForm.value);
+
+      const model = new Tag();
+      Object.assign(model, this.tagForm.value);
+      console.log('model', model);
+
+      this.tagService.update(model).subscribe(result => {
+        this.tag = result;
+        this.modalService.dismissAll();
+        // this.container.refreshList();
+      });
+    }
+    else {
+      alert('forms is in valid');
+    }
   }
 
   delete() {
     this.tagService.delete(this.tag.id).subscribe(result => {
-      this.discard();
-    });
-  }
+      this.modalService.dismissAll();
+      this.container.refreshList();
 
-  discard() {
-    this.deleteMode = false;
-    this.editMode = false;
-    this.showActions = false;
-    this.showForm = false;
+    });
   }
 }

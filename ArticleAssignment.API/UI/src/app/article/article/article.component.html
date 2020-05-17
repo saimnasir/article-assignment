@@ -3,106 +3,49 @@
         <div class="card-header col-12" style="border-bottom: darkcyan solid;">
             <div class="row">
                 <div class="col-9">
-                    <h4 class="text-left">{{article.title }} </h4>
+                    <h4 class="text-left">{{article.title}} </h4>
                 </div>
-                <div class="col-3 text-right" *ngIf="!collapsed ">
-                    <div class="btn-group" role="group" aria-label="Actions">
-                        <button *ngIf="!showForm && collapsed " class="btn btn-outline-primary"
-                            (click)="toggleCollapse()">Read More</button>
-                        <button *ngIf="!showForm && !collapsed" class="btn btn-outline-secondary"
-                            (click)="toggleCollapse()">Collapse</button>
-                        <button *ngIf="!showForm  && !deleteMode" type="button"
-                            class="btn btn-outline-success my-2 ml-2  my-sm-0" (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm  && !deleteMode" type="button"
-                            class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="toggleDeleteMode()">Delete</button>
-                        <button *ngIf="showForm || deleteMode" type="button"
-                            class="btn btn-outline-secondary my-2 ml-2  my-sm-0" (click)="discard()">Discard</button>
-                    </div>
+                <div class="col-3  text-right">
+                    <app-user-info *ngIf="author" [author]="author"></app-user-info>
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-9">
-                    <p class="card-text" *ngIf="!showForm && collapsed"
-                        [innerHTML]="(article.content | slice :0:1000)+('  ...') ">
-                    </p>
-                    <div class="row">
-                        <button *ngIf="!showForm && collapsed " class="btn btn-link" (click)="toggleCollapse()">Read
-                            More </button>
-
-                    </div>
-                    <p class="card-text" *ngIf="!showForm && !collapsed" [innerHTML]="article.content">
+                <div class="col-12">
+                    <p class="card-text" [innerHTML]="article.content">
                         {{article.content}}</p>
-                    <div class="row" *ngIf="!showForm && !collapsed">
-                        <app-comment-list style="width:  100%;" [author]="author" [articleId]="article.id">
-                        </app-comment-list>
-                    </div>
-                    <form [formGroup]="articleForm" *ngIf="showForm">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label for="title" class="col-sm-2 col-form-label text-right">Title :</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" formControlName="title"
-                                            placeholder="Title" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group row">
-                                    <label for="content" class="col-sm-2 col-form-label  text-right">Content :</label>
-                                    <div class="col p-2 ml-3 mr-3" style="background-color: aliceblue;">
-                                        <div class="row">
-                                            <angular-editor class="col-12" [placeholder]="'Content'"
-                                                 formControlName="content">
-                                            </angular-editor>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 text-right">
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
-                                        (click)="update()">Update</button>
-                                    <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                                        (click)="discard()">Discard</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row" *ngIf="deleteMode">
-                        <div class="col-12 text-right">
-                            <div class="alert alert-danger" role="alert">
-                                Think twice before delete this article!
-                            </div>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-danger my-2 ml-2  my-sm-0"
-                                    (click)="delete()">Delete</button>
-                                <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                                    (click)="discard()">Discard</button>
+                    <app-tag-list [article]="article"> </app-tag-list>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row text-primary" style="border-bottom: darkturquoise groove;">
+                        <div class="col-12 text-right mb-2">
+                            <div class="btn-group" role="group" aria-label="Actions">
+                                <button class="btn btn-outline-primary" (click)="toggleComments()">
+                                    <i class="fa fa-caret-down"></i> Likes (6)</button>
+                                <button class="btn btn-outline-primary" (click)="toggleComments()">
+                                    <i class="fa fa-caret-down"></i> Comments (6)</button>
+                                <button type="button" class="btn btn-outline-success ml-2"
+                                    (click)="toggleNewCommentForm()">Add Comment</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
-                    <app-user-info *ngIf="author" [author]="author"></app-user-info>
-                    <div class="row mt-2" *ngIf="!showForm">
-                        <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1 col-12">21 likes</span>
-                        <span class="btn btn-outline-success badge badge-pill bagde-dark mt-1  col-12">65
-                            Comments</span>
+            </div>
+            <div class="row">
+                <div class="container">
+                    <div class="col-12">
+                        <app-comment-list #appComments [author]="author" [article]="article">
+                        </app-comment-list>
                     </div>
-                    <app-tag-list [articleId]="article.id" [editMode]="showForm"> </app-tag-list>
                 </div>
             </div>
 
-
         </div>
-
         <div class="card-footer text-muted">
             <div class="row">
                 <div class="col-8">
@@ -111,20 +54,104 @@
                 </div>
                 <div class="col-4 text-right">
                     <div class="btn-group" role="group" aria-label="Actions">
-                        <button *ngIf="!showForm && collapsed " class="btn btn-outline-primary"
-                            (click)="toggleCollapse()">Read More</button>
-                        <button *ngIf="!showForm && !collapsed" class="btn btn-outline-secondary"
-                            (click)="toggleCollapse()">Collapse</button>
-                        <button *ngIf="!showForm  && !deleteMode" type="button"
-                            class="btn btn-outline-success my-2 ml-2  my-sm-0" (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm  && !deleteMode" type="button"
-                            class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="toggleDeleteMode()">Delete</button>
-                        <button *ngIf="showForm || deleteMode" type="button"
-                            class="btn btn-outline-secondary my-2 ml-2  my-sm-0" (click)="discard()">Discard</button>
+                        <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                            (click)="onUpdate(updateModal)">Edit</button>
+                        <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                            (click)="onDelete(deleteModal)">Delete</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
+    <ng-template #updateModal let-modal>
+        <form [formGroup]="articleForm">
+            <div class="modal-header alert-success">
+                <h4 class="modal-title" id="modal-basic-title">Edit Article</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label for="title" class="col-sm-2 col-form-label text-right">Title :</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" formControlName="title" placeholder="Title"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row">
+                            <label for="content" class="col-sm-2 col-form-label  text-right">Content :</label>
+                            <div class="col p-2 ml-3 mr-3" style="background-color: aliceblue;">
+                                <div class="row">
+                                    <angular-editor class="col-12" [placeholder]="'Content'" formControlName="content"
+                                        [config]="editorConfig">
+                                    </angular-editor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-dark"
+                                (click)="modal.close('Close click')">Close</button>
+                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
+                                (click)="update()">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template #deleteModal let-modal>
+        <div class="container mt-2">
+            <div class="modal-header alert-danger">
+                <h4 class="modal-title" id="modal-basic-title">Delete Article</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card row mt-2 alert-info">
+                    <div class="card-header col-12" style="border-bottom: darkcyan solid;">
+                        <div class="row">
+                            <div class="col-9">
+                                <h4 class="text-left">{{article.title}} </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="card-text" [innerHTML]="article.content">
+                                    {{article.content}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-dark"
+                                (click)="modal.close('Close click')">Close</button> <button type="button"
+                                class="btn btn-outline-danger ml-2" (click)="delete()">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>

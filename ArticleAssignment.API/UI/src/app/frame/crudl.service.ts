@@ -37,7 +37,7 @@ export abstract class CRUDLService<T> extends CRUDService<T> {
             error => {
 
                 console.log('An error:', error);
-                console.log(error.Message)
+                console.log(error.Message);
             }, () => this.loading = false
         );
         return null;
@@ -75,7 +75,7 @@ export abstract class CRUDLService<T> extends CRUDService<T> {
             error => {
 
                 console.log('An error:', error);
-                console.log(error.Message)
+                console.log(error.Message);
             }, () => this.loading = false
         );
     }
