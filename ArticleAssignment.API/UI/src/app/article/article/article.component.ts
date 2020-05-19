@@ -9,11 +9,8 @@ import { ArticleListComponent } from '../article-list/article-list.component';
 import { ActivatedRoute } from '@angular/router';
 import { CommentListComponent } from 'src/app/comment/comment-list/comment-list.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
-import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/tag.model';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { SearchTagInput } from 'src/app/models/inputs/search-tag.model';
+import { TagListComponent } from 'src/app/tag/tag-list/tag-list.component';
 
 
 @Component({
@@ -24,8 +21,10 @@ import { SearchTagInput } from 'src/app/models/inputs/search-tag.model';
 export class ArticleComponent implements OnInit {
 
   @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
+  @ViewChild(TagListComponent, { static: false }) appTags: TagListComponent;
   @Input() container: ArticleListComponent;
 
+  // #region  editor config
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: false,
@@ -67,6 +66,7 @@ export class ArticleComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top'
   };
+  //#endregion
 
   @Input() article: Article;
   articleId: number;
@@ -74,15 +74,11 @@ export class ArticleComponent implements OnInit {
   model = new Article();
   articleForm: FormGroup;
   modalConfig = new NgbModalConfig();
-  tagsOfArticle: Tag[];
-  tags: Tag[];
-  autoCompleteModel: any;
-  modal: TemplateRef<any>;
+
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private authorService: AuthorService,
-    private tagService: TagService,
     public modalService: NgbModal
   ) { }
 
@@ -94,7 +90,6 @@ export class ArticleComponent implements OnInit {
     this.authorService.read(this.article.authorId)
       .subscribe(result => {
         this.author = result;
-        this.listTags();
       });
     this.createForm();
   }
@@ -102,87 +97,14 @@ export class ArticleComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.code === 'Enter') {
-      this.addTag();
-    }
-  }
-
-
-  listTags() {
-    const input = new SearchTagInput();
-    input.ArticleId = this.article.id;
-    this.tagService.searchAsync(input, 'Search').subscribe(articleTags => {
-      this.tagsOfArticle = articleTags;
-      this.tagService.listAllAsync().subscribe(allTags => {
-        this.tags = allTags.filter(t => this.filterArticleTagsById(t));
-      });
-    });
-  }
-
-  resultFormatBandListValue(value: any) {
-    return value.title;
-  }
-
-  inputFormatBandListValue(value: any) {
-    if (value.title) {
-      return value.title;
-    }
-    return value;
-  }
-
-  filterArticleTagsById(tag: Tag): boolean {
-    return this.tagsOfArticle.findIndex(t => t.id === tag.id) < 0;
-  }
-
-  filterArticleTagsByTitle(tag: Tag): boolean {
-    return this.tagsOfArticle.findIndex(t => t.title === tag.title) >= 0;
-  }
-
-  search = (text$: Observable<string>) => {
-    return text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : this.tags.filter(v => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    );
-  }
-
-  onAddTag(modal: TemplateRef<any>) {
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'md';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalService.open(modal, this.modalConfig);
-  }
-
-  addTag() {
-    let tagTitle = '';
-    if (this.autoCompleteModel instanceof Object) {
-      tagTitle = this.autoCompleteModel.title;
-    } else {
-      tagTitle = this.autoCompleteModel;
-    }
-    if (tagTitle) {
-      const model = new Tag();
-      model.articleId = this.article.id;
-      model.title = tagTitle;
-      model.createDate = new Date();
-      model.updateDate = new Date();
-      model.description = tagTitle;
-      if (!this.filterArticleTagsByTitle(model)) {
-        this.tagsOfArticle.push(model);
-        this.autoCompleteModel = null;
-      }
+      this.onTagInputChange();
     }
   }
 
   showTagAddedWaring(): boolean {
     const tag = new Tag();
-    tag.title = this.autoCompleteModel;
-    return this.filterArticleTagsByTitle(tag);
-  }
-
-  removeTag(tag: Tag) {
-    this.tagsOfArticle = this.tagsOfArticle.filter(t => t.title !== tag.title);
+    tag.title = this.appTags.autoCompleteModel;
+    return this.appTags.filterArticleTagsByTitle(tag);
   }
 
   onUpdate(modal: TemplateRef<any>) {
@@ -207,6 +129,9 @@ export class ArticleComponent implements OnInit {
       Object.assign(this.model, this.articleForm.value);
       this.articleService.update(this.model).subscribe(result => {
         this.article = result;
+        this.appTags.createAndDeleteTags().subscribe(() => {
+          this.appTags.refreshList();
+        });
         this.modalService.dismissAll();
       });
     }
@@ -214,6 +139,7 @@ export class ArticleComponent implements OnInit {
       alert('forms is in valid');
     }
   }
+
 
   delete() {
     this.articleService.delete(this.article.id).subscribe(result => {
@@ -245,6 +171,19 @@ export class ArticleComponent implements OnInit {
   }
 
   onTagInputChange() {
-    this.addTag();
+    let tagTitle = '';
+    if (this.appTags.autoCompleteModel instanceof Object) {
+      tagTitle = this.appTags.autoCompleteModel.title;
+    } else {
+      tagTitle = this.appTags.autoCompleteModel;
+    }
+    const tag = new Tag();
+    tag.articleId = this.article.id;
+    tag.title = tagTitle;
+    tag.createDate = new Date();
+    tag.updateDate = new Date();
+    tag.description = tagTitle;
+    this.appTags.addTag(tag);
   }
+
 }

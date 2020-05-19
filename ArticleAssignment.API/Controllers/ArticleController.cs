@@ -41,7 +41,7 @@ namespace ArticleAssignment.API.Controllers
                 var viewModels = _mapper.Map<List<Article>>(dataModels);
                 viewModels.ForEach(viewModel =>
                 {
-                    getArticleDetails(viewModel);
+                    // getArticleDetails(viewModel);
                 });
                 return viewModels;
             }
@@ -62,7 +62,7 @@ namespace ArticleAssignment.API.Controllers
             {
                 var dataModel = _articleRepository.Read(id);
                 var viewModel = _mapper.Map<Article>(dataModel);
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
                 return viewModel;
             }
             catch (Exception ex)
@@ -84,7 +84,7 @@ namespace ArticleAssignment.API.Controllers
                 var dataModel = _mapper.Map<DataModels.Article>(viewModel);
                 dataModel = _articleRepository.Create(dataModel);
                 viewModel = _mapper.Map<Article>(dataModel);
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
 
                 return viewModel;
             }
@@ -107,7 +107,7 @@ namespace ArticleAssignment.API.Controllers
                 dataModel = _articleRepository.Update(dataModel);
 
                 viewModel = _mapper.Map<Article>(dataModel);
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
 
                 return Ok(viewModel);
             }
@@ -118,7 +118,7 @@ namespace ArticleAssignment.API.Controllers
                 throw new Exception(messageResponse.Message);
             }
         }
-         
+
 
         // DELETE: api/Article/Delete
         [HttpDelete]
@@ -157,7 +157,7 @@ namespace ArticleAssignment.API.Controllers
                 var viewModels = _mapper.Map<List<Article>>(dataModels);
                 viewModels.ForEach(viewModel =>
                 {
-                    getArticleDetails(viewModel);
+                    // getArticleDetails(viewModel);
                 });
                 return viewModels;
             }
@@ -178,7 +178,7 @@ namespace ArticleAssignment.API.Controllers
             {
                 var dataModel = _articleRepository.Check(id);
                 var viewModel = _mapper.Map<Article>(dataModel);
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
 
                 return viewModel;
             }
@@ -205,7 +205,7 @@ namespace ArticleAssignment.API.Controllers
             {
                 var dataModel = _articleRepository.Approve(id);
                 var viewModel = _mapper.Map<Article>(dataModel);
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
 
                 return viewModel;
             }
@@ -231,7 +231,7 @@ namespace ArticleAssignment.API.Controllers
             {
                 var dataModel = _articleRepository.Reject(id);
                 var viewModel = _mapper.Map<Article>(dataModel);
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
 
                 return viewModel;
             }
@@ -278,18 +278,17 @@ namespace ArticleAssignment.API.Controllers
 
                 var viewModel = _mapper.Map<Article>(dataModel);
 
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
 
                 return viewModel;
             }
             catch (Exception ex)
-            {               
+            {
                 var messageResponse = _errorGenerator.GetMessageResponse<Article, Comment>(ActionType.Update, input, exception: ex);
                 Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
                 throw new Exception(messageResponse.Message);
             }
         }
-
 
         // POST: api/Article/AddTag
         [HttpPost]
@@ -303,44 +302,99 @@ namespace ArticleAssignment.API.Controllers
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
                 }
-                var tag = _repositoryFactory.TagRepository.Find(input.Title);
+                var tag = _mapper.Map<DataModels.Tag>(input);
+                tag = _repositoryFactory.TagRepository.Find(tag);
 
-                if (tag == null)
+                if (tag == null) // create tag and articleTag
                 {
                     tag = _mapper.Map<DataModels.Tag>(input);
                     tag = _repositoryFactory.TagRepository.Create(tag);
-                }
 
-                var articleTag = _repositoryFactory.ArticleTagRepository.Search(
-                    new SearchArticleTagInput
-                    {
-                        ArticleId = input.ArticleId,
-                        TagId = tag.Id
-                    }).SingleOrDefault();
-
-                if (articleTag == null)
-                {
-                    articleTag = new DataModels.ArticleTag
+                    var articleTag = new DataModels.ArticleTag
                     {
                         ArticleId = input.ArticleId,
                         TagId = tag.Id
                     };
-
                     articleTag = _repositoryFactory.ArticleTagRepository.Create(articleTag);
                 }
+                else // tag exists
+                {
+                    var articleTag = _repositoryFactory.ArticleTagRepository.Search(
+                      new SearchArticleTagInput
+                      {
+                          ArticleId = input.ArticleId,
+                          TagId = tag.Id
+                      }).SingleOrDefault();
+                 
+                    if (articleTag == null)
+                    {
+                        articleTag = new DataModels.ArticleTag
+                        {
+                            ArticleId = input.ArticleId,
+                            TagId = tag.Id
+                        };
+                        articleTag = _repositoryFactory.ArticleTagRepository.Create(articleTag);
+                    }
+                }
+
                 var viewModel = _mapper.Map<Article>(dataModel);
 
-                getArticleDetails(viewModel);
+                // getArticleDetails(viewModel);
 
                 return viewModel;
             }
             catch (Exception ex)
-            {               
+            {
                 var messageResponse = _errorGenerator.GetMessageResponse<Article, Tag>(ActionType.Update, input, exception: ex);
                 Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
                 throw new Exception(messageResponse.Message);
             }
         }
+
+        // POST: api/Article/RemoveTag
+        [HttpPost]
+        [Route("RemoveTag")]
+        public ActionResult<Article> RemoveTag(Tag input)
+        {
+            try
+            {
+                var dataModel = _articleRepository.Read(input.ArticleId);
+                if (dataModel == null)
+                {
+                    throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
+                }
+                var tag = _mapper.Map<DataModels.Tag>(input);
+                tag = _repositoryFactory.TagRepository.Find(tag);
+
+                if (tag != null)
+                {
+                    var articleTag = _repositoryFactory.ArticleTagRepository.Search(new SearchArticleTagInput
+                    {
+                        ArticleId = input.ArticleId,
+                        TagId = tag.Id
+                    }).SingleOrDefault();
+
+                    if (articleTag != null)
+                    {
+                        _repositoryFactory.ArticleTagRepository.Delete(articleTag.Id);
+                    }
+                }
+
+                var viewModel = _mapper.Map<Article>(dataModel);
+
+                // getArticleDetails(viewModel);
+
+                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, Tag>(ActionType.Update, input, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
+
 
         private void getArticleDetails(Article article)
         {

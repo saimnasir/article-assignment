@@ -109,24 +109,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="card row mt-2 alert-info">
-                    <div class="card-header col-12" style="border-bottom: darkcyan solid;">
-                        <div class="row">
-                            <div class="col-9">
-                                <h4 class="text-left">{{article.title}} </h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="card-text" [innerHTML]="article.content">
-                                    {{article.content}}</p>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -150,18 +133,19 @@
                 <div class="col p-2 ml-3 mr-3">
                     <div class="row" style="border: #ced4da solid 1px;">
                         <div class="col-12">
-                            <span class="btn btn-outline-info mr-1 mt-1" *ngFor="let tag of tagsOfArticle"
-                                (click)="removeTag(tag)">{{tag.title}}
+                            <span class="btn btn-outline-info mr-1 mt-1" *ngFor="let tag of appTags.tagsOfArticle"
+                                (click)="appTags.removeTag(tag)">{{tag.title}}
                                 <i class="text-danger fa fa-times"></i></span>
                         </div>
                         <div class="col-12">
                             <span class="btn btn-outline-light mt-1 mb-1" style="padding: 0 !important;">
-                                <input class="form-control" id="tagTitle" type="text" [(ngModel)]="autoCompleteModel"
-                                    [ngbTypeahead]="search" [resultFormatter]="resultFormatBandListValue"
-                                    [inputFormatter]="inputFormatBandListValue" #instance="ngbTypeahead"
+                                <input class="form-control" id="tagTitle" type="text"
+                                    [(ngModel)]="appTags.autoCompleteModel" [ngbTypeahead]="appTags.search"
+                                    [resultFormatter]="appTags.resultFormatBandListValue"
+                                    [inputFormatter]="appTags.inputFormatBandListValue" #instance="ngbTypeahead"
                                     placeholder="New tag" required (change)="onTagInputChange()">
                                 <label *ngIf="showTagAddedWaring()" class="alert-dark m-2">
-                                    Tag <b>{{autoCompleteModel}}</b> is already added.</label>
+                                    Tag <b>{{appTags.autoCompleteModel}}</b> is already added.</label>
                             </span>
 
                         </div>

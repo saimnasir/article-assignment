@@ -11,7 +11,8 @@
                 </button>
                 <button *ngIf="isCollapsed" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
                     (click)="isCollapsed = !isCollapsed"> <i class="fa fa-caret-up"></i> Hide</button>
-                <button type="button" class="btn btn-success my-2 ml-2  my-sm-0" (click)="onCreate(createModal)">New Article
+                <button type="button" class="btn btn-success my-2 ml-2  my-sm-0" (click)="onCreate(createModal)">New
+                    Article
                 </button>
             </div>
         </div>
@@ -44,7 +45,7 @@
 <app-article *ngFor="let article of articleList" [article]="article" [container]="this">
 </app-article>
 
-<ng-template #createModal let-modal >          
+<ng-template #createModal let-modal>
     <form [formGroup]="articleForm">
         <div class="modal-header alert-success">
             <h4 class="modal-title" id="modal-basic-title">Crete New Article</h4>
@@ -78,6 +79,9 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <ng-container *ngTemplateOutlet="tagTemplateOutlet"></ng-container>
+            </div>
         </div>
         <div class="modal-footer">
             <div class="row">
@@ -92,4 +96,33 @@
             </div>
         </div>
     </form>
+</ng-template>
+
+<ng-template #tagTemplateOutlet>
+    <div class="col-12 alert">
+        <div class="form-group row">
+            <label for="content" class="col-sm-2 col-form-label  text-right">Tags :</label>
+            <div class="col p-2 ml-3 mr-3">
+                <div class="row" style="border: #ced4da solid 1px;">
+                    <div class="col-12">
+                        <span class="btn btn-outline-info mr-1 mt-1" *ngFor="let tag of tagsOfArticle"
+                            (click)="removeTag(tag)">{{tag.title}}
+                            <i class="text-danger fa fa-times"></i></span>
+                    </div>
+                    <div class="col-12">
+                        <span class="btn btn-outline-light mt-1 mb-1" style="padding: 0 !important;">
+                            <input class="form-control" id="tagTitle" type="text" [(ngModel)]="newTag"
+                                [ngbTypeahead]="searchTag" [resultFormatter]="resultFormatBandListValue"
+                                [inputFormatter]="inputFormatBandListValue" #instance="ngbTypeahead"
+                                placeholder="New tag" required (change)="onTagInputChange()">
+                            <label *ngIf="showTagAddedWaring()" class="alert-dark m-2">
+                                Tag <b>{{newTag}}</b> is already added.</label>
+                        </span>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </ng-template>

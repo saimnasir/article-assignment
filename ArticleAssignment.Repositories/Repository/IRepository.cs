@@ -18,7 +18,7 @@ namespace ArticleAssignment.Repositories
         
         public IEnumerable<T> Search(object parameters);
 
-        public T Find(object parameters);
+        public T Find(T dataModel, object parameters);
 
     }
 }

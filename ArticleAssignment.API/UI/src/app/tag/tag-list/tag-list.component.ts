@@ -4,7 +4,7 @@ import { TagService } from 'src/app/services/tag.service';
 import { SearchTagInput } from 'src/app/models/inputs/search-tag.model';
 import { Article } from 'src/app/models/article.model';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 
@@ -18,8 +18,9 @@ export class TagListComponent implements OnInit {
 
   @Input() article: Article;
   modalConfig = new NgbModalConfig();
-  tagsOfArticle: Tag[];
-  tags: Tag[];
+  tagsOfArticle: Tag[] = [];
+  availableTags: Tag[] = [];
+  removedTagsOfArticle: Tag[] = [];
   autoCompleteModel: any;
 
   constructor(
@@ -35,13 +36,14 @@ export class TagListComponent implements OnInit {
   refreshList() {
     const input = new SearchTagInput();
     input.ArticleId = this.article.id;
-
     this.tagService.searchAsync(input, 'Search').subscribe(articleTags => {
       this.tagsOfArticle = articleTags;
+      console.log('this.tagsOfArticle', this.tagsOfArticle);
+    });
+    this.tagService.listAllAsync().subscribe(allTags => {
+      this.availableTags = allTags.filter(t => this.filterArticleTagsById(t));
+      console.log('this.availableTags', this.availableTags);
 
-      this.tagService.listAllAsync().subscribe(allTags => {
-        this.tags = allTags.filter(t => this.filterArticleTagsById(t));
-      });
     });
   }
 
@@ -50,7 +52,7 @@ export class TagListComponent implements OnInit {
       debounceTime(200),
       distinctUntilChanged(),
       map(term => term.length < 2 ? []
-        : this.tags.filter(v => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+        : this.availableTags.filter(v => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     );
   }
 
@@ -73,39 +75,57 @@ export class TagListComponent implements OnInit {
     return this.tagsOfArticle.findIndex(t => t.title === tag.title) >= 0;
   }
 
-  onCreate(modal: TemplateRef<any>) {
-    this.modalService.dismissAll();
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'md';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalService.open(modal, this.modalConfig);
-  }
-
-  addTag() {
+  addTag(tag: Tag) {
     let tagTitle = '';
     if (this.autoCompleteModel instanceof Object) {
       tagTitle = this.autoCompleteModel.title;
     } else {
       tagTitle = this.autoCompleteModel;
     }
-
-    const model = new Tag();
-    model.articleId = this.article.id;
-    model.title = tagTitle;
-    model.createDate = new Date();
-    model.updateDate = new Date();
-    model.description = tagTitle;
-    if (this.filterArticleTagsByTitle(model)) {
-      alert('This tag is already added!');
-    } else {
-      console.log('model', model);
-      this.articleService.addTag(model).subscribe(result => {
-        this.modalService.dismissAll();
-        this.refreshList();
+    if (tagTitle) {
+      const model = new Tag();
+      model.articleId = this.article.id;
+      model.title = tagTitle;
+      model.createDate = new Date();
+      model.updateDate = new Date();
+      model.description = tagTitle;
+      if (!this.filterArticleTagsByTitle(model)) {
+        this.tagsOfArticle.push(model);
         this.autoCompleteModel = null;
-      });
+        this.availableTags = this.availableTags.filter(t => t.title !== model.title);
+      }
     }
   }
+
+  removeTag(tag: Tag) {
+    console.log('removeTag Tag:', tag);
+    console.log('removeTag removedTagsOfArticle:', this.removedTagsOfArticle);
+    this.tagsOfArticle = this.tagsOfArticle.filter(t => t.title !== tag.title);
+    this.removedTagsOfArticle.push(tag);
+  }
+
+  createAndDeleteTags(): Observable<boolean> {
+    return new Observable<boolean>(() => {
+      this.createTags().subscribe();
+      this.deleteTags().subscribe();
+    });
+  }
+
+  createTags(): Observable<boolean> {
+    return new Observable<boolean>(() => {
+      this.tagsOfArticle.forEach(tag => {
+        this.articleService.addTag(tag).subscribe();
+      });
+    });
+  }
+
+  deleteTags(): Observable<boolean> {
+    return new Observable<boolean>(() => {
+      this.tagsOfArticle.forEach(tag => {
+        this.articleService.removeTag(tag).subscribe();
+      });
+    });
+  }
+
 }
 

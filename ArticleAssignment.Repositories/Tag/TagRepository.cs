@@ -2,6 +2,7 @@
 using ArticleAssignment.DataModels;
 using ArticleAssignment.Queries;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,16 +49,19 @@ namespace ArticleAssignment.Repositories
                 input.QueryText,
                 input.ArticleId
             };
-            return base.Search(parameters);
+            var tags = base.Search(parameters).ToList();
+            return tags;
         }
 
-        public Tag Find(string title)
+        public Tag Find(Tag tag)
         {
             var parameters = new
             {
-                Title = title
+                tag.Title,
+                tag.Id
             };
-            return base.Find(parameters);
+            tag = base.Find(tag, parameters);
+            return tag;
         }
     }
 }
