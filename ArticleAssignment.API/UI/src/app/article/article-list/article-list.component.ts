@@ -59,9 +59,7 @@ export class ArticleListComponent implements OnInit {
   articleList: Article[];
   articleForm: FormGroup;
   searchForm: FormGroup;
-  newArticle = new Article();
   isCollapsed = false;
-  searchInput = new SearchInputBase(); // geçici
 
   constructor(
     public articleService: ArticleService,
@@ -89,8 +87,9 @@ export class ArticleListComponent implements OnInit {
 
   search() {
     if (this.searchForm.valid) {
-      Object.assign(this.searchInput, this.searchForm.value);
-      this.articleService.searchAsync(this.searchInput).subscribe(result => {
+      const searchInput = new SearchInputBase();
+      Object.assign(searchInput, this.searchForm.value);
+      this.articleService.searchAsync(searchInput).subscribe(result => {
         this.articleList = result;
       });
     }
@@ -101,11 +100,11 @@ export class ArticleListComponent implements OnInit {
 
   create() {
     if (this.articleForm.valid) {
-      Object.assign(this.newArticle, this.articleForm.value);
-      this.articleService.create(this.newArticle).subscribe(result => {
+      const newArticle = new Article();
+      Object.assign(newArticle, this.articleForm.value);
+      this.articleService.create(newArticle).subscribe(result => {
         this.refreshList();
         this.modalService.dismissAll();
-        this.newArticle = new Article();
       });
     }
     else {

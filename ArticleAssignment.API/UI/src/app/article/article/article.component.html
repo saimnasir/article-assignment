@@ -1,6 +1,6 @@
 <div class="container">
     <div class="card row mt-2 alert-info">
-        <div class="card-header col-12" style="border-bottom: darkcyan solid;">
+        <div class="card-header col-12 alert-dark" style="border-bottom: darkcyan solid;">
             <div class="row">
                 <div class="col-9">
                     <h4 class="text-left">{{article.title}} </h4>
@@ -19,41 +19,18 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer text-muted alert-dark" style="border-bottom: darkturquoise groove;">
             <div class="row">
-                <div class="col-12">
-                    <div class="row text-primary" style="border-bottom: darkturquoise groove;">
-                        <div class="col-12 text-right mb-2">
-                            <div class="btn-group" role="group" aria-label="Actions">
-                                <button class="btn btn-outline-primary" (click)="toggleComments()">
-                                    <i class="fa fa-caret-down"></i> Likes (6)</button>
-                                <button class="btn btn-outline-primary" (click)="toggleComments()">
-                                    <i class="fa fa-caret-down"></i> Comments (6)</button>
-                                <button type="button" class="btn btn-outline-success ml-2"
-                                    (click)="toggleNewCommentForm()">Add Comment</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="container">
-                    <div class="col-12">
-                        <app-comment-list #appComments [author]="author" [article]="article">
-                        </app-comment-list>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="card-footer text-muted">
-            <div class="row">
-                <div class="col-8">
+                <div class="col-6">
                     <app-entity-history [createDate]="article.createDate" [updateDate]="article.updateDate">
                     </app-entity-history>
                 </div>
-                <div class="col-4 text-right">
+                <div class="col-6 text-right">
                     <div class="btn-group" role="group" aria-label="Actions">
+                        <!-- <button class="btn btn-outline-primary" (click)="toggleComments()">
+                            <i class="fa fa-caret-down"></i> Likes (6)</button>
+                        <button class="btn btn-outline-primary ml-2" (click)="toggleComments()">
+                            <i class="fa fa-caret-down"></i> Comments (6)</button> -->
                         <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
                             (click)="onUpdate(updateModal)">Edit</button>
                         <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
@@ -62,6 +39,18 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="container">
+                    <div class="col-12">
+                        <app-comment-list #appComments [article]="article">
+                        </app-comment-list>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
     <ng-template #updateModal let-modal>

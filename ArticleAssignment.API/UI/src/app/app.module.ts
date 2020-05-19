@@ -23,6 +23,7 @@ import { EntityHistoryComponent } from './entity/entity-history/entity-history.c
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ModalComponent } from './modal/modal/modal.component';
 import { ArticleEditComponent } from './article/article/article-edit/article-edit.component';
+import { HoverClassDirective } from './directives/hover-class.directive';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ArticleEditComponent } from './article/article/article-edit/article-edi
     AuthorComponent,
     EntityHistoryComponent,
     ModalComponent,
-    ArticleEditComponent
+    ArticleEditComponent,
+    HoverClassDirective
   ],
   imports: [
     BrowserModule,

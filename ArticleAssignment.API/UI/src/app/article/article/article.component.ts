@@ -9,6 +9,7 @@ import { ArticleListComponent } from '../article-list/article-list.component';
 import { ActivatedRoute } from '@angular/router';
 import { CommentListComponent } from 'src/app/comment/comment-list/comment-list.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-article',
@@ -25,7 +26,7 @@ export class ArticleComponent implements OnInit {
     spellcheck: false,
     height: 'auto',
     minHeight: '0',
-    maxHeight: '20px',
+    maxHeight: '450px',
     width: 'auto',
     minWidth: '0',
     translate: 'no',
@@ -82,7 +83,9 @@ export class ArticleComponent implements OnInit {
       this.articleId = this.article.id;
     }
     this.authorService.read(this.article.authorId)
-      .subscribe(result => this.author = result);
+      .subscribe(result => {
+        this.author = result;
+      });
     this.createForm();
   }
 
@@ -110,7 +113,6 @@ export class ArticleComponent implements OnInit {
       this.articleService.update(this.model).subscribe(result => {
         this.article = result;
         this.modalService.dismissAll();
-        // this.container.refreshList();
       });
     }
     else {
@@ -141,9 +143,6 @@ export class ArticleComponent implements OnInit {
 
   toggleComments() {
     this.appComments.toggleComments();
-  }
-  toggleNewCommentForm() {
-    this.appComments.toggleNewCommentFrom();
   }
 
   commentCounts(): number {

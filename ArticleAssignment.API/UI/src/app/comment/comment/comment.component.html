@@ -1,11 +1,11 @@
-<div class="container" style="border-bottom: darkcyan dotted 1px;">
-    <div *ngIf="isReadAction()" class="card row mt-2 " [ngClass]="cardClass">
+<div class="container">
+    <div class="card row mt-2 " [ngClass]="cardClass" (mouseover)="onMouseover()" (mouseout)="onMouseOut()">
         <div class="col-12 m-2">
             <div class="row">
                 <div class="col-3">
                     <app-user-info [author]="author"></app-user-info>
                 </div>
-                <div class="col-9">
+                <div class="col-9" *ngIf="isReadAction()">
                     <div class="row">
                         <span class="col-12"> {{comment.content}}
                         </span>
@@ -16,36 +16,31 @@
                                 <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
                                     (click)="onEdit()"><i class="fa fa-edit"></i></button>
                                 <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                                    (click)="toggleDeleteMode()"><i class="fa fa-trash"></i></button>
+                                    (click)="onDelete(deleteModal)"><i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="showForm()" class="card row mt-2 " [ngClass]="cardClass">
-        <div class="col-12 m-2">
-            <div class="row">
-                <div class="col-3">
-                    <app-user-info [author]="author"></app-user-info>
-                </div>
-                <div class="col-9">
+                <div *ngIf="isCreateAction() || isUpdateAction()" class="col-9">
                     <div class="row">
                         <div class="col-12">
-                            <form [formGroup]="commentForm" *ngIf="showForm">
+                            <form [formGroup]="commentForm">
                                 <div class="col-12">
                                     <textarea type="text" class="form-control" formControlName="content"
                                         placeholder="Your Comment" required></textarea>
                                 </div>
                                 <div class="col-12 text-right mt-2 ">
                                     <div class="btn-group" role="group" aria-label="Actions">
-                                        <button *ngIf="isUpdateAction()" class="btn btn-success"
-                                            (click)="update()">Save</button>
-                                        <button *ngIf="isCreateAction()" class="btn btn-success"
-                                            (click)="create()">Create</button>
-                                        <button type="button" class="btn btn-outline-secondary ml-2 my-2 my-sm-0"
-                                            (click)="discard()">Discard</button>
+                                        <button *ngIf="isCreateAction()" class="btn btn-success" (click)="create()"><i
+                                                class="fa fa-plus mr-2"></i>Add</button>
+                                        <button *ngIf="isCreateAction() && commentForm.get('content').value"
+                                            type="button" class="btn btn-outline-dark ml-2"
+                                            (click)="onDiscardCreate()">Clear</button>
+
+                                        <button *ngIf="isUpdateAction()" class="btn btn-success" (click)="update()"><i
+                                                class="fa fa-check-square mr-2"></i>Save</button>
+                                        <button *ngIf="isUpdateAction()" type="button" class="btn btn-outline-dark ml-2"
+                                            (click)="onDiscardUpdate()">Discard</button>
                                     </div>
                                 </div>
                             </form>
@@ -55,31 +50,39 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div *ngIf="isDeleteAction()" class="card row mt-2 alert-dark">
-        <div class="col-12 m-2">
-            <div class="row">
-                <div class="col-3">
-                    <app-user-info [author]="author"></app-user-info>
+<ng-template #deleteModal let-modal>
+    <div class="modal-header alert-danger">
+        <h4 class="modal-title" id="modal-basic-title">Delete Comment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body alert alert-info">
+        <div class="row ">
+            <div class="col-12 alert">
+                <div class="row ">
+                    <div class="col-3">
+                        <app-user-info [author]="author"></app-user-info>
+                    </div>
+                    <div class="col-9">
+                        <p> {{comment.content}} </p>
+                    </div>
                 </div>
-                <div class="col-9">
-                    <div class="row">
-                        <span class="col-12"> {{comment.content}}
-                        </span>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 text-right">
-                            <!-- <label  class="col-form-label  text-right">Are you sure?</label> -->
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-danger my-2 ml-2  my-sm-0"
-                                    (click)="delete()">Delete</button>
-                                <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                                    (click)="discard()">Discard</button>
-                            </div>
-                        </div>
-                    </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-12 text-right">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-dark"
+                        (click)="modal.close('Close click')">Close</button> <button type="button"
+                        class="btn btn-outline-danger ml-2" (click)="delete()">Delete</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</ng-template>
