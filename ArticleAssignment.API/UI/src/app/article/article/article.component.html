@@ -27,10 +27,6 @@
                 </div>
                 <div class="col-6 text-right">
                     <div class="btn-group" role="group" aria-label="Actions">
-                        <!-- <button class="btn btn-outline-primary" (click)="toggleComments()">
-                            <i class="fa fa-caret-down"></i> Likes (6)</button>
-                        <button class="btn btn-outline-primary ml-2" (click)="toggleComments()">
-                            <i class="fa fa-caret-down"></i> Comments (6)</button> -->
                         <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
                             (click)="onUpdate(updateModal)">Edit</button>
                         <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
@@ -48,9 +44,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <ng-template #updateModal let-modal>
@@ -77,7 +71,7 @@
                     <div class="col-12">
                         <div class="form-group row">
                             <label for="content" class="col-sm-2 col-form-label  text-right">Content :</label>
-                            <div class="col p-2 ml-3 mr-3" style="background-color: aliceblue;">
+                            <div class="col p-2 ml-3 mr-3" style="border: #ced4da solid 1px;">
                                 <div class="row">
                                     <angular-editor class="col-12" [placeholder]="'Content'" formControlName="content"
                                         [config]="editorConfig">
@@ -86,6 +80,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <ng-container *ngTemplateOutlet="tagTemplateOutlet"></ng-container>
                 </div>
             </div>
             <div class="modal-footer">
@@ -139,6 +136,36 @@
                                 (click)="modal.close('Close click')">Close</button> <button type="button"
                                 class="btn btn-outline-danger ml-2" (click)="delete()">Delete</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+
+    <ng-template #tagTemplateOutlet>
+        <div class="col-12 alert">
+            <div class="form-group row">
+                <label for="content" class="col-sm-2 col-form-label  text-right">Tags :</label>
+                <div class="col p-2 ml-3 mr-3">
+                    <div class="row" style="border: #ced4da solid 1px;">
+                        <div class="col-12">
+                            <span class="btn btn-outline-info mr-1 mt-1" *ngFor="let tag of tagsOfArticle"
+                                (click)="removeTag(tag)">{{tag.title}}
+                                <i class="text-danger fa fa-times"></i></span>
+                        </div>
+                        <div class="col-12">
+                            <span class="btn btn-outline-light mt-1 mb-1" style="padding: 0 !important;">
+                                <input class="form-control" id="tagTitle" type="text" [(ngModel)]="autoCompleteModel"
+                                    [ngbTypeahead]="search" [resultFormatter]="resultFormatBandListValue"
+                                    [inputFormatter]="inputFormatBandListValue" #instance="ngbTypeahead"
+                                    placeholder="New tag" required (change)="onTagInputChange()">
+                                <label *ngIf="showTagAddedWaring()" class="alert-dark m-2">
+                                    Tag <b>{{autoCompleteModel}}</b> is already added.</label>
+                            </span>
+
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -2,13 +2,11 @@ import { Component, OnInit, Input, TemplateRef, ViewEncapsulation } from '@angul
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
 import { SearchTagInput } from 'src/app/models/inputs/search-tag.model';
-import { FormGroup, FormControl } from '@angular/forms';
 import { Article } from 'src/app/models/article.model';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, switchMap, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
-import { strict } from 'assert';
 
 @Component({
   selector: 'app-tag-list',

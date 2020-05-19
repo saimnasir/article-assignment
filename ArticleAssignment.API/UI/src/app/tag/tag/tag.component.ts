@@ -40,7 +40,7 @@ export class TagComponent implements OnInit {
     });
   }
 
-  openAcitonsModal(modal: TemplateRef<any>) {
+  openActionsModal(modal: TemplateRef<any>) {
     this.modalConfig.ariaLabelledBy = 'modal-basic-title';
     this.modalConfig.size = 'md';
     this.modalConfig.backdrop = 'static';
