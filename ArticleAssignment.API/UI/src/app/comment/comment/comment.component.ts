@@ -24,7 +24,7 @@ export class CommentComponent implements OnInit {
   author: Author;
   model = new Comment();
   commentForm: FormGroup;
-  cardClass = 'alert-light';
+  cardClass = '';
   modalConfig = new NgbModalConfig();
 
   constructor(
@@ -45,11 +45,11 @@ export class CommentComponent implements OnInit {
   }
 
   onMouseover() {
-    this.cardClass = 'alert-success';
+    this.cardClass = 'alert-info';
   }
 
   onMouseOut() {
-    this.cardClass = 'alert-light';
+    this.cardClass = '';
   }
 
   onEdit() {

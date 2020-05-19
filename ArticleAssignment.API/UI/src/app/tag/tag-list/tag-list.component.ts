@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Tag } from 'src/app/models/tag.model';
 import { TagService } from 'src/app/services/tag.service';
 import { SearchTagInput } from 'src/app/models/inputs/search-tag.model';
 import { Article } from 'src/app/models/article.model';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 

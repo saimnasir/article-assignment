@@ -19,7 +19,8 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer text-muted alert-dark" style="border-bottom: darkturquoise groove;">
+        <div class="card-footer text-muted alert-info"
+            style="border-top: darkcyan solid 1px;border-bottom: darkcyan solid 1px;">
             <div class="row">
                 <div class="col-6">
                     <app-entity-history [createDate]="article.createDate" [updateDate]="article.updateDate">
@@ -35,13 +36,11 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="container">
-                    <div class="col-12">
-                        <app-comment-list #appComments [article]="article">
-                        </app-comment-list>
-                    </div>
+        <div class="card-footer alert-dark">
+            <div class="row ">
+                <div class="col-12 ">
+                    <app-comment-list #appComments [article]="article">
+                    </app-comment-list>
                 </div>
             </div>
         </div>
