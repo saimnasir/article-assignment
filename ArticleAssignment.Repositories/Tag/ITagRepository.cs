@@ -9,5 +9,6 @@ namespace ArticleAssignment.Repositories
         public Tag Create(Tag tag);
         public Tag Update(Tag tag);
         public IEnumerable<Tag> Search(SearchTagInput input);
+        public Tag Find(string title);
     }
 }

@@ -1,45 +1,89 @@
-<span ngbDropdown
-    [className]="showActions ? 'd-inline-block btn btn-outline-success badge badge-pill bagde-secondary  mr-1 d-inline-block' : 'd-inline-block btn btn-outline-info badge badge-pill bagde-secondary  mr-1 d-inline-block '"
-    (click)="toggleShowActions()">{{tag.title}}
-    <span *ngIf="editMode"
-        class="d-inline-block btn btn-outline-primary badge badge-pill bagde-dark  mr-1 d-inline-block "
-        (click)="toggleShowForm()" data-toggle="tooltip" data-placement="left" title="Edit">E</span>
-    <span *ngIf="editMode"
-        class="d-inline-block btn btn-outline-danger badge badge-pill bagde-dark  mr-1 d-inline-block "
-        data-toggle="tooltip" data-placement="left" title="Delete" (click)="toggleDeleteMode()">D</span>
-</span> 
-<div class="row" *ngIf="showActions">
-    <div class="col-12 text-right">
-        <div class="btn-group" role="group" aria-label="Actions">
-            <button *ngIf="!showForm  && !deleteMode" class="btn btn-outline-secondary"
-                (click)="toggleShowActions()">Collapse</button>
-            <button *ngIf="!showForm  && !deleteMode" type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
-                (click)="toggleShowForm()">Edit</button>
-            <button *ngIf="!showForm  && !deleteMode" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                (click)="toggleDeleteMode()">Delete</button>
+<span class="btn btn-link badge badge-pill bagde-secondary  mr-1"
+    (click)="openAcitonsModal(actionsModal)">{{tag.title}} </span>
+
+<ng-template #actionsModal let-modal>
+    <div class="modal-header alert-info">
+        <h4 class="modal-title" id="modal-basic-title">Tag</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h4 class="modal-title" id="modal-basic-title">{{tag.title}} </h4>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-12 text-right">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-dark ml-2"
+                        (click)="modal.close('Close click')">Close</button>
+                    <button type="button" class="btn btn-outline-success ml-2"
+                        (click)="onUpdate(updateModal)">Edit</button>
+                    <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                        (click)="onDelete(deleteModal)">Delete</button>
+
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="row" *ngIf="deleteMode">
-    <div class="col-12 text-right">
-        <div class="alert alert-danger" role="alert">
-            Think twice before delete this tag!
+</ng-template>
+
+<ng-template #updateModal let-modal>
+    <form [formGroup]="tagForm">
+        <div class="modal-header alert-success">
+            <h4 class="modal-title" id="modal-basic-title">Edit Tag</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <div class="btn-group" role="group" aria-label="Actions">
-            <button *ngIf="!showForm" class="btn btn-danger" (click)="delete()">Delete</button>
-            <button *ngIf="showForm || deleteMode" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                (click)="discard()">Discard</button>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-2 col-form-label text-right">Tag :</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="title" placeholder="Tag" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modalService.dismissAll()">Close</button>
+                        <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
+                            (click)="update()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+
+<ng-template #deleteModal let-modal>
+    <div class="modal-header alert-danger">
+        <h4 class="modal-title" id="modal-basic-title">Delete Tag</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h4 class="modal-title" id="modal-basic-title">{{tag.title}}</h4>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-12 text-right">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-dark ml-2"
+                    (click)="modalService.dismissAll()">Close</button>
+                      <button class="btn btn-danger ml-2" (click)="delete()">Delete</button>
+                    
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<form class="form-group row mt-4" *ngIf="showForm">
-    <input class="form-control col-12" type="text" [(ngModel)]="tag.title" name="title" placeholder="Tag"
-        aria-label="Title" />
-    <div class="col-12 text-right">
-        <div class="btn-group" role="group" aria-label="Actions">
-            <button class="btn btn-success" (click)="update()">Update</button>
-            <button *ngIf="showForm || deleteMode" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                (click)="discard()">Discard</button>
-        </div>
-    </div>
-</form>
+</ng-template>

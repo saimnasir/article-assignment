@@ -3,7 +3,7 @@ import { Author } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DialogComponent } from 'src/app/dialog/dialog/dialog.component';
+import { AuthorListComponent } from '../author-list/author-list.component';
 
 @Component({
   selector: 'app-author',
@@ -12,16 +12,21 @@ import { DialogComponent } from 'src/app/dialog/dialog/dialog.component';
 })
 export class AuthorComponent implements OnInit {
 
+  @Input() container: AuthorListComponent;
+
   @Input() author: Author;
   authorId: number;
   showForm = false;
   deleteMode = false;
   model = new Author();
+  authorForm: FormGroup;
+  header: string;
+  cardClass = '';
+
   constructor(
     private route: ActivatedRoute,
-    private authorService: AuthorService) { }
-
-  authorForm: FormGroup;
+    private authorService: AuthorService
+  ) { }
 
   ngOnInit(): void {
     this.authorId = +this.route.snapshot.paramMap.get('id');
@@ -30,10 +35,15 @@ export class AuthorComponent implements OnInit {
     } else {
       this.authorId = this.author.id;
     }
+    this.header = this.getFullName();
+    this.createForm();
   }
 
   getFullName(): string {
-    return this.author.firstName.concat(' ', this.author.middleName, ' ', this.author.lastName);
+    if (this.author.middleName) {
+      return `${this.author.firstName} ${this.author.middleName} ${this.author.lastName}`;
+    }
+    return `${this.author.firstName} ${this.author.lastName}`;
   }
 
   read(id: number): void {
@@ -42,7 +52,8 @@ export class AuthorComponent implements OnInit {
   }
 
   toggleShowForm() {
-    this.createForm();
+    this.showForm = !this.showForm;
+    this.setHeader();
   }
 
   update() {
@@ -52,6 +63,7 @@ export class AuthorComponent implements OnInit {
       this.authorService.update(this.model).subscribe(result => {
         this.author = result;
         this.toggleShowForm();
+        this.container.refreshList();
       });
     }
     else {
@@ -61,9 +73,13 @@ export class AuthorComponent implements OnInit {
 
   toggleDeleteMode() {
     this.deleteMode = !this.deleteMode;
+    this.setHeader();
   }
+
   delete() {
     this.authorService.delete(this.authorId).subscribe(result => {
+      this.container.refreshList();
+      this.toggleDeleteMode();
     });
   }
 
@@ -80,11 +96,24 @@ export class AuthorComponent implements OnInit {
       createDate: new FormControl(this.author.createDate),
       updateDate: new FormControl(this.author.updateDate)
     });
-    this.showForm = !this.showForm;
   }
 
   discard() {
     this.showForm = false;
     this.deleteMode = false;
+    this.setHeader();
+  }
+
+  setHeader() {
+    if (this.showForm) {
+      this.header = `Edit ${this.getFullName()}`;
+      this.cardClass = 'alert-light';
+    } else if (this.deleteMode) {
+      this.header = `Delete ${this.getFullName()}`;
+      this.cardClass = 'alert-dark';
+    } else {
+      this.header = `${this.getFullName()}`;
+      this.cardClass = '';
+    }
   }
 }

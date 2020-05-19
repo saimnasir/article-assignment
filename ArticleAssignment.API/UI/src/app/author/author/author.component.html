@@ -1,20 +1,10 @@
 <div class="container">
-    <div class="card row mt-2 alert-info">
+    <div class="card row mt-2 alert-info" [ngClass]="cardClass">
         <div class="card-header col-12" style="border-bottom: darkcyan solid;">
             <div class="row">
-                <div class="col-12 my-2 my-sm-0 ">
-                    <h4 class="text-left">{{getFullName() }} </h4>
+                <div class="col-12 my-2 my-sm-0">
+                    <h4 class="text-left">{{header }} </h4>
                 </div>
-                <!-- <div class="col-3 text-right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button *ngIf="!showForm && !deleteMode" type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
-                            (click)="toggleShowForm()">Edit</button>
-                        <button *ngIf="!showForm && !deleteMode" type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="toggleDeleteMode()">Delete</button>
-                        <button *ngIf="showForm || deleteMode" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                            (click)="discard()">Discard</button>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="card-body">
@@ -103,16 +93,12 @@
                             <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
                                 (click)="discard()">Discard</button>
                         </div>
-
                     </div>
                 </div>
             </form>
 
             <div class="row" *ngIf="deleteMode">
                 <div class="col-12 text-right">
-                    <div class="alert alert-danger" role="alert">
-                        Think twice before delete this author!
-                    </div>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-danger my-2 ml-2  my-sm-0"
                             (click)="delete()">Delete</button>
@@ -139,7 +125,6 @@
                             class="btn btn-outline-secondary my-2 ml-2  my-sm-0" (click)="discard()">Discard</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

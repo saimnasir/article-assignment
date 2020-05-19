@@ -1,13 +1,128 @@
 <div class="container">
-    <div class="row mt-2">
-        <div class="col-12">
-            <div class="row  alert alert-dark" role="alert">
-                <h3 class="col-10 text-success">Authors</h3>
-                <button class="btn btn-success my-2 my-sm-0 col-2" style="min-width: 13%;" routerLink="/author/new">Create
-                    Author</button>
+    <div class="card row mt-2 alert-info" [ngClass]="cardClass">
+        <div *ngIf="onCreate" class="card-header col-12">
+            <h4 *ngIf="onCreate">Create New Author</h4>
+        </div>
+        <div *ngIf="!onCreate" class="card-header col-12 text-right">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                    Filter
+                </button>
+                <button type="button" class="btn btn-success my-2 ml-2  my-sm-0" (click)="toggleCreate()">New Author
+                </button>
             </div>
+        </div>
+        <div *ngIf="isCollapsed" class="card-body" id="collapseExample" [ngbCollapse]="!isCollapsed"
+            style="border-top: black 2px solid;">
+            <form [formGroup]="searchForm">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="queryText" class="col-sm-3 col-form-label  text-right">Search Text :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="queryText"
+                                    placeholder="Search Text" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-right">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
+                                (click)="search()">Filter</button>
+                            <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                                (click)="isCollapsed = !isCollapsed">Collapse</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="onCreate" class="card-body" id="collapseExample" [ngbCollapse]="!onCreate"
+            style="border-top: black 2px solid;">
+            <form [formGroup]="authorForm">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="firstName" class="col-sm-3 col-form-label text-right">First Name :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="firstName"
+                                    placeholder="First Name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="middleName" class="col-sm-3 col-form-label  text-right">Middle Name :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="middleName"
+                                    placeholder="Middle Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="lastName" class="col-sm-3 col-form-label  text-right">Last Name :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="lastName"
+                                    placeholder="Last Name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="birthDate" class="col-sm-3 col-form-label  text-right">Birth Date :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="birthDate"
+                                    placeholder="Birth Date" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label  text-right">Email :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="email" placeholder="Email"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="phone" class="col-sm-3 col-form-label  text-right">Phone :</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" formControlName="phone" placeholder="Phone"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-3 col-form-label  text-right">About :</label>
+                            <div class="col-sm-9">
+                                <textarea type="about" class="form-control" formControlName="about" placeholder="About"
+                                    required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
+                                (click)="create()">Create</button>
+                            <button type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
+                                (click)="toggleCreate()">Discard</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<app-author class="row mb-1" *ngFor="let author of authorService.completeList" [author]="author">
+
+<app-author *ngFor="let author of authorList" [author]="author" [container]="this">
 </app-author>

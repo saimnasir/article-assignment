@@ -4,6 +4,7 @@ using ArticleAssignment.DataModels;
 using ArticleAssignment.Core;
 using System.Collections.Generic;
 using ArticleAssignment.Core.Enums;
+using ArticleAssignment.Core.Extensions;
 
 namespace ArticleAssignment.Repositories
 {
@@ -23,7 +24,7 @@ namespace ArticleAssignment.Repositories
                 article.Content,
                 article.AuthorId,
                 article.CategoryId,
-                State = States.Waiting,
+                State = States.Waiting.ToLong(),
                 EntityState = EntityStates.Createted
             };
             return base.Create(article, parameters);

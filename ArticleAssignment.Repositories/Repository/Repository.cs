@@ -129,6 +129,18 @@ namespace ArticleAssignment.Repositories
 
             return items;
         }
+        public T Find(object parameters)
+        {
+            setCurrentTable();
+
+            return _executers.ExecuteCommand(
+                _connStr,
+                conn => conn.QueryFirstOrDefault<T>(
+                    _commandText.FindCommand,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                ));
+        }
 
         private string getConnectionString()
         {
@@ -139,6 +151,7 @@ namespace ArticleAssignment.Repositories
         {
             _commandText.CurrentTableName = _tableName;
         }
+
 
     }
 }

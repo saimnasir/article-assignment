@@ -1,32 +1,40 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12   align-middle">
-            <div class="row text-secondary ml-1" *ngFor="let comment of comments">
-                <app-comment style="width: 100%;" [author]="author" [comment]="comment"></app-comment>
-            </div>
+<app-comment [comment]="newEmptyComment" [article]="article" [container]="this" [action]="1">
+</app-comment>
+<app-comment *ngFor="let comment of allComments" [comment]="comment" [article]="article" [container]="this">
+</app-comment>
+
+<ng-template #createModal let-modal>
+    <form [formGroup]="commentForm">
+        <div class="modal-header alert-success">
+            <h4 class="modal-title" id="modal-basic-title">Add New Comment</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <div class="col-12 text-right mt-2" *ngIf="!showCommentFrom">
-            <div class="btn-group" role="group" aria-label="Actions">
-                <button class="btn btn-outline-success" (click)="like()">Like</button>
-                <button type="button" class="btn btn-outline-primary ml-2  my-sm-0"
-                    (click)="toggleShowCommentFrom()">Add Comment</button>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="container">
-                <form class="form-group row mt-2" *ngIf="showCommentFrom">
-                    <textarea class="form-control" type="search" [(ngModel)]="content" name="content"
-                        placeholder="Comment" aria-label="Comment"></textarea>
-                    <div class="col-12 text-right mt-2">
-                        <div class="btn-group" role="group" aria-label="Actions">
-                            <button class="btn btn-success" (click)="addComment()">Add Comment</button>
-                            <button type="button" class="btn btn-outline-secondary ml-2  my-sm-0"
-                                (click)="toggleShowCommentFrom()">Discard</button>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <label for="content" class="col-sm-2 col-form-label text-right">Your Comment :</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" formControlName="content"
+                                placeholder="Your Comment" required></textarea>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-
-</div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Close click')">Close</button>
+                        <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
+                            (click)="create()">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>

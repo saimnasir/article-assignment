@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArticleService } from './services/article.service';
@@ -21,7 +20,10 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastComponent } from './tools/toast/toast.component';
 import { AuthorComponent } from './author/author/author.component';
 import { EntityHistoryComponent } from './entity/entity-history/entity-history.component';
-import { DialogComponent } from './dialog/dialog/dialog.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ModalComponent } from './modal/modal/modal.component';
+import { ArticleEditComponent } from './article/article/article-edit/article-edit.component';
+import { HoverClassDirective } from './directives/hover-class.directive';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DialogComponent } from './dialog/dialog/dialog.component';
     ToastComponent,
     AuthorComponent,
     EntityHistoryComponent,
-    DialogComponent
+    ModalComponent,
+    ArticleEditComponent,
+    HoverClassDirective
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,8 @@ import { DialogComponent } from './dialog/dialog/dialog.component';
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularEditorModule
   ],
   providers: [
     ArticleService,

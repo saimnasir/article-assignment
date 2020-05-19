@@ -68,8 +68,9 @@ namespace ArticleAssignment.API.Controllers
             }
         }
 
-        // POST: api/Author
+        // PUT: api/Author/Create
         [HttpPost]
+        [Route("Create")]
         public ActionResult Create(Author viewModel)
         {
             try
@@ -91,7 +92,7 @@ namespace ArticleAssignment.API.Controllers
         // PUT: api/Author/Update
         [HttpPut]
         [Route("Update")]
-        public ActionResult<Author> Update(Author viewModel)
+        public ActionResult<Author> Update(Author viewModel)    
         {
             try
             {

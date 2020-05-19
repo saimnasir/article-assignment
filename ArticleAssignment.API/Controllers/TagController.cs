@@ -30,6 +30,7 @@ namespace ArticleAssignment.API.Controllers
 
         // GET: api/Tag
         [HttpGet]
+        [Route("ListAll")]
         public ActionResult<IEnumerable<ViewModels.Tag>> ListAll()
         {
             try
@@ -68,6 +69,7 @@ namespace ArticleAssignment.API.Controllers
 
         // POST: api/Tag
         [HttpPost]
+        [Route("Create")]
         public ActionResult<ViewModels.Tag> Create(ViewModels.Tag viewModel)
         {
             try
@@ -96,7 +98,7 @@ namespace ArticleAssignment.API.Controllers
                 dataModel = _repository.Update(dataModel);
 
                 viewModel = _mapper.Map<ViewModels.Tag>(dataModel);
-                return Ok(viewModel);
+                return viewModel;
             }
             catch (Exception ex)
             {
