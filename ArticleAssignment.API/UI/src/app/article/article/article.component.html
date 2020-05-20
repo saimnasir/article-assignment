@@ -137,19 +137,24 @@
                                 <i class="text-danger fa fa-times"></i></span>
                         </div>
                         <div class="col-12">
-                            <span class="btn btn-outline-light mt-1 mb-1" style="padding: 0 !important;">
-                                <input class="form-control" id="tagTitle" type="text"
-                                    [(ngModel)]="appTags.autoCompleteModel" [ngbTypeahead]="appTags.search"
-                                    [resultFormatter]="appTags.resultFormatBandListValue"
-                                    [inputFormatter]="appTags.inputFormatBandListValue" #instance="ngbTypeahead"
-                                    placeholder="New tag" required (change)="onTagInputChange()">
-                                <label *ngIf="showTagAddedWaring()" class="alert-dark m-2">
-                                    Tag <b>{{appTags.autoCompleteModel}}</b> is already added.</label>
-                            </span>
-
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="btn btn-outline-light" style="padding: 0 !important;">
+                                        <input class="form-control" id="tagTitle" type="text"
+                                            [(ngModel)]="appTags.autoCompleteModel" [ngbTypeahead]="appTags.search"
+                                            [resultFormatter]="appTags.resultFormatBandListValue"
+                                            [inputFormatter]="appTags.inputFormatBandListValue" #instance="ngbTypeahead"
+                                            placeholder="New tag" required (change)="onTagInputChange()">
+                                    </span>
+                                </div>
+                                <div class="col-sm-9">
+                                    <label *ngIf="showTagAddedWaring()" class="alert-warning form-control">
+                                        Tag <b>{{appTags.tagTitle}}</b> is already added.</label>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </div>

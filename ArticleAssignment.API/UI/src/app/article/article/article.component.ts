@@ -103,7 +103,7 @@ export class ArticleComponent implements OnInit {
 
   showTagAddedWaring(): boolean {
     const tag = new Tag();
-    tag.title = this.appTags.autoCompleteModel;
+    tag.title = this.appTags.tagTitle;
     return this.appTags.filterArticleTagsByTitle(tag);
   }
 
@@ -171,19 +171,7 @@ export class ArticleComponent implements OnInit {
   }
 
   onTagInputChange() {
-    let tagTitle = '';
-    if (this.appTags.autoCompleteModel instanceof Object) {
-      tagTitle = this.appTags.autoCompleteModel.title;
-    } else {
-      tagTitle = this.appTags.autoCompleteModel;
-    }
-    const tag = new Tag();
-    tag.articleId = this.article.id;
-    tag.title = tagTitle;
-    tag.createDate = new Date();
-    tag.updateDate = new Date();
-    tag.description = tagTitle;
-    this.appTags.addTag(tag);
+    this.appTags.addTag();
   }
 
 }

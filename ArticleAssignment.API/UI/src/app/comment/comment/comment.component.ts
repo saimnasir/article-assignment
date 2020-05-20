@@ -24,7 +24,7 @@ export class CommentComponent implements OnInit {
   author: Author;
   model = new Comment();
   commentForm: FormGroup;
-  cardClass = '';
+  cardClass = 'alert-info';
   modalConfig = new NgbModalConfig();
 
   constructor(
@@ -41,21 +41,26 @@ export class CommentComponent implements OnInit {
       this.author = result;
       this.commentForm.patchValue({ articleId: this.article.id });
       this.commentForm.patchValue({ authorId: this.author.id });
+      if (this.isCreateAction()) {
+        this.cardClass = 'alert-light';
+      }
     });
   }
 
   onMouseover() {
-    this.cardClass = 'alert-info';
+    this.cardClass = 'alert-light';
   }
 
   onMouseOut() {
-    this.cardClass = '';
+    if (!this.isCreateAction()) {
+      this.cardClass = 'alert-info';
+    }
   }
 
   onEdit() {
     this.action = CRUDActions.Update;
     this.createForm();
-    this.cardClass = 'alert-success';
+    this.cardClass = 'alert-light';
   }
 
   update() {
@@ -121,10 +126,10 @@ export class CommentComponent implements OnInit {
   onDiscardCreate() {
     this.commentForm.get('content').setValue(null);
   }
-  
+
   onDiscardUpdate() {
     this.action = CRUDActions.Read;
-    this.cardClass = 'alert-light';
+    this.cardClass = 'alert-info';
   }
 
   createForm() {

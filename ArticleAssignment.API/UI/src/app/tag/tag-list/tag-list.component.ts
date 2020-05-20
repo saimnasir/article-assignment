@@ -22,7 +22,7 @@ export class TagListComponent implements OnInit {
   availableTags: Tag[] = [];
   removedTagsOfArticle: Tag[] = [];
   autoCompleteModel: any;
-
+  tagTitle: string;
   constructor(
     public tagService: TagService,
     public articleService: ArticleService,
@@ -36,14 +36,13 @@ export class TagListComponent implements OnInit {
   refreshList() {
     const input = new SearchTagInput();
     input.ArticleId = this.article.id;
+
     this.tagService.searchAsync(input, 'Search').subscribe(articleTags => {
       this.tagsOfArticle = articleTags;
-      console.log('this.tagsOfArticle', this.tagsOfArticle);
     });
+
     this.tagService.listAllAsync().subscribe(allTags => {
       this.availableTags = allTags.filter(t => this.filterArticleTagsById(t));
-      console.log('this.availableTags', this.availableTags);
-
     });
   }
 
@@ -75,24 +74,23 @@ export class TagListComponent implements OnInit {
     return this.tagsOfArticle.findIndex(t => t.title === tag.title) >= 0;
   }
 
-  addTag(tag: Tag) {
-    let tagTitle = '';
+  addTag() {
     if (this.autoCompleteModel instanceof Object) {
-      tagTitle = this.autoCompleteModel.title;
+      this.tagTitle = this.autoCompleteModel.title;
     } else {
-      tagTitle = this.autoCompleteModel;
+      this.tagTitle = this.autoCompleteModel;
     }
-    if (tagTitle) {
+    if (this.tagTitle) {
       const model = new Tag();
       model.articleId = this.article.id;
-      model.title = tagTitle;
+      model.title = this.tagTitle;
       model.createDate = new Date();
       model.updateDate = new Date();
-      model.description = tagTitle;
+      model.description = this.tagTitle;
       if (!this.filterArticleTagsByTitle(model)) {
         this.tagsOfArticle.push(model);
+        this.tagTitle = null;
         this.autoCompleteModel = null;
-        this.availableTags = this.availableTags.filter(t => t.title !== model.title);
       }
     }
   }

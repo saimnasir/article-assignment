@@ -55,6 +55,7 @@ namespace ArticleAssignment.Repositories
                 UpdateDateEnd = input.UpdateDateInterval?.End,
                 input.QueryText,
                 input.AuthorId,
+                input.TagId,
                 input.State
             };
             return base.Search(parameters);
