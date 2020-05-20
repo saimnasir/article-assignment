@@ -1,3 +1,5 @@
+//#region  imports
+
 import { Component, OnInit, Input, ViewChild, TemplateRef, HostListener } from '@angular/core';
 import { Article } from 'src/app/models/article.model';
 import { Author } from 'src/app/models/author.model';
@@ -12,17 +14,15 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Tag } from 'src/app/models/tag.model';
 import { TagListComponent } from 'src/app/tag/tag-list/tag-list.component';
 
+//#endregion imports
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
-export class ArticleComponent implements OnInit {
 
-  @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
-  @ViewChild(TagListComponent, { static: false }) appTags: TagListComponent;
-  @Input() container: ArticleListComponent;
+export class ArticleComponent implements OnInit {
 
   // #region  editor config
   editorConfig: AngularEditorConfig = {
@@ -68,10 +68,14 @@ export class ArticleComponent implements OnInit {
   };
   //#endregion
 
+  @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
+  @ViewChild(TagListComponent, { static: false }) appTags: TagListComponent;
+
+  @Input() container: ArticleListComponent;
   @Input() article: Article;
+
   articleId: number;
   author: Author;
-  model = new Article();
   articleForm: FormGroup;
   modalConfig = new NgbModalConfig();
 
@@ -126,8 +130,9 @@ export class ArticleComponent implements OnInit {
 
   update() {
     if (this.articleForm.valid) {
-      Object.assign(this.model, this.articleForm.value);
-      this.articleService.update(this.model).subscribe(result => {
+      const model = new Article();
+      Object.assign(model, this.articleForm.value);
+      this.articleService.update(model).subscribe(result => {
         this.article = result;
         this.appTags.createAndDeleteTags().subscribe(() => {
           this.appTags.refreshList();

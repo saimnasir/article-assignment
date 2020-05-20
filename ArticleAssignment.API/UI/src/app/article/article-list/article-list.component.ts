@@ -58,8 +58,8 @@ export class ArticleListComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top'
   };
-  modalConfig = new NgbModalConfig();
 
+  modalConfig = new NgbModalConfig();
   articleList: Article[];
   articleForm: FormGroup;
   searchForm: FormGroup;

@@ -90,8 +90,8 @@
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-dark"
                                 (click)="modal.close('Close click')">Close</button>
-                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
-                                (click)="update()">Update</button>
+                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0" (click)="update()">
+                                <i class="fa fa-check-square mr-2"></i>Save</button>
                         </div>
                     </div>
                 </div>
@@ -100,24 +100,51 @@
     </ng-template>
 
     <ng-template #deleteModal let-modal>
-        <div class="container mt-2">
-            <div class="modal-header alert-danger">
-                <h4 class="modal-title" id="modal-basic-title">Delete Article</h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <div class="row">
-                    <div class="col-12 text-right">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-dark"
-                                (click)="modal.close('Close click')">Close</button> <button type="button"
-                                class="btn btn-outline-danger ml-2" (click)="delete()">Delete</button>
+        <div class="modal-header alert-danger">
+            <h4 class="modal-title" id="modal-basic-title">Delete Article</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card row mt-2">
+                <div class="card-header col-12 alert-dark" style="border-bottom: darkcyan solid;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h4 class="text-left">{{article.title}} </h4>
                         </div>
+                        <div class="col-3  text-right">
+                            <app-user-info *ngIf="author" [author]="author"></app-user-info>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="card-text" [innerHTML]="article.content">
+                                {{article.content}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted alert-dark"
+                    style="border-top: darkcyan solid 1px;border-bottom: darkcyan solid 1px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <app-entity-history [createDate]="article.createDate" [updateDate]="article.updateDate">
+                            </app-entity-history>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Close click')">Close</button> <button type="button"
+                            class="btn btn-outline-danger ml-2" (click)="delete()"><i
+                                class="fa fa-times mr-2"></i>Delete</button>
                     </div>
                 </div>
             </div>

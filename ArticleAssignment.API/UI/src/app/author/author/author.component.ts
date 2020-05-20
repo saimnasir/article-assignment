@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef } from '@angular/core';
 import { Author } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthorListComponent } from '../author-list/author-list.component';
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-author',
@@ -13,19 +14,16 @@ import { AuthorListComponent } from '../author-list/author-list.component';
 export class AuthorComponent implements OnInit {
 
   @Input() container: AuthorListComponent;
-
   @Input() author: Author;
+
   authorId: number;
-  showForm = false;
-  deleteMode = false;
-  model = new Author();
   authorForm: FormGroup;
-  header: string;
-  cardClass = '';
+  modalConfig = new NgbModalConfig();
 
   constructor(
     private route: ActivatedRoute,
-    private authorService: AuthorService
+    private authorService: AuthorService,
+    public modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -35,35 +33,36 @@ export class AuthorComponent implements OnInit {
     } else {
       this.authorId = this.author.id;
     }
-    this.header = this.getFullName();
+  }
+
+  onUpdate(modal: TemplateRef<any>) {
     this.createForm();
+    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
+    this.modalConfig.size = 'xl';
+    this.modalConfig.backdrop = 'static';
+    this.modalConfig.keyboard = false;
+    console.log('this.authorForm.value', this.authorForm.value);
+    console.log('modal', modal);
+
+    this.modalService.open(modal, this.modalConfig);
   }
 
-  getFullName(): string {
-    if (this.author.middleName) {
-      return `${this.author.firstName} ${this.author.middleName} ${this.author.lastName}`;
-    }
-    return `${this.author.firstName} ${this.author.lastName}`;
-  }
-
-  read(id: number): void {
-    this.authorService.read(id)
-      .subscribe(result => this.author = result);
-  }
-
-  toggleShowForm() {
-    this.showForm = !this.showForm;
-    this.setHeader();
+  onDelete(modal: TemplateRef<any>) {
+    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
+    this.modalConfig.size = 'xl';
+    this.modalConfig.backdrop = 'static';
+    this.modalConfig.keyboard = false;
+    this.modalConfig.centered = false;
+    this.modalService.open(modal, this.modalConfig);
   }
 
   update() {
     if (this.authorForm.valid) {
-      Object.assign(this.model, this.authorForm.value);
-
-      this.authorService.update(this.model).subscribe(result => {
+      const newAuthor = new Author();
+      Object.assign(newAuthor, this.authorForm.value);
+      this.authorService.create(newAuthor).subscribe(result => {
         this.author = result;
-        this.toggleShowForm();
-        this.container.refreshList();
+        this.modalService.dismissAll();
       });
     }
     else {
@@ -71,15 +70,10 @@ export class AuthorComponent implements OnInit {
     }
   }
 
-  toggleDeleteMode() {
-    this.deleteMode = !this.deleteMode;
-    this.setHeader();
-  }
-
   delete() {
     this.authorService.delete(this.authorId).subscribe(result => {
       this.container.refreshList();
-      this.toggleDeleteMode();
+      this.modalService.dismissAll();
     });
   }
 
@@ -98,22 +92,15 @@ export class AuthorComponent implements OnInit {
     });
   }
 
-  discard() {
-    this.showForm = false;
-    this.deleteMode = false;
-    this.setHeader();
+  getFullName(): string {
+    if (this.author.middleName) {
+      return `${this.author.firstName} ${this.author.middleName} ${this.author.lastName}`;
+    }
+    return `${this.author.firstName} ${this.author.lastName}`;
   }
 
-  setHeader() {
-    if (this.showForm) {
-      this.header = `Edit ${this.getFullName()}`;
-      this.cardClass = 'alert-light';
-    } else if (this.deleteMode) {
-      this.header = `Delete ${this.getFullName()}`;
-      this.cardClass = 'alert-dark';
-    } else {
-      this.header = `${this.getFullName()}`;
-      this.cardClass = '';
-    }
+  read(id: number): void {
+    this.authorService.read(id)
+      .subscribe(result => this.author = result);
   }
 }
