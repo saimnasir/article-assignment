@@ -129,7 +129,7 @@ namespace ArticleAssignment.Repositories
 
             return items;
         }
-        public T Find(object parameters)
+        public T Find(T dataModel, object parameters)
         {
             setCurrentTable();
 

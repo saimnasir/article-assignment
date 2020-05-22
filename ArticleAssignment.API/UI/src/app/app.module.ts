@@ -24,6 +24,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ModalComponent } from './modal/modal/modal.component';
 import { ArticleEditComponent } from './article/article/article-edit/article-edit.component';
 import { HoverClassDirective } from './directives/hover-class.directive';
+import { NgInitDirective } from './directives/ng-init.directive';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { HoverClassDirective } from './directives/hover-class.directive';
     EntityHistoryComponent,
     ModalComponent,
     ArticleEditComponent,
-    HoverClassDirective
+    HoverClassDirective,
+    NgInitDirective
   ],
   imports: [
     BrowserModule,

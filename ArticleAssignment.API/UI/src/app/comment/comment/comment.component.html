@@ -1,50 +1,47 @@
-<div class="container">
-    <div class="card row mt-2 " [ngClass]="cardClass" (mouseover)="onMouseover()" (mouseout)="onMouseOut()">
-        <div class="col-12 m-2">
-            <div class="row">
-                <div class="col-3">
-                    <app-user-info [author]="author"></app-user-info>
+<div class="card mt-1 " [ngClass]="cardClass" (mouseover)="onMouseover()" (mouseout)="onMouseOut()">
+    <div class="col-12 m-2">
+        <div class="row">
+            <div class="col-3">
+                <app-user-info [author]="author"></app-user-info>
+            </div>
+            <div class="col-9" *ngIf="isReadAction()">
+                <div class="row">
+                    <span class="col-12"> {{comment.content}}
+                    </span>
                 </div>
-                <div class="col-9" *ngIf="isReadAction()">
-                    <div class="row">
-                        <span class="col-12"> {{comment.content}}
-                        </span>
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
+                                (click)="onEdit()"><i class="fa fa-edit"></i></button>
+                            <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
+                                (click)="onDelete(deleteModal)"><i class="fa fa-trash"></i></button>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 text-right">
-                            <div class="btn-group" role="group" aria-label="Actions">
-                                <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
-                                    (click)="onEdit()"><i class="fa fa-edit"></i></button>
-                                <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                                    (click)="onDelete(deleteModal)"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+            <div *ngIf="isCreateAction() || isUpdateAction()" class="col-9">
+                <div class="row">
+                    <div class="col-12">
+                        <form [formGroup]="commentForm">
+                            <div class="col-12">
+                                <textarea type="text" class="form-control" formControlName="content"
+                                    placeholder="Your Comment" required></textarea>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="isCreateAction() || isUpdateAction()" class="col-9">
-                    <div class="row">
-                        <div class="col-12">
-                            <form [formGroup]="commentForm">
-                                <div class="col-12">
-                                    <textarea type="text" class="form-control" formControlName="content"
-                                        placeholder="Your Comment" required></textarea>
-                                </div>
-                                <div class="col-12 text-right mt-2 ">
-                                    <div class="btn-group" role="group" aria-label="Actions">
-                                        <button *ngIf="isCreateAction()" class="btn btn-success" (click)="create()"><i
-                                                class="fa fa-plus mr-2"></i>Add</button>
-                                        <button *ngIf="isCreateAction() && commentForm.get('content').value"
-                                            type="button" class="btn btn-outline-dark ml-2"
-                                            (click)="onDiscardCreate()">Clear</button>
+                            <div class="col-12 text-right mt-2 ">
+                                <div class="btn-group" role="group" aria-label="Actions">
+                                    <button *ngIf="isCreateAction()" class="btn btn-success" (click)="create()"><i
+                                            class="fa fa-plus mr-2"></i>Add</button>
+                                    <button *ngIf="isCreateAction() && commentForm.get('content').value" type="button"
+                                        class="btn btn-outline-dark ml-2" (click)="onDiscardCreate()">Clear</button>
 
-                                        <button *ngIf="isUpdateAction()" class="btn btn-success" (click)="update()"><i
-                                                class="fa fa-check-square mr-2"></i>Save</button>
-                                        <button *ngIf="isUpdateAction()" type="button" class="btn btn-outline-dark ml-2"
-                                            (click)="onDiscardUpdate()">Discard</button>
-                                    </div>
+                                    <button *ngIf="isUpdateAction()" class="btn btn-success" (click)="update()"><i
+                                            class="fa fa-check-square mr-2"></i>Save</button>
+                                    <button *ngIf="isUpdateAction()" type="button" class="btn btn-outline-dark ml-2"
+                                        (click)="onDiscardUpdate()">Discard</button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

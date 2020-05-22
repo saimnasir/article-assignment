@@ -39,4 +39,15 @@ export class ArticleService extends CRUDLService<Article> {
       });
   }
 
+  removeTag(model: Tag) {
+    return this.httpClient.post<Article>(
+      this.baseRoute + 'RemoveTag', model,
+      {
+        withCredentials: false,
+        observe: 'body',
+        responseType: 'json',
+        params: null
+      });
+  }
+
 }

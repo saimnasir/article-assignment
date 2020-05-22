@@ -19,7 +19,8 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer text-muted alert-dark" style="border-bottom: darkturquoise groove;">
+        <div class="card-footer text-muted alert-info"
+            style="border-top: darkcyan solid 1px;border-bottom: darkcyan solid 1px;">
             <div class="row">
                 <div class="col-6">
                     <app-entity-history [createDate]="article.createDate" [updateDate]="article.updateDate">
@@ -27,10 +28,6 @@
                 </div>
                 <div class="col-6 text-right">
                     <div class="btn-group" role="group" aria-label="Actions">
-                        <!-- <button class="btn btn-outline-primary" (click)="toggleComments()">
-                            <i class="fa fa-caret-down"></i> Likes (6)</button>
-                        <button class="btn btn-outline-primary ml-2" (click)="toggleComments()">
-                            <i class="fa fa-caret-down"></i> Comments (6)</button> -->
                         <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
                             (click)="onUpdate(updateModal)">Edit</button>
                         <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
@@ -39,18 +36,14 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="container">
-                    <div class="col-12">
-                        <app-comment-list #appComments [article]="article">
-                        </app-comment-list>
-                    </div>
+        <div class="card-footer alert-dark">
+            <div class="row ">
+                <div class="col-12 ">
+                    <app-comment-list #appComments [article]="article">
+                    </app-comment-list>
                 </div>
             </div>
-
         </div>
-
     </div>
 
     <ng-template #updateModal let-modal>
@@ -77,7 +70,7 @@
                     <div class="col-12">
                         <div class="form-group row">
                             <label for="content" class="col-sm-2 col-form-label  text-right">Content :</label>
-                            <div class="col p-2 ml-3 mr-3" style="background-color: aliceblue;">
+                            <div class="col p-2 ml-3 mr-3" style="border: #ced4da solid 1px;">
                                 <div class="row">
                                     <angular-editor class="col-12" [placeholder]="'Content'" formControlName="content"
                                         [config]="editorConfig">
@@ -87,6 +80,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <ng-container *ngTemplateOutlet="tagTemplateOutlet"></ng-container>
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -94,8 +90,8 @@
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" class="btn btn-outline-dark"
                                 (click)="modal.close('Close click')">Close</button>
-                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
-                                (click)="update()">Update</button>
+                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0" (click)="update()">
+                                <i class="fa fa-check-square mr-2"></i>Save</button>
                         </div>
                     </div>
                 </div>
@@ -104,42 +100,88 @@
     </ng-template>
 
     <ng-template #deleteModal let-modal>
-        <div class="container mt-2">
-            <div class="modal-header alert-danger">
-                <h4 class="modal-title" id="modal-basic-title">Delete Article</h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card row mt-2 alert-info">
-                    <div class="card-header col-12" style="border-bottom: darkcyan solid;">
-                        <div class="row">
-                            <div class="col-9">
-                                <h4 class="text-left">{{article.title}} </h4>
-                            </div>
+        <div class="modal-header alert-danger">
+            <h4 class="modal-title" id="modal-basic-title">Delete Article</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card row mt-2">
+                <div class="card-header col-12 alert-dark" style="border-bottom: darkcyan solid;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h4 class="text-left">{{article.title}} </h4>
+                        </div>
+                        <div class="col-3  text-right">
+                            <app-user-info *ngIf="author" [author]="author"></app-user-info>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="card-text" [innerHTML]="article.content">
-                                    {{article.content}}</p>
-                            </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="card-text" [innerHTML]="article.content">
+                                {{article.content}}</p>
                         </div>
-
+                    </div>
+                </div>
+                <div class="card-footer text-muted alert-dark"
+                    style="border-top: darkcyan solid 1px;border-bottom: darkcyan solid 1px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <app-entity-history [createDate]="article.createDate" [updateDate]="article.updateDate">
+                            </app-entity-history>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <div class="row">
-                    <div class="col-12 text-right">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-dark"
-                                (click)="modal.close('Close click')">Close</button> <button type="button"
-                                class="btn btn-outline-danger ml-2" (click)="delete()">Delete</button>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Close click')">Close</button> <button type="button"
+                            class="btn btn-outline-danger ml-2" (click)="delete()"><i
+                                class="fa fa-times mr-2"></i>Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+
+    <ng-template #tagTemplateOutlet>
+        <div class="col-12 alert">
+            <div class="form-group row">
+                <label for="content" class="col-sm-2 col-form-label  text-right">Tags :</label>
+                <div class="col p-2 ml-3 mr-3">
+                    <div class="row" style="border: #ced4da solid 1px;">
+                        <div class="col-12">
+                            <span class="btn btn-outline-info mr-1 mt-1" *ngFor="let tag of appTags.tagsOfArticle"
+                                (click)="appTags.removeTag(tag)">{{tag.title}}
+                                <i class="text-danger fa fa-times"></i></span>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="btn btn-outline-light" style="padding: 0 !important;">
+                                        <input class="form-control" id="tagTitle" type="text"
+                                            [(ngModel)]="appTags.autoCompleteModel" [ngbTypeahead]="appTags.search"
+                                            [resultFormatter]="appTags.resultFormatBandListValue"
+                                            [inputFormatter]="appTags.inputFormatBandListValue" #instance="ngbTypeahead"
+                                            placeholder="New tag" required (change)="onTagInputChange()">
+                                    </span>
+                                </div>
+                                <div class="col-sm-9">
+                                    <label *ngIf="showTagAddedWaring()" class="alert-warning form-control">
+                                        Tag <b>{{appTags.tagTitle}}</b> is already added.</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

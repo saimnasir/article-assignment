@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
+//#region  imports
+
+import { Component, OnInit, Input, ViewChild, TemplateRef, HostListener } from '@angular/core';
 import { Article } from 'src/app/models/article.model';
 import { Author } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
@@ -9,24 +11,26 @@ import { ArticleListComponent } from '../article-list/article-list.component';
 import { ActivatedRoute } from '@angular/router';
 import { CommentListComponent } from 'src/app/comment/comment-list/comment-list.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Tag } from 'src/app/models/tag.model';
+import { TagListComponent } from 'src/app/tag/tag-list/tag-list.component';
+
+//#endregion imports
 
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
+
 export class ArticleComponent implements OnInit {
 
-  @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
-  @Input() container: ArticleListComponent;
-
+  // #region  editor config
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: false,
     height: 'auto',
     minHeight: '0',
-    maxHeight: '450px',
+    maxHeight: '400px',
     width: 'auto',
     minWidth: '0',
     translate: 'no',
@@ -62,11 +66,16 @@ export class ArticleComponent implements OnInit {
     sanitize: true,
     toolbarPosition: 'top'
   };
+  //#endregion
 
+  @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
+  @ViewChild(TagListComponent, { static: false }) appTags: TagListComponent;
+
+  @Input() container: ArticleListComponent;
   @Input() article: Article;
+
   articleId: number;
   author: Author;
-  model = new Article();
   articleForm: FormGroup;
   modalConfig = new NgbModalConfig();
 
@@ -74,7 +83,7 @@ export class ArticleComponent implements OnInit {
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private authorService: AuthorService,
-    private modalService: NgbModal
+    public modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -87,6 +96,19 @@ export class ArticleComponent implements OnInit {
         this.author = result;
       });
     this.createForm();
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.code === 'Enter') {
+      this.onTagInputChange();
+    }
+  }
+
+  showTagAddedWaring(): boolean {
+    const tag = new Tag();
+    tag.title = this.appTags.tagTitle;
+    return this.appTags.filterArticleTagsByTitle(tag);
   }
 
   onUpdate(modal: TemplateRef<any>) {
@@ -108,10 +130,13 @@ export class ArticleComponent implements OnInit {
 
   update() {
     if (this.articleForm.valid) {
-      Object.assign(this.model, this.articleForm.value);
-
-      this.articleService.update(this.model).subscribe(result => {
+      const model = new Article();
+      Object.assign(model, this.articleForm.value);
+      this.articleService.update(model).subscribe(result => {
         this.article = result;
+        this.appTags.createAndDeleteTags().subscribe(() => {
+          this.appTags.refreshList();
+        });
         this.modalService.dismissAll();
       });
     }
@@ -119,6 +144,7 @@ export class ArticleComponent implements OnInit {
       alert('forms is in valid');
     }
   }
+
 
   delete() {
     this.articleService.delete(this.article.id).subscribe(result => {
@@ -148,4 +174,9 @@ export class ArticleComponent implements OnInit {
   commentCounts(): number {
     return this.appComments.commentCounts();
   }
+
+  onTagInputChange() {
+    this.appTags.addTag();
+  }
+
 }

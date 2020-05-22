@@ -4,6 +4,7 @@
     {
         public long? AuthorId { get; set; }
         public long? State { get; set; }
+        public long? TagId { get; set; }
     }
 
 }

@@ -1,1 +1,125 @@
-<p>article-edit works!</p>
+<ng-template #formModal let-modal >
+    <form [formGroup]="articleForm" *ngIf="showForm()">
+        <div class="modal-header alert-success">
+            <h4 class="modal-title" id="modal-basic-title">Edit Article</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.close('Close click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-2 col-form-label text-right">Title :</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" formControlName="title" placeholder="Title"
+                                required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group row">
+                        <label for="content" class="col-sm-2 col-form-label  text-right">Content :</label>
+                        <div class="col p-2 ml-3 mr-3" style="border: #ced4da solid 1px;">
+                            <div class="row">
+                                <angular-editor class="col-12" [placeholder]="'Content'" formControlName="content"
+                                    [config]="editorConfig">
+                                </angular-editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <ng-container *ngTemplateOutlet="tagTemplateOutlet"></ng-container>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <div *ngIf="isCreateAction()" class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Close click')">Close</button>
+                        <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
+                            (click)="create()">Create</button>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modalService.dismissAll()">Close</button>
+                        <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
+                            (click)="update()">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #deleteModal let-modal>
+    <div class="container mt-2">
+        <div class="modal-header alert-danger">
+            <h4 class="modal-title" id="modal-basic-title">Delete Article</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.close('Close click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="card row mt-2 alert-info">
+                <div class="card-header col-12" style="border-bottom: darkcyan solid;">
+                    <div class="row">
+                        <div class="col-9">
+                            <h4 class="text-left">{{article.title}} </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="card-text" [innerHTML]="article.content">
+                                {{article.content}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-outline-dark"
+                            (click)="modal.close('Close click')">Close</button> <button type="button"
+                            class="btn btn-outline-danger ml-2" (click)="delete()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #tagTemplateOutlet>
+    <div class="col-12 alert">
+        <div class="form-group row p-2">
+            <label for="content" class="col-sm-2 col-form-label  text-right">Tags :</label>
+            <div class="col p-2 ml-3 mr-3">
+                <div class="row">
+                    <div class="col-12" style="border: #ced4da solid 1px;">
+                        <span class="btn btn-outline-info m-1" *ngFor="let tag of tagsOfArticle"
+                            (click)="removeTag(tag)">{{tag.title}}
+                            <i class="text-danger fa fa-times"></i></span>
+                        <span class="btn btn-outline-light m-1">
+                            <input class="form-control" id="tagTitle" type="text" [(ngModel)]="autoCompleteModel"
+                                [ngbTypeahead]="search" [resultFormatter]="resultFormatBandListValue"
+                                [inputFormatter]="inputFormatBandListValue" #instance="ngbTypeahead"
+                                placeholder="New tag" required></span>
+
+                    </div>
+                    <label *ngIf="showTagAddedWaring" class="alert alert-warning">
+                        Tag {{model.title}} is already added.</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
