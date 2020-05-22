@@ -78,6 +78,7 @@ export class ArticleComponent implements OnInit {
   author: Author;
   articleForm: FormGroup;
   modalConfig = new NgbModalConfig();
+  submitted = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -129,20 +130,22 @@ export class ArticleComponent implements OnInit {
   }
 
   update() {
-    if (this.articleForm.valid) {
-      const model = new Article();
-      Object.assign(model, this.articleForm.value);
-      this.articleService.update(model).subscribe(result => {
-        this.article = result;
-        this.appTags.createAndDeleteTags().subscribe(() => {
-          this.appTags.refreshList();
-        });
-        this.modalService.dismissAll();
+    this.submitted = true;
+    console.log('this.articleForm.value', this.articleForm);
+
+    // stop here if form is invalid
+    if (this.articleForm.invalid) {
+      return;
+    }
+    const model = new Article();
+    Object.assign(model, this.articleForm.value);
+    this.articleService.update(model).subscribe(result => {
+      this.article = result;
+      this.appTags.createAndDeleteTags().subscribe(() => {
+        this.appTags.refreshList();
       });
-    }
-    else {
-      alert('forms is in valid');
-    }
+      this.modalService.dismissAll();
+    });
   }
 
 
@@ -179,4 +182,6 @@ export class ArticleComponent implements OnInit {
     this.appTags.addTag();
   }
 
+  // convenience getter for easy access to form fields
+  get formControls() { return this.articleForm.controls; }
 }
