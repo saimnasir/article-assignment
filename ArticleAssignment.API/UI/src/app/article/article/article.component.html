@@ -60,8 +60,12 @@
                         <div class="form-group row">
                             <label for="title" class="col-sm-2 col-form-label text-right">Title :</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" formControlName="title" placeholder="Title"
-                                    required>
+                                <input type="text" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && formControls.title.errors }"
+                                    formControlName="title" placeholder="Title" required>
+                                <div *ngIf="submitted && formControls.title.errors" class="invalid-feedback">
+                                    <div *ngIf="formControls.title.errors.required">Title is required</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,9 +76,15 @@
                             <label for="content" class="col-sm-2 col-form-label  text-right">Content :</label>
                             <div class="col p-2 ml-3 mr-3" style="border: #ced4da solid 1px;">
                                 <div class="row">
-                                    <angular-editor class="col-12" [placeholder]="'Content'" formControlName="content"
-                                        [config]="editorConfig">
+                                    <angular-editor class="col-12"
+                                        [ngClass]="{ 'is-invalid': submitted && formControls.content.errors }"
+                                        [placeholder]="'Content'" formControlName="content" [config]="editorConfig"
+                                        required>
                                     </angular-editor>
+                                    <div *ngIf="submitted && formControls.content.errors"
+                                        class="col-12 invalid-feedback">
+                                        <div *ngIf="formControls.content.errors.required">Content is required</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
