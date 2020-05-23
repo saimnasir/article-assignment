@@ -56,7 +56,7 @@ export class AuthorComponent implements OnInit {
     this.modalService.open(modal, this.modalConfig);
   }
 
-  update() {
+  update(x: any) {
     if (this.authorForm.valid) {
       const newAuthor = new Author();
       Object.assign(newAuthor, this.authorForm.value);

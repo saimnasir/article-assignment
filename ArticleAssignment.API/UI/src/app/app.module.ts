@@ -32,7 +32,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 
-import { MyTelInput, MyTel } from './article/article-list/search-article/example-tel-input-example';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,8 +65,7 @@ import { MyTelInput, MyTel } from './article/article-list/search-article/example
     MatExpansionModule,
     MatIconModule,
     MatFormFieldModule,
-    MatCardModule,
-    MyTelInput, MyTel
+    MatCardModule
   ],
   providers: [
     ArticleService,

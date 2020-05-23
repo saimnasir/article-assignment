@@ -41,7 +41,7 @@ export class CommentListComponent implements OnInit {
   }
 
   refreshList() {
-    const input = new SearchCommentInput();
+    const input = new SearchCommentInput('');
     input.ArticleId = this.article.id;
     this.commentService.searchAsync(input, 'Search').subscribe(list => {
       this.allComments = list;

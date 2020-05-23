@@ -16,7 +16,7 @@ export class AuthorListComponent implements OnInit {
   authorForm: FormGroup;
   searchForm: FormGroup;
   isCollapsed = false;
-  searchInput = new SearchInputBase();
+  searchInput = new SearchInputBase('');
   modalConfig = new NgbModalConfig();
 
   constructor(
