@@ -25,7 +25,14 @@ import { ModalComponent } from './modal/modal/modal.component';
 import { ArticleEditComponent } from './article/article/article-edit/article-edit.component';
 import { HoverClassDirective } from './directives/hover-class.directive';
 import { NgInitDirective } from './directives/ng-init.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 
+import { MyTelInput, MyTel } from './article/article-list/search-article/example-tel-input-example';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +60,14 @@ import { NgInitDirective } from './directives/ng-init.directive';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularEditorModule
+    AngularEditorModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MyTelInput, MyTel
   ],
   providers: [
     ArticleService,

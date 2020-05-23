@@ -1,6 +1,9 @@
 import { DateInterval } from './date-interval.model';
 
 export class SearchInputBase {
+    constructor(private queryText: string) {
+        this.QueryText = queryText;
+    }
 
     public Id: number;
     public MasterId: number;

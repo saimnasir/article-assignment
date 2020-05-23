@@ -122,7 +122,7 @@ export class ArticleListComponent implements OnInit {
 
   search() {
     if (this.searchForm.valid) {
-      const searchInput = new SearchInputBase();
+      const searchInput = new SearchInputBase('');
       Object.assign(searchInput, this.searchForm.value);
       this.articleService.searchAsync(searchInput).subscribe(result => {
         this.articleList = result;
