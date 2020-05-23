@@ -26,11 +26,20 @@ import { ArticleEditComponent } from './article/article/article-edit/article-edi
 import { HoverClassDirective } from './directives/hover-class.directive';
 import { NgInitDirective } from './directives/ng-init.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
+
+import {
+  MatSliderModule,
+  MatExpansionModule,
+  MatButtonModule,
+  MatIconModule,
+  MatFormFieldModule,
+  MatCardModule,
+  MatDividerModule,
+  MatGridListModule,
+  MatButtonToggleModule,
+  MatListModule
+} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +74,12 @@ import { MatCardModule } from '@angular/material/card';
     MatExpansionModule,
     MatIconModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatListModule
   ],
   providers: [
     ArticleService,

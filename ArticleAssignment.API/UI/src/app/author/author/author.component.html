@@ -1,37 +1,34 @@
 <div class="container">
-    <div class="card row mt-2 alert-info">
-        <div class="card-header col-12" style="border-bottom: darkcyan solid;">
-            <div class="row">
-                <div class="col-12 my-2 my-sm-0">
-                    <h4 class="text-left">{{getFullName() }} </h4>
-                </div>
+    <mat-card class="example-card mt-4">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{getFullName()}}</mat-card-title>
+            <!-- <mat-card-subtitle>5*</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-content>
+            <mat-list role="list">
+                <mat-list-item role="listitem">{{author.about}}</mat-list-item>
+                <mat-list-item role="listitem">Phone:
+                    <a class="ml-2" href="tel:{{author.phone}}}">{{author.phone}}</a>
+                </mat-list-item>
+                <mat-list-item role="listitem">Email:
+                    <a class="ml-2" href="mailto:{{author.email}}}">{{author.email}}
+                    </a>
+                </mat-list-item>
+                <mat-list-item role="listitem">Birth:
+                    <span class="ml-2">{{author.birthDate | date:'MMMM d, y'}}</span>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-actions class="example-button-row">
+            <div class="col text-right">
+                <button mat-stroked-button color="primary" (click)="onUpdate(updateModal)">Edit</button>
+                <button mat-stroked-button color="warn" (click)="onDelete(deleteModal)">Delete</button>
             </div>
-        </div>
-        <div class="card-body">
-            <p class="card-text">{{author.about}}</p>
-            <div class="row">
-                <p class="card-text col-12">Phone: <a href="tel:{{author.phone}}}">{{author.phone}}</a></p>
-                <p class="card-text col-12">Email: <a href="mailto:{{author.email}}}">{{author.email}}</a></p>
-                <p class="card-text col-12">Birth: <span> {{author.birthDate | date:'MMMM d, y'}}</span></p>
-            </div>
-        </div>
-        <div class="card-footer text-muted">
-            <div class="row">
-                <div class="col-8">
-                    <app-entity-history [createDate]="author.createDate" [updateDate]="author.updateDate">
-                    </app-entity-history>
-                </div>
-                <div class="col-4 text-right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-success my-2 ml-2  my-sm-0"
-                            (click)="onUpdate(updateModal)">Edit</button>
-                        <button type="button" class="btn btn-outline-danger my-2 ml-2  my-sm-0"
-                            (click)="onDelete(deleteModal)">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        </mat-card-actions>
+    </mat-card>
 </div>
 
 <ng-template #updateModal let-modal>
@@ -135,50 +132,34 @@
 
 
 <ng-template #deleteModal let-modal>
-    <div class="container mt-2">
-        <div class="modal-header text-danger">
-            <h4 class="modal-title" id="modal-basic-title">Delete Author</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="card row mt-2">
-                <div class="card-header col-12">
-                    <div class="row">
-                        <div class="col-12 my-2 my-sm-0">
-                            <h4 class="text-left">{{getFullName() }} </h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">{{author.about}}</p>
-                    <div class="row">
-                        <p class="card-text col-12">Phone: <a href="tel:{{author.phone}}}">{{author.phone}}</a></p>
-                        <p class="card-text col-12">Email: <a href="mailto:{{author.email}}}">{{author.email}}</a></p>
-                        <p class="card-text col-12">Birth: <span> {{author.birthDate | date:'MMMM d, y'}}</span></p>
-                    </div>
-                </div>
-                <div class="card-footer text-muted">
-                    <div class="row">
-                        <div class="col-12">
-                            <app-entity-history [createDate]="author.createDate" [updateDate]="author.updateDate">
-                            </app-entity-history>
-                        </div>
-                    </div>
-                </div>
+    <mat-card class="example-card container">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{getFullName()}}</mat-card-title>
+            <!-- <mat-card-subtitle>5*</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-content>
+            <mat-list role="list">
+                <mat-list-item role="listitem">{{author.about}}</mat-list-item>
+                <mat-list-item role="listitem">Phone:
+                    <a class="ml-2" href="tel:{{author.phone}}}">{{author.phone}}</a>
+                </mat-list-item>
+                <mat-list-item role="listitem">Email:
+                    <a class="ml-2" href="mailto:{{author.email}}}">{{author.email}}
+                    </a>
+                </mat-list-item>
+                <mat-list-item role="listitem">Birth:
+                    <span class="ml-2">{{author.birthDate | date:'MMMM d, y'}}</span>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-actions class="example-button-row">
+            <div class="col text-right">
+                <button mat-raised-button (click)="modal.close('Close click')">Close</button>
+                <button mat-raised-button color="warn" (click)="delete()">Delete</button>
             </div>
-        </div>
-        <div class="modal-footer">
-            <div class="row">
-                <div class="col-12 text-right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-dark"
-                            (click)="modal.close('Close click')">Close</button> <button type="button"
-                            class="btn btn-outline-danger ml-2" (click)="delete()">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        </mat-card-actions>
+    </mat-card>
 </ng-template>
