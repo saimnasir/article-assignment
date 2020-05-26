@@ -1,148 +1,41 @@
-<div class="container">
-    <div class="card row mt-2">
-        <div class="card-header col-12">
-            <h4 *ngIf="onCreate">Authors</h4>
-        </div>
-        <div class="card-header col-12 text-right">
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button *ngIf="!isCollapsed" type="button" class="btn btn-outline-primary"
-                    (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-                    aria-controls="collapseExample"> <i class="fa fa-caret-down"></i> Filter
-                </button>
-                <button *ngIf="isCollapsed" type="button" class="btn btn-outline-secondary my-2 ml-2  my-sm-0"
-                    (click)="isCollapsed = !isCollapsed"> <i class="fa fa-caret-up"></i> Hide</button>
-                <button type="button" class="btn btn-success my-2 ml-2  my-sm-0" (click)="onCreate(createModal)">New
-                    Article
-                </button>
-            </div>
-        </div>
-
-        <div *ngIf="isCollapsed" class="card-body" id="collapseExample" [ngbCollapse]="!isCollapsed"
-            style="border-top: black 2px solid;">
-            <form [formGroup]="searchForm">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group row">
-                            <label for="queryText" class="col-sm-3 col-form-label  text-right">Search Text :</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" formControlName="queryText"
-                                    placeholder="Search Text" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 text-right">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
-                                (click)="search()">Search</button>
-                            <button type="button" class="btn btn-outline-primary my-2 ml-2  my-sm-0"
-                                (click)="removeFilter()">Remove Filter</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<app-author *ngFor="let author of authorList" [author]="author" [container]="this">
-</app-author>
-
-
-<ng-template #createModal let-modal>
-    <form [formGroup]="authorForm">
-        <div class="modal-header alert-success">
-            <h4 class="modal-title" id="modal-basic-title">Crete New Author</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group row">
-                        <label for="firstName" class="col-sm-3 col-form-label text-right">First Name :</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="firstName" placeholder="First Name"
-                                required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group row">
-                        <label for="middleName" class="col-sm-3 col-form-label  text-right">Middle Name
-                            :</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="middleName"
-                                placeholder="Middle Name">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group row">
-                        <label for="lastName" class="col-sm-3 col-form-label  text-right">Last Name :</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name"
-                                required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group row">
-                        <label for="birthDate" class="col-sm-3 col-form-label  text-right">Birth Date :</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="birthDate" placeholder="Birth Date"
-                                required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group row">
-                        <label for="email" class="col-sm-3 col-form-label  text-right">Email :</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="email" placeholder="Email"
-                                required>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-group row">
-                        <label for="phone" class="col-sm-3 col-form-label  text-right">Phone :</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" formControlName="phone" placeholder="Phone"
-                                required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <label for="email" class="col-sm-12 col-form-label  text-right">About :</label>
-                </div>
-                <div class="col-9">
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <textarea type="about" class="form-control" formControlName="about" placeholder="About"
-                                required></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="row">
-                <div class="col-12 text-right">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-outline-dark"
-                            (click)="modal.close('Close click')">Close</button>
-                        <button type="button" class="btn btn-success my-2 ml-2  my-sm-0"
-                            (click)="create()">Create</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</ng-template>
+<mat-card class="example-card" style="background-color: gainsboro;">
+    <mat-card-content style="background-color: gainsboro;">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Authors <button align="end" mat-stroked-button color="primary"
+                        (click)="openDialog()">New
+                        Author</button>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-accordion class="example-headers-align">
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Filter
+                            </mat-panel-title>
+                            <mat-panel-description>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <form class="my-form" [formGroup]="searchForm">
+                            <mat-form-field class="example-full-width" align="start">
+                                <mat-label>Query</mat-label>
+                                <input matInput matInput placeholder="Query Text" formControlName="QueryText"
+                                    name="QueryText">
+                                <mat-hint>If QueryText stay empty, you will see all authors.</mat-hint>
+                                <button mat-button *ngIf="searchForm.get('QueryText').value" matSuffix mat-icon-button
+                                    aria-label="Clear" (click)="clearField('QueryText')">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                            <button mat-stroked-button color="primary" (click)="search()">Filter</button>
+                        </form>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </mat-card-content>
+        </mat-card>
+        <app-author *ngFor="let author of authorList" [author]="author" [container]="this">
+        </app-author>
+    </mat-card-content>
+</mat-card>

@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthorListComponent } from '../author-list/author-list.component';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { CRUDActions } from 'src/app/models/enums/action.enum';
+import { AuthorEditDialogComponent } from '../author-edit-dialog/author-edit-dialog.component';
 
 @Component({
   selector: 'app-author',
@@ -15,15 +18,16 @@ export class AuthorComponent implements OnInit {
 
   @Input() container: AuthorListComponent;
   @Input() author: Author;
-
   authorId: number;
+
   authorForm: FormGroup;
   modalConfig = new NgbModalConfig();
 
   constructor(
     private route: ActivatedRoute,
     private authorService: AuthorService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +38,33 @@ export class AuthorComponent implements OnInit {
       this.authorId = this.author.id;
     }
   }
+
+  openUpdateDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '60%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      author: this.author,
+      container: this.container,
+      action: CRUDActions.Update
+    };
+    this.dialog.open(AuthorEditDialogComponent, dialogConfig);
+  }
+
+  openDeleteDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '60%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      author: this.author,
+      container: this.container,
+      action: CRUDActions.Delete
+    };
+    this.dialog.open(AuthorEditDialogComponent, dialogConfig);
+  }
+
 
   onUpdate(modal: TemplateRef<any>) {
     this.createForm();

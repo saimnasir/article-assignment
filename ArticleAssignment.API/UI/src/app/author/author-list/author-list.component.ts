@@ -4,6 +4,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Author } from 'src/app/models/author.model';
 import { SearchInputBase } from 'src/app/models/inputs/search-input-base.model';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { AuthorEditDialogComponent } from '../author-edit-dialog/author-edit-dialog.component';
+import { CRUDActions } from 'src/app/models/enums/action.enum';
 
 @Component({
   selector: 'app-author-list',
@@ -13,7 +16,6 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 export class AuthorListComponent implements OnInit {
 
   authorList: Author[];
-  authorForm: FormGroup;
   searchForm: FormGroup;
   isCollapsed = false;
   searchInput = new SearchInputBase('');
@@ -21,12 +23,24 @@ export class AuthorListComponent implements OnInit {
 
   constructor(
     public authorService: AuthorService,
-    private modalService: NgbModal
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.refreshList();
-    this.createForm();
+  }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.minWidth = '60%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      author: null,
+      container: this,
+      action: CRUDActions.Create
+    };
+    this.dialog.open(AuthorEditDialogComponent, dialogConfig);
   }
 
   refreshList() {
@@ -37,8 +51,11 @@ export class AuthorListComponent implements OnInit {
   }
 
   search() {
+    console.log('this.searchForm', this.searchForm);
+
     if (this.searchForm.valid) {
       Object.assign(this.searchInput, this.searchForm.value);
+      console.log('this.searchInput', this.searchInput);
       this.authorService.searchAsync(this.searchInput).subscribe(result => {
         this.authorList = result;
       });
@@ -48,55 +65,20 @@ export class AuthorListComponent implements OnInit {
     }
   }
 
-  onCreate(modal: TemplateRef<any>) {
-    this.createForm();
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'xl';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalService.open(modal, this.modalConfig);
-  }
-
-
-  create() {
-    if (this.authorForm.valid) {
-      const newAuthor = new Author();
-      Object.assign(newAuthor, this.authorForm.value);
-      this.authorService.create(newAuthor).subscribe(result => {
-        this.refreshList();
-        this.modalService.dismissAll();
-      });
-    }
-    else {
-      alert('forms is in valid');
-    }
-  }
-
-  createForm() {
-    this.authorForm = new FormGroup({
-      id: new FormControl(0),
-      firstName: new FormControl(),
-      middleName: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      about: new FormControl(),
-      birthDate: new FormControl(new Date()),
-      createDate: new FormControl(new Date()),
-      updateDate: new FormControl(new Date())
-    });
-  }
 
   createSearchForm() {
     this.searchForm = new FormGroup({
-      queryText: new FormControl()
+      QueryText: new FormControl()
     });
   }
-
 
   removeFilter() {
     this.refreshList();
     this.searchForm.reset();
   }
 
+  clearField(field: string) {
+    this.searchForm.get(field).setValue(null);
+    this.search();
+  }
 }

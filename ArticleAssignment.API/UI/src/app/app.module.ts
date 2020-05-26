@@ -37,8 +37,15 @@ import {
   MatDividerModule,
   MatGridListModule,
   MatButtonToggleModule,
-  MatListModule
+  MatListModule,
+  MatInputModule,
+  MatTableModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatDialogModule,
+  MAT_DIALOG_DEFAULT_OPTIONS
 } from '@angular/material';
+import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component';
 
 
 @NgModule({
@@ -59,7 +66,8 @@ import {
     ModalComponent,
     ArticleEditComponent,
     HoverClassDirective,
-    NgInitDirective
+    NgInitDirective,
+    AuthorEditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -79,14 +87,21 @@ import {
     MatDividerModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatListModule
+    MatListModule,
+    MatInputModule,
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule
   ],
   providers: [
     ArticleService,
     AuthorService,
     CommentService,
-    FormBuilder
+    FormBuilder,
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
   ],
+  entryComponents: [AuthorEditDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
