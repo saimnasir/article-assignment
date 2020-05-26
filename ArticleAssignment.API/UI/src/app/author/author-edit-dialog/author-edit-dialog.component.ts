@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, ControlValueAccessor } from '@angular/forms';
 import { Author } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
@@ -22,24 +22,21 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
     private authorService: AuthorService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AuthorEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data
+    @Inject(MAT_DIALOG_DATA) data,
+    private snackBar: MatSnackBar
   ) {
     this.container = data.container;
     this.author = data.author;
     this.action = data.action;
   }
 
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action,
+      {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
   }
 
   ngOnInit() {
@@ -70,7 +67,6 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
         updateDate: new FormControl({ value: this.author.updateDate, disabled: this.isDeleteAction() })
       });
     }
-
     this.setTitle();
   }
 
@@ -88,37 +84,33 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-
   act() {
-    if (this.authorForm.valid) {
-      const model = new Author();
-      Object.assign(model, this.authorForm.value);
-      console.log('act this.authorForm.value', this.authorForm.value);
-      console.log('act model', model);
-      switch (this.action) {
-        case CRUDActions.Create:
-          this.authorService.create(model).subscribe(result => {
-            this.container.refreshList();
-            this.close();
-          });
-          break;
-        case CRUDActions.Update:
-          this.authorService.update(model).subscribe(result => {
-            this.container.refreshList();
-            this.close();
-          });
-          break;
-        case CRUDActions.Delete:
-          this.authorService.delete(model.id).subscribe(result => {
-            this.container.refreshList();
-            this.close();
-          });
-          break;
-      }
-
+    if (!this.authorForm.valid) {
+      this.openSnackBar('Forms is not valid', null);
+      return;
     }
-    else {
-      alert('forms is in valid');
+
+    const model = new Author();
+    Object.assign(model, this.authorForm.value);
+
+    if (this.isCreateAction()) {
+      this.authorService.create(model).subscribe(result => {
+        this.container.refreshList();
+        this.close();
+        this.openSnackBar('New author created!', null);
+      });
+    } else if (this.isUpdateAction()) {
+      this.authorService.update(model).subscribe(result => {
+        this.container.refreshList();
+        this.close();
+        this.openSnackBar('Author updated!', null);
+      });
+    } else if (this.isDeleteAction()) {
+      this.authorService.delete(model.id).subscribe(result => {
+        this.container.refreshList();
+        this.close();
+        this.openSnackBar('Author deleted!', null);
+      });
     }
   }
 
@@ -129,7 +121,6 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
   close() {
     this.dialogRef.close();
   }
-
 
   isCreateAction(): boolean {
     return this.action === CRUDActions.Create;
@@ -150,4 +141,19 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
   showClearButton(field: string) {
     return !this.isDeleteAction() && this.authorForm.get(field);
   }
+
+
+  writeValue(obj: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnChange(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnTouched(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    throw new Error('Method not implemented.');
+  }
+
 }

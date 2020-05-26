@@ -43,7 +43,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatDialogModule,
-  MAT_DIALOG_DEFAULT_OPTIONS
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatSnackBarModule
 } from '@angular/material';
 import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component';
 
@@ -92,7 +93,8 @@ import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-ed
     MatTableModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     ArticleService,
