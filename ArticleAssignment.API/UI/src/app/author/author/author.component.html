@@ -4,7 +4,7 @@
         <mat-card-title>{{getFullName()}}</mat-card-title>
     </mat-card-header>
     <mat-divider [inset]="true"></mat-divider>
-    <mat-card-content>
+    <!-- <mat-card-content>
         <mat-list role="list">
             <mat-list-item role="listitem">{{author.about}}</mat-list-item>
             <mat-list-item role="listitem">Phone:
@@ -18,8 +18,27 @@
                 <span class="ml-2">{{author.birthDate | date:'MMMM d, y'}}</span>
             </mat-list-item>
         </mat-list>
-    </mat-card-content>
-    <mat-divider [inset]="true"></mat-divider>
+    </mat-card-content> -->
+
+
+    <!-- Deneme -->
+    <div class="row mt-4">
+        <div class="col-3">
+            <img src="https://material.angular.io/assets/img/examples/shiba1.jpg" style="width: 100%;">
+        </div>
+        <div class="col-6">
+            <p>{{author.about}}</p>
+        </div>
+        <div class="col-3">
+            <div class="row">
+                dfsdf
+            </div>
+        </div>
+    </div>
+
+    <!-- End -->
+
+    <!-- <mat-divider [inset]="true"></mat-divider> -->
     <mat-card-actions class="example-button-row">
         <div class="col text-right">
             <button mat-stroked-button color="primary" (click)="openUpdateDialog()">Edit</button>
