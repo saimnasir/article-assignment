@@ -15,6 +15,8 @@ export abstract class CRUDService<T> extends ServiceBase {
     }
 
     create(model: T, action = 'Create') {
+        console.log('T model', model);
+
         return this.httpClient.post<T>(
             this.baseRoute + action, model,
             {

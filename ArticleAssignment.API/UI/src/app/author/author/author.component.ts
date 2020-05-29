@@ -19,9 +19,7 @@ export class AuthorComponent implements OnInit {
   @Input() container: AuthorListComponent;
   @Input() author: Author;
   authorId: number;
-
-  authorForm: FormGroup;
-  modalConfig = new NgbModalConfig();
+  dialogConfig = new MatDialogConfig();
 
   constructor(
     private route: ActivatedRoute,
@@ -37,90 +35,29 @@ export class AuthorComponent implements OnInit {
     } else {
       this.authorId = this.author.id;
     }
+
+    this.dialogConfig.minHeight = '80%';
+    this.dialogConfig.disableClose = false;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.hasBackdrop = false;
   }
 
-  openUpdateDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.minWidth = '60%';
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = {
+  onUpdate() {
+    this.dialogConfig.data = {
       author: this.author,
       container: this.container,
       action: CRUDActions.Update
     };
-    this.dialog.open(AuthorEditDialogComponent, dialogConfig);
+    this.dialog.open(AuthorEditDialogComponent, this.dialogConfig);
   }
 
-  openDeleteDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.minWidth = '60%';
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = {
+  onDelete() {
+    this.dialogConfig.data = {
       author: this.author,
       container: this.container,
       action: CRUDActions.Delete
     };
-    this.dialog.open(AuthorEditDialogComponent, dialogConfig);
-  }
-
-
-  onUpdate(modal: TemplateRef<any>) {
-    this.createForm();
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'xl';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    console.log('this.authorForm.value', this.authorForm.value);
-    console.log('modal', modal);
-
-    this.modalService.open(modal, this.modalConfig);
-  }
-
-  onDelete(modal: TemplateRef<any>) {
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'xl';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalConfig.centered = false;
-    this.modalService.open(modal, this.modalConfig);
-  }
-
-  update(x: any) {
-    if (this.authorForm.valid) {
-      const newAuthor = new Author();
-      Object.assign(newAuthor, this.authorForm.value);
-      this.authorService.create(newAuthor).subscribe(result => {
-        this.author = result;
-        this.modalService.dismissAll();
-      });
-    }
-    else {
-      alert('forms is in valid');
-    }
-  }
-
-  delete() {
-    this.authorService.delete(this.authorId).subscribe(result => {
-      this.container.refreshList();
-      this.modalService.dismissAll();
-    });
-  }
-
-  createForm() {
-    this.authorForm = new FormGroup({
-      id: new FormControl(this.author.id),
-      firstName: new FormControl(this.author.firstName),
-      middleName: new FormControl(this.author.middleName),
-      lastName: new FormControl(this.author.lastName),
-      email: new FormControl(this.author.email),
-      phone: new FormControl(this.author.phone),
-      about: new FormControl(this.author.about),
-      birthDate: new FormControl(this.author.birthDate),
-      createDate: new FormControl(this.author.createDate),
-      updateDate: new FormControl(this.author.updateDate)
-    });
+    this.dialog.open(AuthorEditDialogComponent, this.dialogConfig);
   }
 
   getFullName(): string {

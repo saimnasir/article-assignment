@@ -1,0 +1,75 @@
+<mat-toolbar class="header-toolbar" color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button>
+            <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        </button>
+        <span class="menu-spacer"></span>
+
+        <h1>
+            <button mat-button [routerLink]="'/articles'">
+                <mat-icon aria-label="Articler" matTooltipPosition="above">
+                    description
+                </mat-icon>Articler
+            </button>
+        </h1>
+        <span class="menu-spacer"></span>
+
+        <div>
+            <button mat-button [routerLink]="'/authors'"> Authors</button>
+        </div>
+        <span class="menu-spacer"></span>
+
+        <form class="form-inline my-2 my-lg-1" style="min-width: 60%;">
+            <input class="form-control mr-sm-2" style="min-width: 60%;" type="search" placeholder="Search"
+                aria-label="Search">
+            <button mat-button (click)="search()">
+                <mat-icon aria-label="Articler" matTooltipPosition="above">
+                    search
+                </mat-icon>Search
+            </button>
+        </form>
+        <span class="menu-spacer"></span>
+
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon aria-label="User Settings" matTooltipPosition="above">
+                keyboard_arrow_down
+            </mat-icon>Saim Nasır
+        </button>
+        <span class="menu-spacer"></span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+        <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+    </mat-toolbar-row>
+
+</mat-toolbar>
+<mat-sidenav-container class="mat-sidenav-container">
+    <mat-sidenav #sidenav>
+        <mat-nav-list>
+            <a style="width: 100%;" mat-button [routerLink]="'/articles'" (click)="sidenav.toggle()"> Articles</a>
+            <a style="width: 100%;" mat-button [routerLink]="'/authors'" (click)="sidenav.toggle()"> Authors</a>
+
+            <div style="border: none;width: 100%;" mat-list-item align="center">
+                <button style="width: 100%;" mat-button [matMenuTriggerFor]="menu">
+                    <mat-icon aria-label="User Settings" matTooltipPosition="above">
+                        keyboard_arrow_down
+                    </mat-icon>Saim Nasır
+                </button>
+            </div>
+
+            <div style="border: none;width: 100%;" mat-list-item align="center">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="sidenav.toggle()">
+                    <mat-icon matTooltip="Close" aria-label="Clear field" matTooltipPosition="above">
+                        keyboard_arrow_left
+                    </mat-icon>
+                </button>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+</mat-sidenav-container>
+
+<mat-menu #menu="matMenu" xPosition="after">
+    <button mat-menu-item>Profile</button>
+    <button mat-menu-item>Log Out</button>
+    <button mat-menu-item>Settings</button>
+</mat-menu>

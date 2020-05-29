@@ -1,109 +1,83 @@
 <h2 mat-dialog-title>{{title}}</h2>
-
-<mat-dialog-content [formGroup]="authorForm" *ngIf="!isDeleteAction()">
-    <mat-form-field class="col-three" appearance="fill">
+<!-- Dialog Content for Form Actions -->
+<mat-dialog-content [formGroup]="authorForm" class="row">
+    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>First Name</mat-label>
         <input matInput name="firstName" formControlName="firstName" required>
         <button mat-button *ngIf="showClearButton('firstName')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('firstName')">
-            <mat-icon>close</mat-icon>
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
         </button>
     </mat-form-field>
 
-    <mat-form-field class="col-three" appearance="fill">
+    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Middle Name</mat-label>
         <input matInput name="middleName" formControlName="middleName">
-        <mat-hint>Middle Name is not required.</mat-hint>
+        <mat-hint class="mb-4">Middle Name is not required.</mat-hint>
         <button mat-button *ngIf="showClearButton('middleName')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('middleName')">
-            <mat-icon>close</mat-icon>
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
         </button>
     </mat-form-field>
 
-    <mat-form-field class="col-three" appearance="fill">
+    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Last Name</mat-label>
         <input matInput name="lastName" formControlName="lastName" required>
         <button mat-button *ngIf="showClearButton('lastName')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('lastName')">
-            <mat-icon>close</mat-icon>
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
         </button>
     </mat-form-field>
 
-    <mat-form-field class="col-three" appearance="fill">
+    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Birth Date</mat-label>
         <input matInput [matDatepicker]="picker" name="birthDate" formControlName="birthDate" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field class="col-three" appearance="fill">
+    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Email</mat-label>
         <input matInput name="email" formControlName="email" required>
         <button mat-button *ngIf="showClearButton('email')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('email')">
-            <mat-icon>close</mat-icon>
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
         </button>
     </mat-form-field>
 
-    <mat-form-field class="col-three" appearance="fill">
+    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Phone</mat-label>
         <input matInput name="phone" formControlName="phone" required>
         <button mat-button *ngIf="showClearButton('phone')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('phone')">
-            <mat-icon>close</mat-icon>
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
         </button>
     </mat-form-field>
 
-    <mat-form-field class="col-one" appearance="fill">
+    <mat-form-field class="col-12" appearance="fill">
         <mat-label>About</mat-label>
-        <textarea rows="3" matInput name="about" formControlName="about" required></textarea>
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
+            formControlName="about" cdkAutosizeMaxRows="10" required></textarea>
         <button mat-button *ngIf="showClearButton('about')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('about')">
-            <mat-icon>close</mat-icon>
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
         </button>
     </mat-form-field>
 
 </mat-dialog-content>
 
-<mat-dialog-content [formGroup]="authorForm" *ngIf="isDeleteAction()">
-    <mat-form-field class="col-three" appearance="fill">
-        <mat-label>First Name</mat-label>
-        <input matInput name="firstName" formControlName="firstName" required>
-    </mat-form-field>
-
-    <mat-form-field class="col-three" appearance="fill">
-        <mat-label>Middle Name</mat-label>
-        <input matInput name="middleName" formControlName="middleName" required>
-    </mat-form-field>
-
-    <mat-form-field class="col-three" appearance="fill">
-        <mat-label>Last Name</mat-label>
-        <input matInput name="lastName" formControlName="lastName" required>
-    </mat-form-field>
-
-    <mat-form-field class="col-three" appearance="fill">
-        <mat-label>Birth Date</mat-label>
-        <input matInput [matDatepicker]="picker" name="birthDate" formControlName="birthDate" required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field class="col-three" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput name="email" formControlName="email" required>
-    </mat-form-field>
-
-    <mat-form-field class="col-three" appearance="fill">
-        <mat-label>Phone</mat-label>
-        <input matInput name="phone" formControlName="phone" required>
-    </mat-form-field>
-
-    <mat-form-field class="col-one" appearance="fill">
-        <mat-label>About</mat-label>
-        <textarea rows="3" matInput name="about" formControlName="about" required></textarea>
-    </mat-form-field>
-
-</mat-dialog-content>
 
 <mat-dialog-actions align="end">
     <button class="mat-raised-button" (click)="close()">Close</button>

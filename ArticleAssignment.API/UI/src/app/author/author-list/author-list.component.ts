@@ -1,10 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthorService } from 'src/app/services/author.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Author } from 'src/app/models/author.model';
 import { SearchInputBase } from 'src/app/models/inputs/search-input-base.model';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog, DialogPosition } from '@angular/material';
 import { AuthorEditDialogComponent } from '../author-edit-dialog/author-edit-dialog.component';
 import { CRUDActions } from 'src/app/models/enums/action.enum';
 
@@ -19,8 +18,7 @@ export class AuthorListComponent implements OnInit {
   searchForm: FormGroup;
   isCollapsed = false;
   searchInput = new SearchInputBase('');
-  modalConfig = new NgbModalConfig();
-
+  position: DialogPosition;
   constructor(
     public authorService: AuthorService,
     private dialog: MatDialog
@@ -30,16 +28,20 @@ export class AuthorListComponent implements OnInit {
     this.refreshList();
   }
 
-  openDialog() {
+  onCreate() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.minWidth = '60%';
+
+    dialogConfig.minHeight = '80%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = true;
+
     dialogConfig.data = {
       author: null,
       container: this,
       action: CRUDActions.Create
     };
+
     this.dialog.open(AuthorEditDialogComponent, dialogConfig);
   }
 
@@ -51,8 +53,6 @@ export class AuthorListComponent implements OnInit {
   }
 
   search() {
-    console.log('this.searchForm', this.searchForm);
-
     if (this.searchForm.valid) {
       Object.assign(this.searchInput, this.searchForm.value);
       console.log('this.searchInput', this.searchInput);

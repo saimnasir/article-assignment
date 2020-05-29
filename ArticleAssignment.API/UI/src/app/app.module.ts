@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArticleService } from './services/article.service';
-import { HttpClientModule } from '@angular/common/http';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HttpClientModule } from '@angular/common/http';  
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleListComponent } from './article/article-list/article-list.component';
 import { AuthorListComponent } from './author/author-list/author-list.component';
@@ -44,16 +43,23 @@ import {
   MatNativeDateModule,
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTooltipModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatMenuModule
 } from '@angular/material';
-import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component';
+import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component'; 
+import { HeaderToolbarComponent } from './toolbar/header-toolbar/header-toolbar.component';
+import { FooterToolbarComponent } from './toolbar/footer-toolbar/footer-toolbar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ArticleListComponent,
-    NavBarComponent,
+    HeaderToolbarComponent,
+    FooterToolbarComponent,
     AuthorListComponent,
     ArticleComponent,
     CommentComponent,
@@ -94,7 +100,11 @@ import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-ed
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatMenuModule
   ],
   providers: [
     ArticleService,

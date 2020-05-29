@@ -40,33 +40,23 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit() {
-    if (this.action === CRUDActions.Create) {
-      this.authorForm = this.fb.group({
-        id: new FormControl(0),
-        firstName: new FormControl(),
-        middleName: new FormControl(),
-        lastName: new FormControl(),
-        email: new FormControl(),
-        phone: new FormControl(),
-        about: new FormControl(),
-        birthDate: new FormControl(),
-        createDate: new FormControl(new Date()),
-        updateDate: new FormControl(new Date())
-      });
-    } else {
-      this.authorForm = this.fb.group({
-        id: new FormControl(this.author.id),
-        firstName: new FormControl({ value: this.author.firstName, disabled: this.isDeleteAction() }),
-        middleName: new FormControl({ value: this.author.middleName, disabled: this.isDeleteAction() }),
-        lastName: new FormControl({ value: this.author.lastName, disabled: this.isDeleteAction() }),
-        email: new FormControl({ value: this.author.email, disabled: this.isDeleteAction() }),
-        phone: new FormControl({ value: this.author.phone, disabled: this.isDeleteAction() }),
-        about: new FormControl({ value: this.author.about, disabled: this.isDeleteAction() }),
-        birthDate: new FormControl({ value: this.author.birthDate, disabled: this.isDeleteAction() }),
-        createDate: new FormControl({ value: this.author.createDate, disabled: this.isDeleteAction() }),
-        updateDate: new FormControl({ value: this.author.updateDate, disabled: this.isDeleteAction() })
-      });
+    if (!this.author) { // set author if not defined
+      this.author = new Author();
     }
+
+    this.authorForm = this.fb.group({
+      id: new FormControl({ value: this.author.id, disabled: this.isDeleteAction() }),
+      firstName: new FormControl({ value: this.author.firstName, disabled: this.isDeleteAction() }),
+      middleName: new FormControl({ value: this.author.middleName, disabled: this.isDeleteAction() }),
+      lastName: new FormControl({ value: this.author.lastName, disabled: this.isDeleteAction() }),
+      email: new FormControl({ value: this.author.email, disabled: this.isDeleteAction() }),
+      phone: new FormControl({ value: this.author.phone, disabled: this.isDeleteAction() }),
+      about: new FormControl({ value: this.author.about, disabled: this.isDeleteAction() }),
+      birthDate: new FormControl({ value: this.author.birthDate, disabled: this.isDeleteAction() }),
+      createDate: new FormControl({ value: this.author.createDate, disabled: this.isDeleteAction() }),
+      updateDate: new FormControl({ value: this.author.updateDate, disabled: this.isDeleteAction() })
+    });
+
     this.setTitle();
   }
 
@@ -92,6 +82,7 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
 
     const model = new Author();
     Object.assign(model, this.authorForm.value);
+    console.log('act model', model);
 
     if (this.isCreateAction()) {
       this.authorService.create(model).subscribe(result => {
@@ -139,7 +130,7 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
   }
 
   showClearButton(field: string) {
-    return !this.isDeleteAction() && this.authorForm.get(field);
+    return !this.isDeleteAction() && this.authorForm.get(field).value;
   }
 
 
