@@ -1,15 +1,14 @@
-/* .example-card {
-    max-width: 400px;
-  } */
-
-.tp-button-row button, .tp-button-row a {
-    margin-right: 8px;
-}
-
 .example-header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+    background-size: contain;
 }
-.tp-selected-value {
-    margin: 15px 0;
- }
+
+.author-thumbnail {
+    max-width: 32px;
+    border-radius: 4px;
+}
+
+.author-image {
+    width: 100%;
+    border-radius: 4px;
+}
