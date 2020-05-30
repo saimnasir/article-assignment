@@ -1,7 +1,7 @@
 <mat-toolbar class="header-toolbar" color="primary">
     <mat-toolbar-row>
-        <button mat-icon-button>
-            <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+        <button type="button" mat-button (click)="drawer.toggle();">
+            <mat-icon>menu</mat-icon>
         </button>
         <span class="menu-spacer"></span>
 
@@ -37,17 +37,18 @@
         </button>
         <span class="menu-spacer"></span>
     </mat-toolbar-row>
-
-    <mat-toolbar-row>
-        <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
-    </mat-toolbar-row>
+    <!--
+        <mat-toolbar-row>
+            <span style="font-size: 12px;">SimpleCRM helps you easily manage your contacts</span>
+        </mat-toolbar-row> 
+    -->
 
 </mat-toolbar>
-<mat-sidenav-container class="mat-sidenav-container">
-    <mat-sidenav #sidenav>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #drawer mode="side" role="navigation">
         <mat-nav-list>
-            <a style="width: 100%;" mat-button [routerLink]="'/articles'" (click)="sidenav.toggle()"> Articles</a>
-            <a style="width: 100%;" mat-button [routerLink]="'/authors'" (click)="sidenav.toggle()"> Authors</a>
+            <a style="width: 100%;" mat-button [routerLink]="'/articles'"  (click)="drawer.toggle()"> Articles</a>
+            <a style="width: 100%;" mat-button [routerLink]="'/authors'"  (click)="drawer.toggle()"> Authors</a>
 
             <div style="border: none;width: 100%;" mat-list-item align="center">
                 <button style="width: 100%;" mat-button [matMenuTriggerFor]="menu">
@@ -58,7 +59,7 @@
             </div>
 
             <div style="border: none;width: 100%;" mat-list-item align="center">
-                <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="sidenav.toggle()">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="drawer.toggle()">
                     <mat-icon matTooltip="Close" aria-label="Clear field" matTooltipPosition="above">
                         keyboard_arrow_left
                     </mat-icon>
@@ -66,8 +67,10 @@
             </div>
         </mat-nav-list>
     </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
 </mat-sidenav-container>
-
 <mat-menu #menu="matMenu" xPosition="after">
     <button mat-menu-item>Profile</button>
     <button mat-menu-item>Log Out</button>

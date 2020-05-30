@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArticleService } from './services/article.service';
-import { HttpClientModule } from '@angular/common/http';  
+import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArticleListComponent } from './article/article-list/article-list.component';
 import { AuthorListComponent } from './author/author-list/author-list.component';
@@ -49,7 +49,7 @@ import {
   MatSidenavModule,
   MatMenuModule
 } from '@angular/material';
-import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component'; 
+import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component';
 import { HeaderToolbarComponent } from './toolbar/header-toolbar/header-toolbar.component';
 import { FooterToolbarComponent } from './toolbar/footer-toolbar/footer-toolbar.component';
 
