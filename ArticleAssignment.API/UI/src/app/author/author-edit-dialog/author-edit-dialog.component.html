@@ -81,7 +81,7 @@
 
 <mat-dialog-actions align="end">
     <button class="mat-raised-button" (click)="close()">Close</button>
-    <button *ngIf="isCreateAction()" class="mat-stroked-button mat-primary" (click)="act()">Create</button>
-    <button *ngIf="isUpdateAction()" class="mat-stroked-button mat-primary" (click)="act()">Update</button>
-    <button *ngIf="isDeleteAction()" class="mat-stroked-button mat-warn" (click)="act()">Delete</button>
+    <button *ngIf="isCreateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Create</button>
+    <button *ngIf="isUpdateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Update</button>
+    <button *ngIf="isDeleteAction()" class="mat-stroked-button mat-warn" (click)="submit()">Delete</button>
 </mat-dialog-actions>

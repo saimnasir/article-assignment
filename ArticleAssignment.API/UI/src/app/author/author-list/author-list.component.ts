@@ -16,7 +16,6 @@ export class AuthorListComponent implements OnInit {
 
   authorList: Author[];
   searchForm: FormGroup;
-  isCollapsed = false;
   searchInput = new SearchInputBase('');
   position: DialogPosition;
   constructor(
@@ -31,6 +30,7 @@ export class AuthorListComponent implements OnInit {
   onCreate() {
     const dialogConfig = new MatDialogConfig();
 
+    dialogConfig.minWidth = '80%';
     dialogConfig.minHeight = '80%';
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -64,7 +64,6 @@ export class AuthorListComponent implements OnInit {
       alert('forms is in valid');
     }
   }
-
 
   createSearchForm() {
     this.searchForm = new FormGroup({

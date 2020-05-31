@@ -9,6 +9,9 @@ import { Tag } from 'src/app/models/tag.model';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TagService } from 'src/app/services/tag.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { CRUDActions } from 'src/app/models/enums/action.enum';
+import { ArticleEditDialogComponent } from '../article-edit-dialog/article-edit-dialog.component';
 
 @Component({
   selector: 'app-article-list',
@@ -59,6 +62,7 @@ export class ArticleListComponent implements OnInit {
     toolbarPosition: 'top'
   };
 
+
   modalConfig = new NgbModalConfig();
   articleList: Article[];
   articleForm: FormGroup;
@@ -71,10 +75,28 @@ export class ArticleListComponent implements OnInit {
   constructor(
     public articleService: ArticleService,
     private tagService: TagService,
-    private modalService: NgbModal) { }
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.refreshList();
+  }
+
+  onCreate() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.minWidth = '80%';
+    dialogConfig.minHeight = '80%';
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = true;
+
+    dialogConfig.data = {
+      author: null,
+      container: this,
+      action: CRUDActions.Create,
+    };
+
+    this.dialog.open(ArticleEditDialogComponent, dialogConfig);
   }
 
   refreshList() {
@@ -102,15 +124,6 @@ export class ArticleListComponent implements OnInit {
     });
   }
 
-  onCreate(modal: TemplateRef<any>) {
-    this.createForm();
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'xl';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalService.open(modal, this.modalConfig);
-  }
-
   searchTag = (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(200),
@@ -133,29 +146,6 @@ export class ArticleListComponent implements OnInit {
     }
   }
 
-  create() {
-    if (this.articleForm.valid) {
-      const newArticle = new Article();
-      Object.assign(newArticle, this.articleForm.value);
-      this.articleService.create(newArticle).subscribe(result => {
-        this.createTags(result);
-        this.refreshList();
-        this.modalService.dismissAll();
-      });
-    }
-    else {
-      alert('forms is in valid');
-    }
-  }
-
-  createTags(article: Article) {
-    this.tagsOfArticle.forEach(tag => {
-      tag.articleId = article.id;
-      tag.description = tag.title;
-      this.articleService.addTag(tag).subscribe();
-    });
-  }
-
   createForm() {
     this.articleForm = new FormGroup({
       id: new FormControl(0),
@@ -173,13 +163,18 @@ export class ArticleListComponent implements OnInit {
 
   createSearchForm() {
     this.searchForm = new FormGroup({
-      queryText: new FormControl()
+      QueryText: new FormControl()
     });
   }
 
   removeFilter() {
     this.refreshList();
     this.searchForm.reset();
+  }
+
+  clearField(field: string) {
+    this.searchForm.get(field).setValue(null);
+    this.search();
   }
 
   removeTag(tag: Tag) {
@@ -224,4 +219,13 @@ export class ArticleListComponent implements OnInit {
   filterArticleTagsByTitle(tag: Tag): boolean {
     return this.tagsOfArticle.findIndex(t => t.title === tag.title) >= 0;
   }
+
+  createTags(article: Article) {
+    this.tagsOfArticle.forEach(tag => {
+      tag.articleId = article.id;
+      tag.description = tag.title;
+      this.articleService.addTag(tag).subscribe();
+    });
+  }
+
 }

@@ -3,7 +3,6 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, ControlValueAccessor } from '@angular/forms';
 import { Author } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
-import { AuthorListComponent } from '../author-list/author-list.component';
 import { CRUDActions } from 'src/app/models/enums/action.enum';
 
 @Component({
@@ -74,39 +73,45 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
     }
   }
 
-  act() {
+  submit() {
     if (!this.authorForm.valid) {
       this.openSnackBar('Forms is not valid', null);
       return;
     }
-
     const model = new Author();
     Object.assign(model, this.authorForm.value);
-    console.log('act model', model);
 
     if (this.isCreateAction()) {
-      this.authorService.create(model).subscribe(result => {
-        this.container.refreshList();
-        this.close();
-        this.openSnackBar('New author created!', null);
-      });
+      this.create(model);
     } else if (this.isUpdateAction()) {
-      this.authorService.update(model).subscribe(result => {
-        this.container.refreshList();
-        this.close();
-        this.openSnackBar('Author updated!', null);
-      });
+      this.update(model);
     } else if (this.isDeleteAction()) {
-      this.authorService.delete(model.id).subscribe(result => {
-        this.container.refreshList();
-        this.close();
-        this.openSnackBar('Author deleted!', null);
-      });
+      this.delete(model);
     }
   }
 
-  save() {
-    this.dialogRef.close(this.authorForm.value);
+  private delete(model: Author) {
+    this.authorService.delete(model.id).subscribe(result => {
+      this.container.refreshList();
+      this.close();
+      this.openSnackBar('Author deleted!', null);
+    });
+  }
+
+  private update(model: Author) {
+    this.authorService.update(model).subscribe(result => {
+      this.container.refreshList();
+      this.close();
+      this.openSnackBar('Author updated!', null);
+    });
+  }
+
+  private create(model: Author) {
+    this.authorService.create(model).subscribe(result => {
+      this.container.refreshList();
+      this.close();
+      this.openSnackBar('New author created!', null);
+    });
   }
 
   close() {
@@ -132,7 +137,6 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
   showClearButton(field: string) {
     return !this.isDeleteAction() && this.authorForm.get(field).value;
   }
-
 
   writeValue(obj: any): void {
     throw new Error('Method not implemented.');

@@ -1,4 +1,34 @@
-<div class="container">
+<mat-card class="example-card mt-4">
+    <mat-card-header>
+        <mat-card-title>{{article.title}} </mat-card-title>
+        <div align="end">
+            <app-user-info *ngIf="author" [author]="author"></app-user-info>
+        </div>
+    </mat-card-header>
+    <mat-divider [inset]="true"></mat-divider>
+
+    <!-- Deneme -->
+    <div class="row mt-4">
+        <p class="ml-4 mr-4" [innerHTML]="article.content">
+            {{article.content}}</p>
+        <app-tag-list [article]="article"> </app-tag-list>
+    </div>
+    <mat-divider [inset]="true"></mat-divider>
+
+    <!-- End -->
+
+    <mat-card-actions class="example-button-row">
+        <app-entity-history class="col-2" [createDate]="article.createDate" [updateDate]="article.updateDate"
+            [createDateCaption]="'Join at'"></app-entity-history>
+        <div class="col text-right">
+            <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>
+            <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+        </div>
+    </mat-card-actions>
+
+</mat-card>
+
+<!-- <div class="container">
     <div class="card row mt-2 alert-info">
         <div class="card-header col-12 alert-dark" style="border-bottom: darkcyan solid;">
             <div class="row">
@@ -195,4 +225,4 @@
                 </div>
             </div>
         </div>
-    </ng-template>
+    </ng-template> -->

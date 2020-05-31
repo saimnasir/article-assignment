@@ -1,0 +1,84 @@
+<h2 mat-dialog-title>{{header}}</h2>
+<!-- Dialog Content -->
+<mat-dialog-content [formGroup]="articleForm" class="row">
+
+    <mat-form-field appearance="fill" class="col-12">
+        <mat-label>Title</mat-label>
+        <input matInput name="title" formControlName="title" required>
+        <button mat-button *ngIf="showClearButton('title')" matSuffix mat-icon-button aria-label="Clear"
+            (click)="clearField('title')">
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
+        </button>
+    </mat-form-field>
+
+    <div appearance="fill" class="col-12" *ngIf="!isDeleteAction()">
+        <angular-editor name="content" formControlName="content" class="col-12" [config]="editorConfig" required>
+        </angular-editor>
+        <div class="row" align="center">
+            <div class="col-12">
+                <button mat-button class="mat-stroked-button" *ngIf="showClearButton('content')" matSuffix
+                    aria-label="Clear" (click)="clearField('content')">Clear Content
+                    <mat-icon matTooltip="Clear Content" aria-label="Clear field" matTooltipPosition="above">
+                        clear_all
+                    </mat-icon>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div appearance="fill" class="col-12" *ngIf="!isDeleteAction()">
+        <mat-label>Tags</mat-label>
+        <ng-container *ngTemplateOutlet="tagTemplateOutlet"></ng-container>
+    </div>
+
+    <div appearance="fill" class="col-12" *ngIf="isDeleteAction()">
+        <div class="row">
+            <p class="col-12" [innerHTML]="article.content">
+                {{article.content}}
+            </p>
+        </div>
+    </div>
+
+    <!-- 
+    <mat-form-field appearance="fill"  style="width: 100%;">
+        <mat-label>Content</mat-label>
+        <angular-editor matInput name="content" formControlName="content" class="col-12" [config]="editorConfig">
+        </angular-editor>
+    </mat-form-field> -->
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button class="mat-raised-button" (click)="close()">Close</button>
+    <button *ngIf="isCreateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Create</button>
+    <button *ngIf="isUpdateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Update</button>
+    <button *ngIf="isDeleteAction()" class="mat-stroked-button mat-warn" (click)="submit()">Delete</button>
+</mat-dialog-actions>
+<ng-template #tagTemplateOutlet>
+    <div class="row">
+        <form class="col-12">
+            <div class="row">
+                <span class="btn btn-outline-info m-1" *ngFor="let tag of tagsOfArticle" (click)="removeTag(tag)">
+                    <span *ngIf="tag"> {{tag.title}}<i class="text-danger fa fa-times"></i></span>
+                </span>
+            </div>
+            <mat-form-field class="col-12">
+                <mat-select [(ngModel)]="tagsOfArticle" multiple name="tagsOfArticle"
+                    (selectionChange)="selectionChange()" >
+                    <mat-option [value]="null" class="col-4">
+                        <button mat-button>define new option</button>
+                    </mat-option>
+                    <mat-option *ngFor="let type of availableTags" [value]="type" class="col-4">
+                        {{type.title}}
+                    </mat-option>
+
+                </mat-select>
+            </mat-form-field>
+
+        </form>
+        <label *ngIf="showTagAddedWaring" class="alert alert-warning">
+            Tag {{model.title}} is already added.</label>
+    </div>
+</ng-template>

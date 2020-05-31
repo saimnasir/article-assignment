@@ -15,7 +15,11 @@ export class UserInfoComponent implements OnInit {
   @Input() author: Author;
   ngOnInit(): void {
   }
+
   getFullName(): string {
-    return this.author.firstName.concat(' ', this.author.middleName, ' ', this.author.lastName);
+    if (this.author.middleName) {
+      return `${this.author.firstName} ${this.author.middleName} ${this.author.lastName}`;
+    }
+    return `${this.author.firstName} ${this.author.lastName}`;
   }
 }

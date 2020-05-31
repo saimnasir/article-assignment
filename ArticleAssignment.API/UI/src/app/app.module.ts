@@ -21,7 +21,6 @@ import { AuthorComponent } from './author/author/author.component';
 import { EntityHistoryComponent } from './entity/entity-history/entity-history.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ModalComponent } from './modal/modal/modal.component';
-import { ArticleEditComponent } from './article/article/article-edit/article-edit.component';
 import { HoverClassDirective } from './directives/hover-class.directive';
 import { NgInitDirective } from './directives/ng-init.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,11 +46,14 @@ import {
   MatTooltipModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatMenuModule
+  MatMenuModule,
+  MatAutocompleteModule,
+  MatSelectModule
 } from '@angular/material';
 import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component';
 import { HeaderToolbarComponent } from './toolbar/header-toolbar/header-toolbar.component';
 import { FooterToolbarComponent } from './toolbar/footer-toolbar/footer-toolbar.component';
+import { ArticleEditDialogComponent } from './article/article-edit-dialog/article-edit-dialog.component';
 
 
 @NgModule({
@@ -71,10 +73,10 @@ import { FooterToolbarComponent } from './toolbar/footer-toolbar/footer-toolbar.
     AuthorComponent,
     EntityHistoryComponent,
     ModalComponent,
-    ArticleEditComponent,
     HoverClassDirective,
     NgInitDirective,
-    AuthorEditDialogComponent
+    AuthorEditDialogComponent,
+    ArticleEditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,9 @@ import { FooterToolbarComponent } from './toolbar/footer-toolbar/footer-toolbar.
     MatTooltipModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatMenuModule
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatSelectModule
   ],
   providers: [
     ArticleService,

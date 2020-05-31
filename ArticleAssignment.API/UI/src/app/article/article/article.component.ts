@@ -7,12 +7,15 @@ import { AuthorService } from 'src/app/services/author.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { ArticleListComponent } from '../article-list/article-list.component';
 import { ActivatedRoute } from '@angular/router';
 import { CommentListComponent } from 'src/app/comment/comment-list/comment-list.component';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Tag } from 'src/app/models/tag.model';
 import { TagListComponent } from 'src/app/tag/tag-list/tag-list.component';
+import { ArticleListComponent } from '../article-list/article-list.component';
+import { MatDialogConfig, MatDialog } from '@angular/material';
+import { CRUDActions } from 'src/app/models/enums/action.enum';
+import { ArticleEditDialogComponent } from '../article-edit-dialog/article-edit-dialog.component';
 
 //#endregion imports
 
@@ -23,50 +26,6 @@ import { TagListComponent } from 'src/app/tag/tag-list/tag-list.component';
 })
 
 export class ArticleComponent implements OnInit {
-
-  // #region  editor config
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: false,
-    height: 'auto',
-    minHeight: '0',
-    maxHeight: '400px',
-    width: 'auto',
-    minWidth: '0',
-    translate: 'no',
-    enableToolbar: false,
-    showToolbar: true,
-    placeholder: 'Enter text here...',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      { class: 'arial', name: 'Arial' },
-      { class: 'times-new-roman', name: 'Times New Roman' },
-      { class: 'calibri', name: 'Calibri' },
-      { class: 'comic-sans-ms', name: 'Comic Sans MS' }
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: 'v1/image',
-    uploadWithCredentials: false,
-    sanitize: true,
-    toolbarPosition: 'top'
-  };
-  //#endregion
 
   @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
   @ViewChild(TagListComponent, { static: false }) appTags: TagListComponent;
@@ -80,11 +39,13 @@ export class ArticleComponent implements OnInit {
   modalConfig = new NgbModalConfig();
   submitted = false;
 
+
+  dialogConfig = new MatDialogConfig();
+
   constructor(
     private route: ActivatedRoute,
-    private articleService: ArticleService,
     private authorService: AuthorService,
-    public modalService: NgbModal
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -96,7 +57,11 @@ export class ArticleComponent implements OnInit {
       .subscribe(result => {
         this.author = result;
       });
-    this.createForm();
+
+    this.dialogConfig.minHeight = '80%';
+    this.dialogConfig.disableClose = false;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.hasBackdrop = false;
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -112,49 +77,46 @@ export class ArticleComponent implements OnInit {
     return this.appTags.filterArticleTagsByTitle(tag);
   }
 
-  onUpdate(modal: TemplateRef<any>) {
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'xl';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalService.open(modal, this.modalConfig);
+  onUpdate() {
+    this.dialogConfig.data = {
+      article: this.article,
+      author: this.author,
+      container: this.container,
+      action: CRUDActions.Update
+    };
+    this.dialog.open(ArticleEditDialogComponent, this.dialogConfig);
   }
 
-  onDelete(modal: TemplateRef<any>) {
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'xl';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalConfig.centered = false;
-    this.modalService.open(modal, this.modalConfig);
-  }
-
-  update() {
-    this.submitted = true;
-    console.log('this.articleForm.value', this.articleForm);
-
-    // stop here if form is invalid
-    if (this.articleForm.invalid) {
-      return;
-    }
-    const model = new Article();
-    Object.assign(model, this.articleForm.value);
-    this.articleService.update(model).subscribe(result => {
-      this.article = result;
-      this.appTags.createAndDeleteTags().subscribe(() => {
-        this.appTags.refreshList();
-      });
-      this.modalService.dismissAll();
-    });
+  onDelete() {
+    this.dialogConfig.data = {
+      article: this.article,
+      author: this.author,
+      container: this.container,
+      action: CRUDActions.Delete
+    };
+    this.dialog.open(ArticleEditDialogComponent, this.dialogConfig);
   }
 
 
-  delete() {
-    this.articleService.delete(this.article.id).subscribe(result => {
-      this.container.refreshList();
-      this.modalService.dismissAll();
-    });
-  }
+  // update() {
+  //   this.submitted = true;
+  //   console.log('this.articleForm.value', this.articleForm);
+
+  //   // stop here if form is invalid
+  //   if (this.articleForm.invalid) {
+  //     return;
+  //   }
+  //   const model = new Article();
+  //   Object.assign(model, this.articleForm.value);
+  //   this.articleService.update(model).subscribe(result => {
+  //     this.article = result;
+  //     this.appTags.createAndDeleteTags().subscribe(() => {
+  //       this.appTags.refreshList();
+  //     });
+  //     this.modalService.dismissAll();
+  //   });
+  // }
+
 
   createForm() {
     this.articleForm = new FormGroup({

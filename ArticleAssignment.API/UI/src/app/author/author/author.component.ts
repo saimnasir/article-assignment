@@ -24,7 +24,6 @@ export class AuthorComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authorService: AuthorService,
-    public modalService: NgbModal,
     private dialog: MatDialog
   ) { }
 
