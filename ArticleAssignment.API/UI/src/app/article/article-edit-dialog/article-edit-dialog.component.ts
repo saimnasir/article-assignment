@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, TemplateRef, HostListener, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { Component, OnInit, ViewChild, Inject, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, ControlValueAccessor } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { Article } from 'src/app/models/article.model';
 import { Author } from 'src/app/models/author.model';
 import { Tag } from 'src/app/models/tag.model';
@@ -12,22 +11,23 @@ import { AuthorService } from 'src/app/services/author.service';
 import { TagService } from 'src/app/services/tag.service';
 import { SearchTagInput } from 'src/app/models/inputs/search-tag.model';
 import { CRUDActions } from 'src/app/models/enums/action.enum';
-
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocomplete,
+  MatChipInputEvent,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatSnackBar
+} from '@angular/material';
 
 @Component({
   selector: 'app-article-edit-dialog',
   templateUrl: './article-edit-dialog.component.html',
   styleUrls: ['./article-edit-dialog.component.css']
 })
-export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor {
+export class ArticleEditDialogComponent implements OnInit {
 
-  myControl = new FormControl();
-  filteredOptions: Observable<string[]>;
-  prompt = 'Press <enter> to add "';
-  options: string[] = ['One', 'Two', 'Three'];
-
-
-  showTagAddedWaring = false;
   action = CRUDActions.Read;
 
   editorConfig: AngularEditorConfig = {
@@ -72,25 +72,25 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
     toolbarPosition: 'top'
   };
 
-
-  // data
   article: Article;
   author: Author;
   container: any;
 
-
-  tagsOfArticle: Tag[] = [];
-  availableTags: Tag[] = [];
-  removedTagsOfArticle: Tag[] = [];
-  showAddButton = false;
-
-  header: string;
-  model = new Article();
+  dialogTitle: string;
   articleForm: FormGroup;
-  tags: Tag[];
-  autoCompleteModel: any;
-  @ViewChild('formModal') public formModal: TemplateRef<any>;
-  // @ViewChild('deleteModal') deleteModal: TemplateRef<any>;
+  tagsOfArticle: Tag[] = [];
+  removedTagsOfArticle: Tag[] = [];
+  allTags: Tag[] = [];
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  tagControl = new FormControl();
+  filteredTags: Observable<string[]>;
+  allTagTitles: string[] = [];
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('autoComplete') matAutocomplete: MatAutocomplete;
 
   constructor(
     private articleService: ArticleService,
@@ -107,6 +107,37 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
     this.container = data.container;
   }
 
+  ngOnInit(): void {
+    if (!this.article) { // set author if not defined
+      this.article = new Article();
+    }
+
+    this.setTitle();
+    this.createForm();
+    this.getArticleTags();
+    this.getAllTags();
+
+    this.filteredTags = this.tagControl.valueChanges.pipe(
+      // tslint:disable-next-line: deprecation
+      startWith(null),
+      map((tatTitle: string | null) => tatTitle ? this._filter(tatTitle) : this.allTagTitles.slice()));
+  }
+
+  private createForm() {
+    this.articleForm = this.fb.group({
+      id: new FormControl({ value: this.article.id, disabled: this.isDeleteAction() }),
+      title: new FormControl({ value: this.article.title, disabled: this.isDeleteAction() }),
+      content: new FormControl({ value: this.article.content, disabled: this.isDeleteAction() }),
+      // authorId: new FormControl({ value: this.author.id, disabled: this.isDeleteAction() }),
+      categoryId: new FormControl({ value: this.article.categoryId, disabled: this.isDeleteAction() }),
+      createDate: new FormControl({ value: this.article.createDate, disabled: this.isDeleteAction() }),
+      updateDate: new FormControl({ value: this.article.updateDate, disabled: this.isDeleteAction() }),
+      entityState: new FormControl({ value: this.article.entityState, disabled: this.isDeleteAction() }),
+      state: new FormControl({ value: this.article.state, disabled: this.isDeleteAction() }),
+      specie: []
+    });
+  }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action,
       {
@@ -116,61 +147,9 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
       });
   }
 
-  ngOnInit(): void {
-    if (!this.article) { // set author if not defined
-      this.article = new Article();
-    }
-
-    this.setTitle();
-    this.createForm();
-    this.getArticleTags();
-    this.getAvailableTags();
-
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this.filterOptions(value))
-    );
-  }
-
-  filterOptions(value: string): string[] {
-    let results = this.options.filter(item => item.toLowerCase().indexOf(value.toLowerCase()) === 0);
-
-    this.showAddButton = results.length === 0;
-    if (this.showAddButton) {
-      results = [this.prompt + value + '"'];
-    }
-    return results;
-  }
-
-
-  optionSelected(option) {
-    if (option.value.indexOf(this.prompt) === 0) {
-      this.addOption();
-    }
-  }
-
-  addOption() {
-    const option = this.removePromptFromOption(this.myControl.value);
-    if (!this.options.some(entry => entry === option)) {
-      const index = this.options.push(option) - 1;
-      this.myControl.setValue(this.options[index]);
-    }
-    this.addTag();
-  }
-
-  removePromptFromOption(option) {
-    if (option.startsWith(this.prompt)) {
-      option = option.substring(this.prompt.length, option.length - 1);
-    }
-    return option;
-  }
-  selectionChange() {
-    this.openSnackBar('selectionChange', null);
-  }
-  private getAvailableTags() {
-    this.tagService.listAllAsync().subscribe(allTags => {
-      this.availableTags = allTags.filter(t => this.filterArticleTagsById(t));
-    });
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allTagTitles.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
   }
 
   private getArticleTags() {
@@ -181,35 +160,13 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
     });
   }
 
-  private createForm() {
-
-    this.articleForm = this.fb.group({
-      id: new FormControl({ value: this.article.id, disabled: this.isDeleteAction() }),
-      title: new FormControl({ value: this.article.title, disabled: this.isDeleteAction() }),
-      content: new FormControl({ value: this.article.content, disabled: this.isDeleteAction() }),
-      // authorId: new FormControl({ value: this.author.id, disabled: this.isDeleteAction() }),
-      categoryId: new FormControl({ value: this.article.categoryId, disabled: this.isDeleteAction() }),
-      createDate: new FormControl({ value: this.article.createDate, disabled: this.isDeleteAction() }),
-      updateDate: new FormControl({ value: this.article.updateDate, disabled: this.isDeleteAction() }),
-      entityState: new FormControl({ value: this.article.entityState, disabled: this.isDeleteAction() }),
-      state: new FormControl({ value: this.article.state, disabled: this.isDeleteAction() })
+  private getAllTags() {
+    this.tagService.listAllAsync().subscribe(allTags => {
+      this.allTags = allTags;
+      this.allTags.forEach(t => {
+        this.allTagTitles.push(t.title);
+      });
     });
-
-
-  }
-
-  setTitle() {
-    switch (this.action) {
-      case CRUDActions.Create:
-        this.header = 'Create new Article';
-        break;
-      case CRUDActions.Update:
-        this.header = 'Edit Article';
-        break;
-      case CRUDActions.Delete:
-        this.header = 'Delete Article';
-        break;
-    }
   }
 
   submit() {
@@ -245,10 +202,14 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
   }
 
   private update(model: Article) {
-    this.articleService.update(model).subscribe(result => {
-      this.container.refreshList();
-      this.close();
-      this.openSnackBar('Author updated!', null);
+    this.articleService.update(model).subscribe(() => {
+      this.articleService.addTags(this.tagsOfArticle).subscribe(() => {
+        this.articleService.removeTags(this.removedTagsOfArticle).subscribe(() => {
+          this.container.refreshList();
+          this.close();
+          this.openSnackBar('Author updated!', null);
+        });
+      });
     });
   }
 
@@ -259,6 +220,20 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
       this.close();
       this.openSnackBar('New author created!', null);
     });
+  }
+
+  setTitle() {
+    switch (this.action) {
+      case CRUDActions.Create:
+        this.dialogTitle = 'Create new Article';
+        break;
+      case CRUDActions.Update:
+        this.dialogTitle = 'Edit Article';
+        break;
+      case CRUDActions.Delete:
+        this.dialogTitle = 'Delete Article';
+        break;
+    }
   }
 
   close() {
@@ -286,54 +261,9 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
     if (this.articleForm.get(field)) {
       return !this.isDeleteAction() && this.articleForm.get(field).value;
     } else {
-      console.log('showClearButton on invalid this.articleForm.get(field)', this.articleForm.get(field).value);
-
+      this.openSnackBar(`form not contains field ${field}`, null);
       return false;
     }
-  }
-
-
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
-  }
-
-
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.code === 'Enter') {
-      this.addTag();
-    }
-  }
-
-  listTags() {
-    const input = new SearchTagInput();
-    input.ArticleId = this.article.id;
-    this.tagService.searchAsync(input, 'Search').subscribe(articleTags => {
-      this.tagsOfArticle = articleTags;
-      this.tagService.listAllAsync().subscribe(allTags => {
-        this.tags = allTags.filter(t => this.filterArticleTagsById(t));
-      });
-    });
-  }
-
-  resultFormatBandListValue(value: any) {
-    return value.title;
-  }
-
-  inputFormatBandListValue(value: any) {
-    if (value.title) {
-      return value.title;
-    }
-    return value;
   }
 
   filterArticleTagsById(tag: Tag): boolean {
@@ -344,45 +274,74 @@ export class ArticleEditDialogComponent implements OnInit, ControlValueAccessor 
     return this.tagsOfArticle.findIndex(t => t.title === tag.title) >= 0;
   }
 
-  search = (text$: Observable<string>) => {
-    return text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term.length < 2 ? []
-        : this.tags.filter(v => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    );
+  filterByTitle(title: string): boolean {
+    return this.tagsOfArticle.findIndex(t => t.title === title) >= 0;
   }
 
-  // onAddTag(modal: TemplateRef<any>) {
-  //   this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-  //   this.modalConfig.size = 'md';
-  //   this.modalConfig.backdrop = 'static';
-  //   this.modalConfig.keyboard = false;
-  //   this.modalService.open(modal, this.modalConfig);
-  // }
+  filterAllTags(title: string): boolean {
+    return this.allTags.findIndex(t => t.title === title) >= 0;
+  }
 
-  addTag() {
-    console.log('this.myControl', this.myControl.value);
+  remove(tag: Tag): void {
+    this.tagsOfArticle = this.tagsOfArticle.filter(t => t.title !== tag.title);
+    if (!this.removedTagsOfArticle.find(t => t.title === tag.title)) {
+      this.removedTagsOfArticle.push(tag);
+    }
+  }
 
-    const model = new Tag();
-    model.articleId = this.article.id;
-    model.createDate = new Date();
-    model.updateDate = new Date();
-    model.title = this.myControl.value;
-    model.description = this.myControl.value;
-
-    if (!this.filterArticleTagsByTitle(model)) {
+  selected(event: MatAutocompleteSelectedEvent): void {
+    if (!this.tagsOfArticle.find(t => t.title.toLowerCase() === event.option.viewValue.toLowerCase())) {
+      const model = new Tag();
+      model.articleId = this.article.id;
+      model.createDate = new Date();
+      model.updateDate = new Date();
+      model.title = event.option.viewValue;
+      model.description = event.option.viewValue;
       this.tagsOfArticle.push(model);
-      this.showTagAddedWaring = false;
-      this.autoCompleteModel = null;
-      this.myControl.setValue(null);
+      this.tagInput.nativeElement.value = '';
+      this.tagControl.setValue(null);
     } else {
-      this.showTagAddedWaring = true;
-      this.myControl.setValue(null);
+      this.openSnackBar(`${event.option.viewValue} is already added.`, null);
+    }
+  }
+
+  addTag(event: MatChipInputEvent) {
+    const input = event.input;
+    const value = event.value;
+    if ((value || '').trim()) {
+      if (!this.tagsOfArticle.find(t => t.title.toLowerCase() === event.value.toLowerCase())) {
+        const model = new Tag();
+        model.articleId = this.article.id;
+        model.createDate = new Date();
+        model.updateDate = new Date();
+        model.title = value;
+        model.description = value;
+        this.tagsOfArticle.push(model);
+      } else {
+        this.openSnackBar(`${event.value} is already added.`, null);
+        return;
+      }
+    }
+    // Reset the input value
+    if (input) {
+      input.value = '';
     }
   }
 
   removeTag(tag: Tag) {
     this.tagsOfArticle = this.tagsOfArticle.filter(t => t.title !== tag.title);
   }
+
+  // writeValue(obj: any): void {
+  //   throw new Error('Method not implemented.');
+  // }
+  // registerOnChange(fn: any): void {
+  //   throw new Error('Method not implemented.');
+  // }
+  // registerOnTouched(fn: any): void {
+  //   throw new Error('Method not implemented.');
+  // }
+  // setDisabledState?(isDisabled: boolean): void {
+  //   throw new Error('Method not implemented.');
+  // }
 }

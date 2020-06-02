@@ -48,12 +48,15 @@ import {
   MatSidenavModule,
   MatMenuModule,
   MatAutocompleteModule,
-  MatSelectModule
+  MatSelectModule,
+  MatChipsModule,
+  MAT_CHIPS_DEFAULT_OPTIONS
 } from '@angular/material';
 import { AuthorEditDialogComponent } from './author/author-edit-dialog/author-edit-dialog.component';
 import { HeaderToolbarComponent } from './toolbar/header-toolbar/header-toolbar.component';
 import { FooterToolbarComponent } from './toolbar/footer-toolbar/footer-toolbar.component';
 import { ArticleEditDialogComponent } from './article/article-edit-dialog/article-edit-dialog.component';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 
 @NgModule({
@@ -108,14 +111,21 @@ import { ArticleEditDialogComponent } from './article/article-edit-dialog/articl
     MatSidenavModule,
     MatMenuModule,
     MatAutocompleteModule,
-    MatSelectModule
+    MatSelectModule,
+    MatChipsModule
   ],
   providers: [
     ArticleService,
     AuthorService,
     CommentService,
     FormBuilder,
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    {
+      provide: MAT_CHIPS_DEFAULT_OPTIONS,
+      useValue: {
+        separatorKeyCodes: [ENTER, COMMA]
+      }
+    }
   ],
   entryComponents: [AuthorEditDialogComponent],
   bootstrap: [AppComponent]

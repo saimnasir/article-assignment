@@ -302,40 +302,7 @@ namespace ArticleAssignment.API.Controllers
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
                 }
-                var tag = _mapper.Map<DataModels.Tag>(input);
-                tag = _repositoryFactory.TagRepository.Find(tag);
-
-                if (tag == null) // create tag and articleTag
-                {
-                    tag = _mapper.Map<DataModels.Tag>(input);
-                    tag = _repositoryFactory.TagRepository.Create(tag);
-
-                    var articleTag = new DataModels.ArticleTag
-                    {
-                        ArticleId = input.ArticleId,
-                        TagId = tag.Id
-                    };
-                    articleTag = _repositoryFactory.ArticleTagRepository.Create(articleTag);
-                }
-                else // tag exists
-                {
-                    var articleTag = _repositoryFactory.ArticleTagRepository.Search(
-                      new SearchArticleTagInput
-                      {
-                          ArticleId = input.ArticleId,
-                          TagId = tag.Id
-                      }).SingleOrDefault();
-                 
-                    if (articleTag == null)
-                    {
-                        articleTag = new DataModels.ArticleTag
-                        {
-                            ArticleId = input.ArticleId,
-                            TagId = tag.Id
-                        };
-                        articleTag = _repositoryFactory.ArticleTagRepository.Create(articleTag);
-                    }
-                }
+                addTag(input);
 
                 var viewModel = _mapper.Map<Article>(dataModel);
 
@@ -347,6 +314,28 @@ namespace ArticleAssignment.API.Controllers
             {
                 var messageResponse = _errorGenerator.GetMessageResponse<Article, Tag>(ActionType.Update, input, exception: ex);
                 Log.Error(messageResponse.LogTemplate, messageResponse.Message, input);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
+        // POST: api/Article/AddTags
+        [HttpPost]
+        [Route("AddTags")]
+        public ActionResult AddTags(List<Tag> tags)
+        {
+            try
+            {
+                foreach (var tag in tags)
+                {
+                    addTag(tag);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, List<Tag>>(ActionType.Update, tags, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, tags);
                 throw new Exception(messageResponse.Message);
             }
         }
@@ -363,22 +352,7 @@ namespace ArticleAssignment.API.Controllers
                 {
                     throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
                 }
-                var tag = _mapper.Map<DataModels.Tag>(input);
-                tag = _repositoryFactory.TagRepository.Find(tag);
-
-                if (tag != null)
-                {
-                    var articleTag = _repositoryFactory.ArticleTagRepository.Search(new SearchArticleTagInput
-                    {
-                        ArticleId = input.ArticleId,
-                        TagId = tag.Id
-                    }).SingleOrDefault();
-
-                    if (articleTag != null)
-                    {
-                        _repositoryFactory.ArticleTagRepository.Delete(articleTag.Id);
-                    }
-                }
+                removeTag(input);
 
                 var viewModel = _mapper.Map<Article>(dataModel);
 
@@ -395,6 +369,92 @@ namespace ArticleAssignment.API.Controllers
         }
 
 
+        // POST: api/Article/RemoveTags
+        [HttpPost]
+        [Route("RemoveTags")]
+        public ActionResult RemoveTags(List<Tag> tags)
+        {
+            try
+            {
+                foreach (var tag in tags)
+                {
+                    removeTag(tag);
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                var messageResponse = _errorGenerator.GetMessageResponse<Article, List<Tag>>(ActionType.Update, tags, exception: ex);
+                Log.Error(messageResponse.LogTemplate, messageResponse.Message, tags);
+                throw new Exception(messageResponse.Message);
+            }
+        }
+
+        private void removeTag(Tag input)
+        {
+            var tag = _mapper.Map<DataModels.Tag>(input);
+            tag = _repositoryFactory.TagRepository.Find(tag);
+
+            if (tag != null)
+            {
+                var articleTag = _repositoryFactory.ArticleTagRepository.Search(new SearchArticleTagInput
+                {
+                    ArticleId = input.ArticleId,
+                    TagId = tag.Id
+                }).SingleOrDefault();
+
+                if (articleTag != null)
+                {
+                    _repositoryFactory.ArticleTagRepository.Delete(articleTag.Id);
+                }
+            }
+        }
+
+
+
+        private void addTag(Tag input)
+        {
+            var dataModel = _articleRepository.Read(input.ArticleId);
+            if (dataModel == null)
+            {
+                throw new Exception(_errorGenerator.GetExceptionResponse<Article>(ActionType.Read));
+            }
+            var tag = _mapper.Map<DataModels.Tag>(input);
+            tag = _repositoryFactory.TagRepository.Find(tag);
+
+            if (tag == null) // create tag and articleTag
+            {
+                tag = _mapper.Map<DataModels.Tag>(input);
+                tag = _repositoryFactory.TagRepository.Create(tag);
+
+                var articleTag = new DataModels.ArticleTag
+                {
+                    ArticleId = input.ArticleId,
+                    TagId = tag.Id
+                };
+                articleTag = _repositoryFactory.ArticleTagRepository.Create(articleTag);
+            }
+            else // tag exists
+            {
+                var articleTag = _repositoryFactory.ArticleTagRepository.Search(
+                  new SearchArticleTagInput
+                  {
+                      ArticleId = input.ArticleId,
+                      TagId = tag.Id
+                  }).SingleOrDefault();
+
+                if (articleTag == null)
+                {
+                    articleTag = new DataModels.ArticleTag
+                    {
+                        ArticleId = input.ArticleId,
+                        TagId = tag.Id
+                    };
+                    articleTag = _repositoryFactory.ArticleTagRepository.Create(articleTag);
+                }
+            }
+        }
 
         private void getArticleDetails(Article article)
         {

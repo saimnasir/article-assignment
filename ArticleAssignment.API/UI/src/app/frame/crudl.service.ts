@@ -3,7 +3,6 @@ import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http'
 import { Observable, Subject, EMPTY } from 'rxjs';
 import { CRUDService } from './crud.service';
 import { catchError } from 'rxjs/operators';
-import { ListParams } from './list-params.model';
 
 export abstract class CRUDLService<T> extends CRUDService<T> {
 

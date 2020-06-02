@@ -96,28 +96,7 @@ export class ArticleComponent implements OnInit {
     };
     this.dialog.open(ArticleEditDialogComponent, this.dialogConfig);
   }
-
-
-  // update() {
-  //   this.submitted = true;
-  //   console.log('this.articleForm.value', this.articleForm);
-
-  //   // stop here if form is invalid
-  //   if (this.articleForm.invalid) {
-  //     return;
-  //   }
-  //   const model = new Article();
-  //   Object.assign(model, this.articleForm.value);
-  //   this.articleService.update(model).subscribe(result => {
-  //     this.article = result;
-  //     this.appTags.createAndDeleteTags().subscribe(() => {
-  //       this.appTags.refreshList();
-  //     });
-  //     this.modalService.dismissAll();
-  //   });
-  // }
-
-
+  
   createForm() {
     this.articleForm = new FormGroup({
       id: new FormControl(this.article.id),

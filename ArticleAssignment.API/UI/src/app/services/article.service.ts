@@ -39,6 +39,34 @@ export class ArticleService extends CRUDLService<Article> {
       });
   }
 
+
+  addTags(model: Tag[]) {
+    console.log('addTags', model);
+
+    return this.httpClient.post<any>(
+      this.baseRoute + 'AddTags', model,
+      {
+        withCredentials: false,
+        observe: 'body',
+        responseType: 'json',
+        params: null
+      });
+  }
+
+  removeTags(model: Tag[]) {
+    console.log('removeTags', model);
+
+    return this.httpClient.post<any>(
+      this.baseRoute + 'RemoveTags', model,
+      {
+        withCredentials: false,
+        observe: 'body',
+        responseType: 'json',
+        params: null
+      });
+  }
+
+
   removeTag(model: Tag) {
     return this.httpClient.post<Article>(
       this.baseRoute + 'RemoveTag', model,
