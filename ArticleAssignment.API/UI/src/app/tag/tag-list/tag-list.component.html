@@ -1,3 +1,8 @@
 <div class="mt-2">
-    <app-tag *ngFor="let tag of tagsOfArticle" [tag]="tag" [container]="this"> </app-tag>
+    <mat-chip-list #tagList aria-label="Tag selection">
+        <mat-chip *ngFor="let tag of tagsOfArticle" class="little-chips">
+            {{tag.title}}
+        </mat-chip>
+    </mat-chip-list>
+    <!-- <app-tag *ngFor="let tag of tagsOfArticle" [tag]="tag" [container]="this"> </app-tag> -->
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Inject, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, ControlValueAccessor } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -253,7 +253,6 @@ export class ArticleEditDialogComponent implements OnInit {
   }
 
   clearField(field: string) {
-    console.log('clearField this.articleForm', this.articleForm);
     this.articleForm.get(field).setValue(null);
   }
 
@@ -264,22 +263,6 @@ export class ArticleEditDialogComponent implements OnInit {
       this.openSnackBar(`form not contains field ${field}`, null);
       return false;
     }
-  }
-
-  filterArticleTagsById(tag: Tag): boolean {
-    return this.tagsOfArticle.findIndex(t => t.id === tag.id) < 0;
-  }
-
-  filterArticleTagsByTitle(tag: Tag): boolean {
-    return this.tagsOfArticle.findIndex(t => t.title === tag.title) >= 0;
-  }
-
-  filterByTitle(title: string): boolean {
-    return this.tagsOfArticle.findIndex(t => t.title === title) >= 0;
-  }
-
-  filterAllTags(title: string): boolean {
-    return this.allTags.findIndex(t => t.title === title) >= 0;
   }
 
   remove(tag: Tag): void {
@@ -332,16 +315,21 @@ export class ArticleEditDialogComponent implements OnInit {
     this.tagsOfArticle = this.tagsOfArticle.filter(t => t.title !== tag.title);
   }
 
-  // writeValue(obj: any): void {
-  //   throw new Error('Method not implemented.');
-  // }
-  // registerOnChange(fn: any): void {
-  //   throw new Error('Method not implemented.');
-  // }
-  // registerOnTouched(fn: any): void {
-  //   throw new Error('Method not implemented.');
-  // }
-  // setDisabledState?(isDisabled: boolean): void {
-  //   throw new Error('Method not implemented.');
-  // }
+  /*
+  filterArticleTagsById(tag: Tag): boolean {
+    return this.tagsOfArticle.findIndex(t => t.id === tag.id) < 0;
+  }
+
+  filterArticleTagsByTitle(tag: Tag): boolean {
+    return this.tagsOfArticle.findIndex(t => t.title === tag.title) >= 0;
+  }
+
+  filterByTitle(title: string): boolean {
+    return this.tagsOfArticle.findIndex(t => t.title === title) >= 0;
+  }
+
+  filterAllTags(title: string): boolean {
+    return this.allTags.findIndex(t => t.title === title) >= 0;
+  }
+  */
 }

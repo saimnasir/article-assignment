@@ -1,6 +1,7 @@
-.angular-editor-toolbar[_ngcontent-bba-c114] {
-    font: 100 .8rem/15px Roboto,Arial,sans-serif;
-    background-color: #d67d7d;
-    padding: .2rem;
-    border: 1px solid #ddd;
+.article-card {
+    width: 100%;
+}
+
+.article-card-content {
+    width: 100%;
 }

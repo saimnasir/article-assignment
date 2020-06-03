@@ -7,7 +7,7 @@
 
         <h1>
             <button mat-button [routerLink]="'/articles'">
-                <mat-icon aria-label="Articler" matTooltipPosition="above">
+                <mat-icon aria-label="Articler" matTooltipPosition="below">
                     description
                 </mat-icon>Articler
             </button>
@@ -23,7 +23,7 @@
             <input class="form-control mr-sm-2" style="min-width: 60%;" type="search" placeholder="Search"
                 aria-label="Search">
             <button mat-button (click)="search()">
-                <mat-icon aria-label="Articler" matTooltipPosition="above">
+                <mat-icon aria-label="Articler" matTooltipPosition="below">
                     search
                 </mat-icon>Search
             </button>
@@ -31,7 +31,7 @@
         <span class="menu-spacer"></span>
 
         <button mat-button [matMenuTriggerFor]="menu">
-            <mat-icon aria-label="User Settings" matTooltipPosition="above">
+            <mat-icon aria-label="User Settings" matTooltipPosition="below">
                 keyboard_arrow_down
             </mat-icon>Saim Nasır
         </button>
@@ -52,7 +52,7 @@
 
             <div style="border: none;width: 100%;" mat-list-item align="center">
                 <button style="width: 100%;" mat-button [matMenuTriggerFor]="menu">
-                    <mat-icon aria-label="User Settings" matTooltipPosition="above">
+                    <mat-icon aria-label="User Settings" matTooltipPosition="below">
                         keyboard_arrow_down
                     </mat-icon>Saim Nasır
                 </button>
@@ -60,7 +60,7 @@
 
             <div style="border: none;width: 100%;" mat-list-item align="center">
                 <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="drawer.toggle()">
-                    <mat-icon matTooltip="Close" aria-label="Clear field" matTooltipPosition="above">
+                    <mat-icon matTooltip="Close" aria-label="Clear field" matTooltipPosition="below">
                         keyboard_arrow_left
                     </mat-icon>
                 </button>

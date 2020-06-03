@@ -1,32 +1,55 @@
-<mat-card class="example-card mt-4">
-    
+<mat-card class="article-card mt-4">
     <mat-card-header>
         <mat-card-title>{{article.title}} </mat-card-title>
-        <div align="end">
-            <app-user-info *ngIf="author" [author]="author"></app-user-info>
-        </div>
     </mat-card-header>
     <mat-divider [inset]="true"></mat-divider>
-
-    <!-- Deneme -->
-    <div class="row mt-4">
-        <p class="ml-4 mr-4" [innerHTML]="article.content">
-            {{article.content}}</p>
-        <app-tag-list [article]="article"> </app-tag-list>
-    </div>
+    <mat-card-content class="article-card-content">
+        <div class="row ">
+            <div class="col-12">
+                <div class="row">
+                    <p class="col-12" [innerHTML]="article.content">
+                        {{article.content}}</p>
+                </div>
+                <mat-divider [inset]="true" class="mb-2"></mat-divider>
+                <div class="row">
+                    <div class="col-9">
+                        <app-tag-list [article]="article"> </app-tag-list>
+                    </div>
+                    <div class="col mr-2">
+                        <app-user-info *ngIf="author" [author]="author"></app-user-info>
+                    </div>
+                </div>
+                <mat-divider [inset]="true" class="mt-2 mb-2"></mat-divider>
+                <mat-accordion class="mt-2">
+                    <mat-expansion-panel (opened)="commentPanelOpenState = true"
+                        (closed)="commentPanelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <mat-icon class="mr-2">comment</mat-icon>
+                                Comments
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                {{!commentPanelOpenState ? 'Expand to see comments.' : 'Close Comments Panel'}}
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-divider [inset]="true"></mat-divider>
+                        <app-comment-list #appComments [article]="article">
+                        </app-comment-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+        <!-- End -->
+    </mat-card-content>
     <mat-divider [inset]="true"></mat-divider>
-
-    <!-- End -->
-
     <mat-card-actions class="example-button-row">
         <app-entity-history class="col-2" [createDate]="article.createDate" [updateDate]="article.updateDate"
-            [createDateCaption]="'Join at'"></app-entity-history>
+            [createDateCaption]="'Join at'">Loading</app-entity-history>
         <div class="col text-right">
             <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>
             <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
         </div>
     </mat-card-actions>
-
 </mat-card>
 
 <!-- <div class="container">

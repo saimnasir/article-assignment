@@ -33,13 +33,13 @@ export class ArticleComponent implements OnInit {
   @Input() container: ArticleListComponent;
   @Input() article: Article;
 
+  commentPanelOpenState = false;
+
   articleId: number;
   author: Author;
   articleForm: FormGroup;
   modalConfig = new NgbModalConfig();
   submitted = false;
-
-
   dialogConfig = new MatDialogConfig();
 
   constructor(
@@ -64,19 +64,6 @@ export class ArticleComponent implements OnInit {
     this.dialogConfig.hasBackdrop = false;
   }
 
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-    if (event.code === 'Enter') {
-      this.onTagInputChange();
-    }
-  }
-
-  showTagAddedWaring(): boolean {
-    const tag = new Tag();
-    tag.title = this.appTags.tagTitle;
-    return this.appTags.filterArticleTagsByTitle(tag);
-  }
-
   onUpdate() {
     this.dialogConfig.data = {
       article: this.article,
@@ -97,28 +84,6 @@ export class ArticleComponent implements OnInit {
     this.dialog.open(ArticleEditDialogComponent, this.dialogConfig);
   }
   
-  createForm() {
-    this.articleForm = new FormGroup({
-      id: new FormControl(this.article.id),
-      title: new FormControl(this.article.title),
-      content: new FormControl(this.article.content),
-      authorId: new FormControl(this.article.authorId),
-      categoryId: new FormControl(this.article.categoryId),
-      createDate: new FormControl(this.article.createDate),
-      updateDate: new FormControl(this.article.updateDate),
-      entityState: new FormControl(this.article.entityState),
-      state: new FormControl(this.article.state),
-    });
-  }
-
-  toggleComments() {
-    this.appComments.toggleComments();
-  }
-
-  commentCounts(): number {
-    return this.appComments.commentCounts();
-  }
-
   onTagInputChange() {
     this.appTags.addTag();
   }
