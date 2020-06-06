@@ -114,6 +114,11 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
     });
   }
 
+  /* Handle form errors in Angular 8 */
+  public errorHandling = (control: string, error: string) => {
+    return this.authorForm.controls[control].hasError(error);
+  }
+
   close() {
     this.dialogRef.close();
   }
