@@ -9,7 +9,7 @@
     </mat-card-header>
     <mat-divider [inset]="true"></mat-divider>
     <mat-card-content class="author-card-content">
-        <div class="row" *ngIf="isCreateAction()" [formGroup]="commentForm">
+        <div class="row mt-1" *ngIf="isCreateAction()" [formGroup]="commentForm">
             <mat-form-field class="col-12" appearance="fill">
                 <mat-label>Your Comment</mat-label>
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"

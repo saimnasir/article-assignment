@@ -1,21 +1,34 @@
 <mat-card class="example-card" style="background-color: gainsboro;">
     <mat-card-content style="background-color: gainsboro;">
         <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title>Authors <button align="end" mat-stroked-button color="primary" (click)="onCreate()">New
+            <div class="row">
+                <div class="col-9">
+                    <mat-card-header>
+                        <div class=" row">
+                            <mat-card-title>Authors
+                            </mat-card-title>
+                        </div>
+                    </mat-card-header>
+                </div>
+                <div class="col-3" align="end">
+                    <button mat-stroked-button color="primary" (click)="onCreate()">New
                         Author</button>
-                </mat-card-title>
-            </mat-card-header>
+                </div>
+            </div>
+
             <mat-card-content>
                 <mat-accordion class="example-headers-align">
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header>
+                    <mat-expansion-panel (opened)="filterPanelOpenState = true"
+                        (closed)="filterPanelOpenState = false">
+                        <mat-expansion-panel-header style="background-color: lemonchiffon;">
                             <mat-panel-title>
                                 Filter
                             </mat-panel-title>
                             <mat-panel-description>
+                                {{!filterPanelOpenState ? 'Expand to filter authors.' : 'Close Filter Panel'}}
                             </mat-panel-description>
                         </mat-expansion-panel-header>
+
                         <form class="my-form" [formGroup]="searchForm">
                             <mat-form-field class="example-full-width" align="start">
                                 <mat-label>Query</mat-label>

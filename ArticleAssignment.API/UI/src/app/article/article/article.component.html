@@ -1,7 +1,25 @@
 <mat-card class="article-card mt-4">
-    <mat-card-header >
-        <mat-card-title>{{article.title}} </mat-card-title>
-    </mat-card-header>
+    <div class="row">
+        <div class="col-9">
+            <mat-card-header class="pt-1" color="primary" *ngIf="author"
+                style="background-color: whitesmoke;width: 100%; font-size: larger; border: 1px solid #d7d7d7; border-radius: 4px;">
+                <mat-card-title class="mt-1">
+                    <mat-card-title>{{article.title}} </mat-card-title>
+                </mat-card-title>
+            </mat-card-header>
+        </div>
+        <div class="col-3 mb-2" align="end">
+            <mat-card-header class="mat-stroked-button pt-1" color="primary" *ngIf="author"
+                [routerLink]="['/author', author.id]" style="background-color: whitesmoke;width: 100%;">
+                <div mat-card-avatar>
+                    <img class="author-thumbnail" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+                </div>
+                <mat-card-title>
+                    {{author.firstName + ' ' + author.lastName }}
+                </mat-card-title>
+            </mat-card-header>
+        </div>
+    </div>
     <mat-divider [inset]="true"></mat-divider>
     <mat-card-content class="article-card-content">
         <div class="row ">
@@ -12,30 +30,8 @@
                 </div>
                 <mat-divider [inset]="true" class="mb-2"></mat-divider>
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-12">
                         <app-tag-list [article]="article"> </app-tag-list>
-                    </div>
-                    <div class="col ">
-                        <mat-card style="background-color: lemonchiffon;">
-                            <mat-card-title class="little-chips">
-                                Created {{article.createDate | date :'dd-MM-yyyy hh:mm'}}
-                            </mat-card-title>
-                            <mat-card-title class="little-chips">
-                                Edited {{article.updateDate | date :'dd-MM-yyyy hh:mm'}}
-                            </mat-card-title>
-                            <mat-card>
-                                <mat-card-header *ngIf="author" mat-stroked-button >
-                                    <div mat-card-avatar><img class="author-thumbnail"
-                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg">
-                                    </div>
-                                    <mat-card-title>
-                                        <button mat-stroked-button color="primary"
-                                            [routerLink]="['/author', author.id]">
-                                            {{author.firstName + ' ' + author.lastName }} </button>
-                                    </mat-card-title>
-                                </mat-card-header>
-                            </mat-card>
-                        </mat-card>
                     </div>
                 </div>
                 <mat-divider [inset]="true" class="mt-2 mb-2"></mat-divider>
@@ -52,7 +48,7 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <mat-divider [inset]="true"></mat-divider>
-                        <app-comment-list #appComments [article]="article"  >
+                        <app-comment-list #appComments [article]="article">
                         </app-comment-list>
                     </mat-expansion-panel>
                 </mat-accordion>
@@ -61,14 +57,20 @@
         <!-- End -->
     </mat-card-content>
     <mat-divider [inset]="true"></mat-divider>
-    <mat-card-actions class="example-button-row">
-        <app-entity-history class="col-2" [createDate]="article.createDate" [updateDate]="article.updateDate"
-            [createDateCaption]="'Join at'">Loading</app-entity-history>
-        <div class="col text-right">
-            <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>
-            <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+    <div class="row">
+        <div class="col-9">
+            <app-entity-history class="col-2" [createDate]="article.createDate" [updateDate]="article.updateDate"
+                [createDateCaption]="'Join at'">Loading</app-entity-history>            
         </div>
-    </mat-card-actions>
+        <div class="col-3 mb-2" align="end">
+            <mat-card-actions>
+                <div class="col text-right">
+                    <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>
+                    <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+                </div>
+            </mat-card-actions>
+        </div>
+    </div>    
 </mat-card>
 
 <!-- <div class="container">

@@ -18,6 +18,9 @@ export class AuthorListComponent implements OnInit {
   searchForm: FormGroup;
   searchInput = new SearchInputBase('');
   position: DialogPosition;
+  
+  filterPanelOpenState = false;
+
   constructor(
     public authorService: AuthorService,
     private dialog: MatDialog

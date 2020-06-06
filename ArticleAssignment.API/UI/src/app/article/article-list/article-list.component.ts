@@ -71,7 +71,7 @@ export class ArticleListComponent implements OnInit {
   tagsOfArticle: Tag[] = [];
   allTags: Tag[];
   newTag: any;
-
+  filterPanelOpenState = false;
   constructor(
     public articleService: ArticleService,
     private tagService: TagService,

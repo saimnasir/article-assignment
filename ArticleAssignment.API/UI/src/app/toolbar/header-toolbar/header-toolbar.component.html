@@ -44,8 +44,8 @@
     -->
 
 </mat-toolbar>
-<mat-sidenav-container class="example-container">
-    <mat-sidenav #drawer mode="side" role="navigation">
+<mat-drawer-container class="example-container"  [hasBackdrop]="true">
+    <mat-drawer #drawer mode="side" role="navigation" [mode]="'over'">
         <mat-nav-list>
             <a style="width: 100%;" mat-button [routerLink]="'/articles'"  (click)="drawer.toggle()"> Articles</a>
             <a style="width: 100%;" mat-button [routerLink]="'/authors'"  (click)="drawer.toggle()"> Authors</a>
@@ -66,11 +66,11 @@
                 </button>
             </div>
         </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
+    </mat-drawer>
+    <mat-drawer-content>
         <router-outlet></router-outlet>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+    </mat-drawer-content>
+</mat-drawer-container>
 <mat-menu #menu="matMenu" xPosition="after">
     <button mat-menu-item>Profile</button>
     <button mat-menu-item>Log Out</button>

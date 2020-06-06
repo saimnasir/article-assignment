@@ -1,5 +1,5 @@
-<mat-card class="author-card mt-4" >
-    <mat-card-header >
+<mat-card class="author-card mt-4">
+    <mat-card-header>
         <div mat-card-avatar><img class="author-thumbnail"
                 src="https://material.angular.io/assets/img/examples/shiba1.jpg"></div>
         <mat-card-title>{{getFullName()}}</mat-card-title>
@@ -26,13 +26,20 @@
             </div>
         </div>
     </mat-card-content>
-    <mat-card-actions class="example-button-row">
-        <app-entity-history class="col-2" [createDate]="author.createDate" [updateDate]="author.updateDate"
-            [createDateCaption]="'Join at'"></app-entity-history>
-        <div class="col text-right">
-            <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>
-            <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+    <mat-divider [inset]="true"></mat-divider>
+    <div class="row">
+        <div class="col-9">
+            <app-entity-history class="col-2" [createDate]="author.createDate" [updateDate]="author.updateDate"
+                [createDateCaption]="'Join at'">Loading</app-entity-history>
         </div>
-    </mat-card-actions>
+        <div class="col-3 mb-2" align="end">
+            <mat-card-actions>
+                <div class="col text-right">
+                    <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>
+                    <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+                </div>
+            </mat-card-actions>
+        </div>
+    </div>
 
 </mat-card>
