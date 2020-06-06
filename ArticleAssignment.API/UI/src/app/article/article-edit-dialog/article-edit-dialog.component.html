@@ -4,7 +4,7 @@
     <!-- title -->
     <mat-form-field appearance="fill" class="col-12">
         <mat-label>Title</mat-label>
-        <input matInput name="title" formControlName="title" required>
+        <input matInput name="title" formControlName="title" required [readonly] ="isDeleteAction()">
         <button mat-button *ngIf="showClearButton('title')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('title')">
             <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">

@@ -9,7 +9,7 @@
     </mat-card-header>
     <mat-divider [inset]="true"></mat-divider>
     <mat-card-content class="author-card-content">
-        <div class="row mt-1" *ngIf="isCreateAction()" [formGroup]="commentForm">
+        <div class="row mt-1" *ngIf="showForm()" [formGroup]="commentForm">
             <mat-form-field class="col-12" appearance="fill">
                 <mat-label>Your Comment</mat-label>
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
@@ -30,19 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="isUpdateAction()" [formGroup]="commentForm">
-            <mat-form-field class="col-12" appearance="fill">
-                <mat-label>Your Comment</mat-label>
-                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
-                    formControlName="content" cdkAutosizeMaxRows="4" required></textarea>
-                <button mat-button *ngIf="showClearButton('content')" matSuffix mat-icon-button aria-label="Clear"
-                    (click)="clearField('content')">
-                    <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
-                        close
-                    </mat-icon>
-                </button>
-            </mat-form-field>
-        </div>
+       
     </mat-card-content>
     <mat-card-actions class="example-button-row" *ngIf="isCreateAction()">
         <div class="col-12 text-right">

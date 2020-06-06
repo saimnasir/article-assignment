@@ -72,7 +72,7 @@ export class CommentComponent implements OnInit {
 
   create() {
     if (this.commentForm.valid) {
-      Object.assign(this.model, this.commentForm.value); 
+      Object.assign(this.model, this.commentForm.value);
       this.articleService.addComment(this.model).subscribe(result => {
         this.container.refreshList();
         this.action = CRUDActions.Create;
@@ -102,6 +102,14 @@ export class CommentComponent implements OnInit {
 
   isCreateAction(): boolean {
     if (this.action === CRUDActions.Create) {
+      return true;
+    }
+    return false;
+  }
+
+
+  showForm(): boolean {
+    if (this.action === CRUDActions.Create || this.action === CRUDActions.Update) {
       return true;
     }
     return false;

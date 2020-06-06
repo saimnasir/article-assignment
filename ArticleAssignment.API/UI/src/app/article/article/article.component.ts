@@ -80,7 +80,7 @@ export class ArticleComponent implements OnInit {
     };
     this.dialog.open(ArticleEditDialogComponent, this.dialogConfig);
   }
-  
+
   onTagInputChange() {
     this.appTags.addTag();
   }

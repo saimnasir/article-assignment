@@ -44,16 +44,16 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
     }
 
     this.authorForm = this.fb.group({
-      id: new FormControl({ value: this.author.id, disabled: this.isDeleteAction() }),
-      firstName: new FormControl({ value: this.author.firstName, disabled: this.isDeleteAction() }),
-      middleName: new FormControl({ value: this.author.middleName, disabled: this.isDeleteAction() }),
-      lastName: new FormControl({ value: this.author.lastName, disabled: this.isDeleteAction() }),
-      email: new FormControl({ value: this.author.email, disabled: this.isDeleteAction() }),
-      phone: new FormControl({ value: this.author.phone, disabled: this.isDeleteAction() }),
-      about: new FormControl({ value: this.author.about, disabled: this.isDeleteAction() }),
-      birthDate: new FormControl({ value: this.author.birthDate, disabled: this.isDeleteAction() }),
-      createDate: new FormControl({ value: this.author.createDate, disabled: this.isDeleteAction() }),
-      updateDate: new FormControl({ value: this.author.updateDate, disabled: this.isDeleteAction() })
+      id: new FormControl(this.author.id),
+      firstName: new FormControl(this.author.firstName),
+      middleName: new FormControl(this.author.middleName),
+      lastName: new FormControl(this.author.lastName),
+      email: new FormControl(this.author.email),
+      phone: new FormControl(this.author.phone),
+      about: new FormControl(this.author.about),
+      birthDate: new FormControl(this.author.birthDate),
+      createDate: new FormControl(this.author.createDate),
+      updateDate: new FormControl(this.author.updateDate)
     });
 
     this.setTitle();

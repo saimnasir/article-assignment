@@ -3,7 +3,7 @@
 <mat-dialog-content [formGroup]="authorForm" class="row">
     <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>First Name</mat-label>
-        <input matInput name="firstName" formControlName="firstName" required>
+        <input matInput name="firstName" formControlName="firstName" required [readonly] ="isDeleteAction()">
         <button mat-button *ngIf="showClearButton('firstName')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('firstName')">
             <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
@@ -14,7 +14,7 @@
 
     <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Middle Name</mat-label>
-        <input matInput name="middleName" formControlName="middleName">
+        <input matInput name="middleName" formControlName="middleName" [readonly] ="isDeleteAction()">
         <mat-hint class="mb-4">Middle Name is not required.</mat-hint>
         <button mat-button *ngIf="showClearButton('middleName')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('middleName')">
@@ -26,7 +26,7 @@
 
     <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Last Name</mat-label>
-        <input matInput name="lastName" formControlName="lastName" required>
+        <input matInput name="lastName" formControlName="lastName" required [readonly] ="isDeleteAction()">
         <button mat-button *ngIf="showClearButton('lastName')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('lastName')">
             <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
@@ -37,14 +37,14 @@
 
     <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Birth Date</mat-label>
-        <input matInput [matDatepicker]="picker" name="birthDate" formControlName="birthDate" required>
+        <input matInput [matDatepicker]="picker" name="birthDate" formControlName="birthDate" required [readonly] ="isDeleteAction()">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Email</mat-label>
-        <input matInput name="email" formControlName="email" required>
+        <input matInput name="email" formControlName="email" required [readonly] ="isDeleteAction()">
         <button mat-button *ngIf="showClearButton('email')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('email')">
             <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
@@ -55,7 +55,7 @@
 
     <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
         <mat-label>Phone</mat-label>
-        <input matInput name="phone" formControlName="phone" required>
+        <input matInput name="phone" formControlName="phone" required [readonly] ="isDeleteAction()">
         <button mat-button *ngIf="showClearButton('phone')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('phone')">
             <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
@@ -67,7 +67,7 @@
     <mat-form-field class="col-12" appearance="fill">
         <mat-label>About</mat-label>
         <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5"
-            formControlName="about" cdkAutosizeMaxRows="10" required></textarea>
+            formControlName="about" cdkAutosizeMaxRows="10" required [readonly] ="isDeleteAction()"></textarea>
         <button mat-button *ngIf="showClearButton('about')" matSuffix mat-icon-button aria-label="Clear"
             (click)="clearField('about')">
             <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">

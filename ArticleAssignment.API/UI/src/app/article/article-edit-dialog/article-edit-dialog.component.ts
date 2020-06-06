@@ -125,15 +125,15 @@ export class ArticleEditDialogComponent implements OnInit {
 
   private createForm() {
     this.articleForm = this.fb.group({
-      id: new FormControl({ value: this.article.id, disabled: this.isDeleteAction() }),
-      title: new FormControl({ value: this.article.title, disabled: this.isDeleteAction() }),
-      content: new FormControl({ value: this.article.content, disabled: this.isDeleteAction() }),
-      // authorId: new FormControl({ value: this.author.id, disabled: this.isDeleteAction() }),
-      categoryId: new FormControl({ value: this.article.categoryId, disabled: this.isDeleteAction() }),
-      createDate: new FormControl({ value: this.article.createDate, disabled: this.isDeleteAction() }),
-      updateDate: new FormControl({ value: this.article.updateDate, disabled: this.isDeleteAction() }),
-      entityState: new FormControl({ value: this.article.entityState, disabled: this.isDeleteAction() }),
-      state: new FormControl({ value: this.article.state, disabled: this.isDeleteAction() }),
+      id: new FormControl(this.article.id),
+      title: new FormControl(this.article.title),
+      content: new FormControl(this.article.content),
+      // authorId: new FormControl( this.author.id ),
+      categoryId: new FormControl(this.article.categoryId),
+      createDate: new FormControl(this.article.createDate),
+      updateDate: new FormControl(this.article.updateDate),
+      entityState: new FormControl(this.article.entityState),
+      state: new FormControl(this.article.state),
       specie: []
     });
   }
@@ -194,10 +194,15 @@ export class ArticleEditDialogComponent implements OnInit {
   }
 
   private delete(model: Article) {
+    console.log('delete: model', model);
+    if (!model.id) {
+      this.openSnackBar('Article is is undefined!', null);
+      return;
+    }
     this.articleService.delete(model.id).subscribe(result => {
       this.container.refreshList();
       this.close();
-      this.openSnackBar('Author deleted!', null);
+      this.openSnackBar('Article deleted!', null);
     });
   }
 

@@ -44,13 +44,13 @@ export class CommentEditDialogComponent implements OnInit, ControlValueAccessor 
     }
 
     this.commentForm = this.fb.group({
-      id: new FormControl({ value: this.comment.id, disabled: this.isDeleteAction() }),
-      content: new FormControl({ value: this.comment.content, disabled: this.isDeleteAction() }),
-      authorId: new FormControl({ value: this.comment.authorId, disabled: this.isDeleteAction() }),
-      articleId: new FormControl({ value: this.comment.articleId, disabled: this.isDeleteAction() }),
-      createDate: new FormControl({ value: this.comment.createDate, disabled: this.isDeleteAction() }),
-      updateDate: new FormControl({ value: this.comment.updateDate, disabled: this.isDeleteAction() }),
-      entityState: new FormControl({ value: this.comment.entityState, disabled: this.isDeleteAction() })
+      id: new FormControl(this.comment.id),
+      content: new FormControl(this.comment.content),
+      authorId: new FormControl(this.comment.authorId),
+      articleId: new FormControl(this.comment.articleId),
+      createDate: new FormControl(this.comment.createDate),
+      updateDate: new FormControl(this.comment.updateDate),
+      entityState: new FormControl(this.comment.entityState)
     });
 
     this.setTitle();
