@@ -1,12 +1,12 @@
 <mat-card class="article-card mt-4">
-    <mat-card-header>
+    <mat-card-header >
         <mat-card-title>{{article.title}} </mat-card-title>
     </mat-card-header>
     <mat-divider [inset]="true"></mat-divider>
     <mat-card-content class="article-card-content">
         <div class="row ">
             <div class="col-12">
-                <div class="row">
+                <div class="row m-2 mt-4">
                     <p class="col-12" [innerHTML]="article.content">
                         {{article.content}}</p>
                 </div>
@@ -15,15 +15,34 @@
                     <div class="col-9">
                         <app-tag-list [article]="article"> </app-tag-list>
                     </div>
-                    <div class="col mr-2">
-                        <app-user-info *ngIf="author" [author]="author"></app-user-info>
+                    <div class="col ">
+                        <mat-card style="background-color: lemonchiffon;">
+                            <mat-card-title class="little-chips">
+                                Created {{article.createDate | date :'dd-MM-yyyy hh:mm'}}
+                            </mat-card-title>
+                            <mat-card-title class="little-chips">
+                                Edited {{article.updateDate | date :'dd-MM-yyyy hh:mm'}}
+                            </mat-card-title>
+                            <mat-card>
+                                <mat-card-header *ngIf="author" mat-stroked-button >
+                                    <div mat-card-avatar><img class="author-thumbnail"
+                                            src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+                                    </div>
+                                    <mat-card-title>
+                                        <button mat-stroked-button color="primary"
+                                            [routerLink]="['/author', author.id]">
+                                            {{author.firstName + ' ' + author.lastName }} </button>
+                                    </mat-card-title>
+                                </mat-card-header>
+                            </mat-card>
+                        </mat-card>
                     </div>
                 </div>
                 <mat-divider [inset]="true" class="mt-2 mb-2"></mat-divider>
                 <mat-accordion class="mt-2">
                     <mat-expansion-panel (opened)="commentPanelOpenState = true"
-                        (closed)="commentPanelOpenState = false">
-                        <mat-expansion-panel-header>
+                        (closed)="commentPanelOpenState = false" style="background-color: gainsboro;">
+                        <mat-expansion-panel-header style="background-color: lemonchiffon;">
                             <mat-panel-title>
                                 <mat-icon class="mr-2">comment</mat-icon>
                                 Comments
@@ -33,7 +52,7 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <mat-divider [inset]="true"></mat-divider>
-                        <app-comment-list #appComments [article]="article">
+                        <app-comment-list #appComments [article]="article"  >
                         </app-comment-list>
                     </mat-expansion-panel>
                 </mat-accordion>

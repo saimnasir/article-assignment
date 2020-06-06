@@ -8,7 +8,8 @@ import { CommentListComponent } from '../comment-list/comment-list.component';
 import { CRUDActions } from 'src/app/models/enums/action.enum';
 import { Article } from 'src/app/models/article.model';
 import { AuthorService } from 'src/app/services/author.service';
-import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
+import { CommentEditDialogComponent } from '../comment-edit-dialog/comment-edit-dialog.component';
 
 @Component({
   selector: 'app-comment',
@@ -21,17 +22,17 @@ export class CommentComponent implements OnInit {
   @Input() article: Article;
   @Input() action = CRUDActions.Read;
   @Input() comment: Comment;
-  author: Author;
+  author = new Author();
   model = new Comment();
   commentForm: FormGroup;
-  cardClass = 'alert-info';
-  modalConfig = new NgbModalConfig();
+  dialogConfig = new MatDialogConfig();
 
   constructor(
     private commentService: CommentService,
     private articleService: ArticleService,
     private authorService: AuthorService,
-    private modalService: NgbModal
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) { }
 
 
@@ -41,46 +42,37 @@ export class CommentComponent implements OnInit {
       this.author = result;
       this.commentForm.patchValue({ articleId: this.article.id });
       this.commentForm.patchValue({ authorId: this.author.id });
-      if (this.isCreateAction()) {
-        this.cardClass = 'alert-light';
-      }
     });
+
+    this.dialogConfig.minHeight = '80%';
+    this.dialogConfig.disableClose = false;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.hasBackdrop = false;
   }
 
-  onMouseover() {
-    this.cardClass = 'alert-light';
-  }
-
-  onMouseOut() {
-    if (!this.isCreateAction()) {
-      this.cardClass = 'alert-info';
-    }
-  }
 
   onEdit() {
     this.action = CRUDActions.Update;
     this.createForm();
-    this.cardClass = 'alert-light';
   }
 
   update() {
     if (this.commentForm.valid) {
       Object.assign(this.model, this.commentForm.value);
       this.commentService.update(this.model).subscribe(result => {
+        this.comment = result;
         this.container.refreshList();
         this.onDiscardUpdate();
       });
     }
     else {
-      alert('forms is in valid');
+      this.openSnackBar(`form is in valid`, null);
     }
   }
 
   create() {
     if (this.commentForm.valid) {
-      Object.assign(this.model, this.commentForm.value);
-      console.log('create: this.model', this.model);
-
+      Object.assign(this.model, this.commentForm.value); 
       this.articleService.addComment(this.model).subscribe(result => {
         this.container.refreshList();
         this.action = CRUDActions.Create;
@@ -88,23 +80,23 @@ export class CommentComponent implements OnInit {
       });
     }
     else {
-      alert('forms is in valid');
+      this.openSnackBar(`form is in valid`, null);
     }
   }
 
-  onDelete(modal: TemplateRef<any>) {
-    this.modalConfig.ariaLabelledBy = 'modal-basic-title';
-    this.modalConfig.size = 'lg';
-    this.modalConfig.backdrop = 'static';
-    this.modalConfig.keyboard = false;
-    this.modalConfig.centered = false;
-    this.modalService.open(modal, this.modalConfig);
+  onDelete() {
+    this.dialogConfig.data = {
+      article: this.article,
+      author: this.author,
+      container: this.container,
+      action: CRUDActions.Delete
+    };
+    this.dialog.open(CommentEditDialogComponent, this.dialogConfig);
   }
 
   delete() {
     this.commentService.delete(this.comment.id).subscribe(result => {
       this.container.refreshList();
-      this.modalService.dismissAll();
     });
   }
 
@@ -129,7 +121,6 @@ export class CommentComponent implements OnInit {
 
   onDiscardUpdate() {
     this.action = CRUDActions.Read;
-    this.cardClass = 'alert-info';
   }
 
   createForm() {
@@ -154,6 +145,33 @@ export class CommentComponent implements OnInit {
         entityState: new FormControl(this.comment.entityState)
       });
     }
+  }
+
+  isDeleteAction(): boolean {
+    return this.action === CRUDActions.Delete;
+  }
+
+
+  clearField(field: string) {
+    this.commentForm.get(field).setValue(null);
+  }
+
+  showClearButton(field: string) {
+    if (this.commentForm.get(field)) {
+      return !this.isDeleteAction() && this.commentForm.get(field).value;
+    } else {
+      this.openSnackBar(`form not contains field ${field}`, null);
+      return false;
+    }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action,
+      {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom',
+      });
   }
 
 }

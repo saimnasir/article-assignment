@@ -1,34 +1,31 @@
-<mat-card class="example-card mt-4">
-    <mat-card-header>
+<mat-card class="author-card mt-4" >
+    <mat-card-header >
         <div mat-card-avatar><img class="author-thumbnail"
                 src="https://material.angular.io/assets/img/examples/shiba1.jpg"></div>
         <mat-card-title>{{getFullName()}}</mat-card-title>
     </mat-card-header>
     <mat-divider [inset]="true"></mat-divider>
-
-    <!-- Deneme -->
-    <div class="row mt-4">
-        <div class="col-2">
-            <img class="author-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
-        </div>
-        <div class="col-7">
-            <p>{{author.about}}</p>
-        </div>
-        <div class="col-3">
-            <a href="mailto:'author.email'" class="row mb-2">
-                <mat-icon matSuffix>email</mat-icon> {{author.email}}
-            </a>
-            <a class="row mb-2" href="tel:'author.phone'">
-                <mat-icon matSuffix>phone</mat-icon> {{author.phone}}
-            </a>
-            <div class="row mb-2">
-                <mat-icon matSuffix>accessibility_new</mat-icon> {{author.birthDate | date : 'MMM d, y'}}
+    <mat-card-content class="author-card-content">
+        <div class="row mt-4">
+            <div class="col-2">
+                <img class="author-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+            </div>
+            <div class="col-7">
+                <p>{{author.about}}</p>
+            </div>
+            <div class="col-3">
+                <a href="mailto:'author.email'" class="row mb-2">
+                    <mat-icon matSuffix>email</mat-icon> {{author.email}}
+                </a>
+                <a class="row mb-2" href="tel:'author.phone'">
+                    <mat-icon matSuffix>phone</mat-icon> {{author.phone}}
+                </a>
+                <div class="row mb-2">
+                    <mat-icon matSuffix>accessibility_new</mat-icon> {{author.birthDate | date : 'MMM d, y'}}
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- End -->
-
+    </mat-card-content>
     <mat-card-actions class="example-button-row">
         <app-entity-history class="col-2" [createDate]="author.createDate" [updateDate]="author.updateDate"
             [createDateCaption]="'Join at'"></app-entity-history>

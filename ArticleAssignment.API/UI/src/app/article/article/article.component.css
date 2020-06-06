@@ -5,3 +5,13 @@
 .article-card-content {
     width: 100%;
 }
+
+.author-thumbnail {
+    max-width: 32px;
+    border-radius: 8px;
+    margin: 1px;
+}
+
+.author-info{
+    font-size: x-small;
+}

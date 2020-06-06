@@ -1,0 +1,23 @@
+
+<h2 mat-dialog-title>{{title}}</h2>
+<!-- Dialog Content for Form Actions -->
+<mat-dialog-content [formGroup]="commentForm" class="row">
+    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
+        <mat-label>content</mat-label>
+        <input matInput name="content" formControlName="content" required>
+        <button mat-button *ngIf="showClearButton('content')" matSuffix mat-icon-button aria-label="Clear"
+            (click)="clearField('content')">
+            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                close
+            </mat-icon>
+        </button>
+    </mat-form-field>     
+</mat-dialog-content>
+
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Close</button>
+    <button *ngIf="isCreateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Create</button>
+    <button *ngIf="isUpdateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Update</button>
+    <button *ngIf="isDeleteAction()" class="mat-stroked-button mat-warn" (click)="submit()">Delete</button>
+</mat-dialog-actions>

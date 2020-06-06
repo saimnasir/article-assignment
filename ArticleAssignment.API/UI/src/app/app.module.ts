@@ -57,6 +57,7 @@ import { HeaderToolbarComponent } from './toolbar/header-toolbar/header-toolbar.
 import { FooterToolbarComponent } from './toolbar/footer-toolbar/footer-toolbar.component';
 import { ArticleEditDialogComponent } from './article/article-edit-dialog/article-edit-dialog.component';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { CommentEditDialogComponent } from './comment/comment-edit-dialog/comment-edit-dialog.component';
 
 
 @NgModule({
@@ -79,7 +80,8 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
     HoverClassDirective,
     NgInitDirective,
     AuthorEditDialogComponent,
-    ArticleEditDialogComponent
+    ArticleEditDialogComponent,
+    CommentEditDialogComponent
   ],
   imports: [
     BrowserModule,

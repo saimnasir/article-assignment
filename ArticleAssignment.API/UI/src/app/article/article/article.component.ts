@@ -27,7 +27,6 @@ import { ArticleEditDialogComponent } from '../article-edit-dialog/article-edit-
 
 export class ArticleComponent implements OnInit {
 
-  @ViewChild(CommentListComponent, { static: false }) appComments: CommentListComponent;
   @ViewChild(TagListComponent, { static: false }) appTags: TagListComponent;
 
   @Input() container: ArticleListComponent;
@@ -38,8 +37,6 @@ export class ArticleComponent implements OnInit {
   articleId: number;
   author: Author;
   articleForm: FormGroup;
-  modalConfig = new NgbModalConfig();
-  submitted = false;
   dialogConfig = new MatDialogConfig();
 
   constructor(

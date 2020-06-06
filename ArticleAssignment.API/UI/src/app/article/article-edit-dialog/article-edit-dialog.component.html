@@ -67,18 +67,7 @@
         </mat-autocomplete>
         <mat-hint *ngIf="tagControl.value">Press enter to add</mat-hint>
     </mat-form-field>
-
-    <!-- Tags on Delete Action-->
-    <!-- <mat-form-field class="col-12" *ngIf="isDeleteAction()" disabled>
-        <mat-label>Tags</mat-label>
-        <mat-chip-list #chipList aria-label="Fruit selection" >
-            <mat-chip *ngFor="let tag of tagsOfArticle" [selectable]="selectable" [removable]="removable"
-                (removed)="remove(tag)">
-                {{tag.title}}
-            </mat-chip>
-        </mat-chip-list>
-    </mat-form-field> -->
-
+  
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
