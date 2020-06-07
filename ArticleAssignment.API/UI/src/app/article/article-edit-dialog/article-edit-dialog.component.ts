@@ -257,6 +257,13 @@ export class ArticleEditDialogComponent implements OnInit {
     return this.action === CRUDActions.Delete;
   }
 
+
+  /* Handle form errors in Angular 8 */
+  public errorHandling = (control: string, error: string) => {
+    return this.articleForm.controls[control].hasError(error);
+  }
+
+
   clearField(field: string) {
     this.articleForm.get(field).setValue(null);
   }

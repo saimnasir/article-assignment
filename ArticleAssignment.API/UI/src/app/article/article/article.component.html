@@ -58,10 +58,10 @@
     <mat-divider [inset]="true"></mat-divider>
     <div class="row">
         <div class="col-9">
-            <app-entity-history class="col-2" [createDate]="article.createDate" [updateDate]="article.updateDate"
-                [createDateCaption]="'Join at'">Loading</app-entity-history>
+            <app-entity-history class="col-2" [createDate]="article.createDate" [updateDate]="article.updateDate">
+            </app-entity-history>
         </div>
-        <div class="col-3 mb-2" align="end">
+        <div class="col-3" align="end">
             <mat-card-actions>
                 <div class="col text-right">
                     <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>

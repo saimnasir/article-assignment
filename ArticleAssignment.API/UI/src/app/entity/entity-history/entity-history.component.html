@@ -1,8 +1,10 @@
-<div class="row">
-    <div class="col-12 text-left">
-        <span class="card-text mr-4" *ngIf="createDate">{{createDateCaption}} : <span>
-                {{createDate| date:'dd-MM-yyyy hh:mm:ss'}}</span></span>
-        <span class="card-text" *ngIf="updateDate">{{updateDateCaption}} : <span>
-                {{updateDate| date:'dd-MM-yyyy hh:mm:ss'}}</span></span>
-    </div>
-</div>
+<mat-chip-list>
+    <mat-chip *ngIf="createDate" class="entity-chip" [matTooltip]="createdTootipText()" matTooltipPosition="above">
+        <mat-icon>add_circle</mat-icon>
+        {{createDate| date:'dd-MM-yyyy hh:mm'}}
+    </mat-chip>
+    <mat-chip *ngIf="updateDate" class="entity-chip" [matTooltip]="editedTootipText()" matTooltipPosition="above">
+        <mat-icon>edit</mat-icon>
+        {{updateDate| date:'dd-MM-yyyy hh:mm'}}
+    </mat-chip>
+</mat-chip-list>

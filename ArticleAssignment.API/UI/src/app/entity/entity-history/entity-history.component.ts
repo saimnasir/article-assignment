@@ -15,11 +15,22 @@ export class EntityHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.createDateCaption) {
-      this.createDateCaption = 'Create';
+      this.createDateCaption = 'Created';
     }
     if (!this.updateDateCaption) {
-      this.updateDateCaption = 'Last Edit';
+      this.updateDateCaption = 'Edited';
     }
   }
 
+  createdTootipText() {
+    return `${this.createDateCaption} at ${this.createDate.toString()}`;
+  }
+
+  editedTootipText() {
+    if (this.updateDate) {
+      return `${this.updateDateCaption} at ${this.updateDate.toString()}`;
+    } else {
+      return '';
+    }
+  }
 }

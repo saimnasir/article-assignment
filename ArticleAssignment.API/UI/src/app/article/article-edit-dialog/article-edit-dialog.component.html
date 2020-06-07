@@ -11,6 +11,9 @@
                 close
             </mat-icon>
         </button>
+        <mat-error *ngIf="errorHandling('title', 'required')">
+            You must provide a <strong>title</strong>
+        </mat-error>
     </mat-form-field>
 
     <!-- content on Update or Create Action -->
@@ -27,6 +30,9 @@
                 </button>
             </div>
         </div>
+        <mat-error *ngIf="errorHandling('content', 'required')">
+            You must provide <strong>article content</strong>
+        </mat-error>
     </div>
 
     <!-- content on Delete Action -->

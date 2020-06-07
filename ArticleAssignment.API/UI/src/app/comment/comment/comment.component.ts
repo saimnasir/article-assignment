@@ -162,6 +162,10 @@ export class CommentComponent implements OnInit {
     return this.action === CRUDActions.Delete;
   }
 
+  /* Handle form errors in Angular 8 */
+  public errorHandling = (control: string, error: string) => {
+    return this.commentForm.controls[control].hasError(error);
+  }
 
   clearField(field: string) {
     this.commentForm.get(field).setValue(null);
