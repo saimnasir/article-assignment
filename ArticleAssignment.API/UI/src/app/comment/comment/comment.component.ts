@@ -38,7 +38,7 @@ export class CommentComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.authorService.read(this.article.authorId).subscribe(result => {
+    this.authorService.read(this.comment.authorId).subscribe(result => {
       this.author = result;
       this.commentForm.patchValue({ articleId: this.article.id });
       this.commentForm.patchValue({ authorId: this.author.id });
@@ -189,5 +189,5 @@ export class CommentComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
       });
-  } 
+  }
 }

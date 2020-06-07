@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl, ControlValueAccessor } from '@angular/forms';
-import { Author } from 'src/app/models/author.model';
+import { Author, AuthorFullName } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
 import { CRUDActions } from 'src/app/models/enums/action.enum';
 
@@ -112,6 +112,11 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
       this.close();
       this.openSnackBar('New author created!', null);
     });
+  }
+
+
+  getAuthorFullName(): string {
+    return AuthorFullName(this.author);
   }
 
   /* Handle form errors in Angular 8 */

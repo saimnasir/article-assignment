@@ -45,18 +45,15 @@ export class CommentListComponent implements OnInit {
     input.ArticleId = this.article.id;
     this.commentService.searchAsync(input, 'Search').subscribe(list => {
       this.allComments = list;
-
-      this.authorService.read(this.article.authorId).subscribe(result => {
-        this.author = result;
-        this.newEmptyComment = new Comment();
-        this.newEmptyComment.articleId = this.article.id;
-        this.newEmptyComment.authorId = this.author.id;
-        this.newEmptyComment.content = null;
-      });
     });
 
-
+    this.author = this.authorService.loggedAuthor;
+    this.newEmptyComment = new Comment();
+    this.newEmptyComment.articleId = this.article.id;
+    this.newEmptyComment.authorId = this.author.id;
+    this.newEmptyComment.content = null;
   }
+
 
   toggleComments() {
     this.showAllComments = !this.showAllComments;

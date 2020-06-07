@@ -12,6 +12,8 @@ import { TagService } from 'src/app/services/tag.service';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CRUDActions } from 'src/app/models/enums/action.enum';
 import { ArticleEditDialogComponent } from '../article-edit-dialog/article-edit-dialog.component';
+import { Author } from 'src/app/models/author.model';
+import { AuthorService } from 'src/app/services/author.service';
 
 @Component({
   selector: 'app-article-list',
@@ -62,7 +64,7 @@ export class ArticleListComponent implements OnInit {
     toolbarPosition: 'top'
   };
 
-
+  loggedAuthor: Author;
   modalConfig = new NgbModalConfig();
   articleList: Article[];
   articleForm: FormGroup;
@@ -72,8 +74,10 @@ export class ArticleListComponent implements OnInit {
   allTags: Tag[];
   newTag: any;
   filterPanelOpenState = false;
+
   constructor(
     public articleService: ArticleService,
+    private authorService: AuthorService,
     private tagService: TagService,
     private dialog: MatDialog) { }
 
@@ -91,7 +95,7 @@ export class ArticleListComponent implements OnInit {
     dialogConfig.hasBackdrop = true;
 
     dialogConfig.data = {
-      author: null,
+      author: this.authorService.loggedAuthor,
       container: this,
       action: CRUDActions.Create,
     };

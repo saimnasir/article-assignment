@@ -4,7 +4,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Article } from 'src/app/models/article.model';
-import { Author } from 'src/app/models/author.model';
+import { Author, AuthorFullName } from 'src/app/models/author.model';
 import { Tag } from 'src/app/models/tag.model';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthorService } from 'src/app/services/author.service';
@@ -325,6 +325,10 @@ export class ArticleEditDialogComponent implements OnInit {
 
   removeTag(tag: Tag) {
     this.tagsOfArticle = this.tagsOfArticle.filter(t => t.title !== tag.title);
+  }
+
+  getAuthorFullName(): string {
+    return AuthorFullName(this.author);
   }
 
   /*

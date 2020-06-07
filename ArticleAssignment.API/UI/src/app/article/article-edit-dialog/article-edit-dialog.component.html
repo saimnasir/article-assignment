@@ -1,79 +1,82 @@
-<h2 mat-dialog-title>{{dialogTitle}}</h2>
+<h2 mat-dialog-title class="text-center">{{dialogTitle}}</h2>
 <!-- Dialog Content -->
-<mat-dialog-content [formGroup]="articleForm" class="row">
-    <!-- title -->
-    <mat-form-field appearance="fill" class="col-12">
-        <mat-label>Title</mat-label>
-        <input matInput name="title" formControlName="title" required [readonly] ="isDeleteAction()">
-        <button mat-button *ngIf="showClearButton('title')" matSuffix mat-icon-button aria-label="Clear"
-            (click)="clearField('title')">
-            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
-                close
-            </mat-icon>
-        </button>
-        <mat-error *ngIf="errorHandling('title', 'required')">
-            You must provide a <strong>title</strong>
-        </mat-error>
-    </mat-form-field>
-
-    <!-- content on Update or Create Action -->
-    <div appearance="fill" class="col-12" *ngIf="!isDeleteAction()">
-        <angular-editor name="content" formControlName="content" class="col-12" [config]="editorConfig" required>
-        </angular-editor>
-        <div class="row" align="center">
-            <div class="col-12">
-                <button mat-button class="mat-stroked-button" *ngIf="showClearButton('content')" matSuffix
-                    aria-label="Clear" (click)="clearField('content')">
-                    <mat-icon matTooltip="Clear Content" aria-label="Clear field" matTooltipPosition="above">
-                        delete_sweep
-                    </mat-icon>Clear Content
+<mat-dialog-content>
+    <mat-card class="mb-1">
+        <mat-card-header>
+            <mat-card-header>
+                <div mat-card-avatar><img class="author-thumbnail"
+                        src="https://material.angular.io/assets/img/examples/shiba1.jpg"></div>
+                <mat-card-title>{{getAuthorFullName()}}</mat-card-title>
+            </mat-card-header>
+        </mat-card-header>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-content [formGroup]="articleForm" class="pt-1">
+            <mat-form-field appearance="fill" class="col-12">
+                <mat-label>Title</mat-label>
+                <input matInput name="title" formControlName="title" required [readonly]="isDeleteAction()">
+                <button mat-button *ngIf="showClearButton('title')" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="clearField('title')">
+                    <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                        close
+                    </mat-icon>
                 </button>
+                <mat-error *ngIf="errorHandling('title', 'required')">
+                    You must provide a <strong>title</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <!-- content on Update or Create Action -->
+            <div appearance="fill" class="col-12" *ngIf="!isDeleteAction()">
+                <angular-editor name="content" formControlName="content" class="col-12" [config]="editorConfig"
+                    required>
+                </angular-editor>
+                <div class="row" align="center">
+                    <div class="col-12">
+                        <button mat-button class="mat-stroked-button" *ngIf="showClearButton('content')" matSuffix
+                            aria-label="Clear" (click)="clearField('content')">
+                            <mat-icon matTooltip="Clear Content" aria-label="Clear field" matTooltipPosition="above">
+                                delete_sweep
+                            </mat-icon>Clear Content
+                        </button>
+                    </div>
+                </div>
+                <mat-error *ngIf="errorHandling('content', 'required')">
+                    You must provide <strong>article content</strong>
+                </mat-error>
             </div>
-        </div>
-        <mat-error *ngIf="errorHandling('content', 'required')">
-            You must provide <strong>article content</strong>
-        </mat-error>
-    </div>
 
-    <!-- content on Delete Action -->
-    <div appearance="fill" class="col-12" *ngIf="isDeleteAction()">
-        <div class="row">
-            <p class="col-12" [innerHTML]="article.content">
-                {{article.content}}
-            </p>
-        </div>
-    </div>
+            <!-- content on Delete Action -->
+            <div appearance="fill" class="col-12" *ngIf="isDeleteAction()">
+                <div class="row">
+                    <p class="col-12" [innerHTML]="article.content">
+                        {{article.content}}
+                    </p>
+                </div>
+            </div>
 
-    <!-- Tags on Update or Create Action-->
-    <mat-form-field class="col-12" *ngIf="!isDeleteAction()">
-        <mat-label>Tags</mat-label>
-        <mat-chip-list #tagList aria-label="Tag selection">
-            <mat-chip 
-                *ngFor="let tag of tagsOfArticle" 
-                [selectable]="selectable" 
-                [removable]="removable"
-                (removed)="remove(tag)">
-                {{tag.title}}
-                <mat-icon matChipRemove *ngIf="removable" matTooltip="Remove Tag" aria-label="Remove  tag"
-                    matTooltipPosition="above">cancel</mat-icon>
-            </mat-chip>
-            <input 
-                placeholder="New tag" 
-                #tagInput 
-                [formControl]="tagControl" 
-                [matAutocomplete]="auto"
-                [matChipInputFor]="tagList" 
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                (matChipInputTokenEnd)="addTag($event)">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
-                {{tag}}
-            </mat-option>
-        </mat-autocomplete>
-        <mat-hint *ngIf="tagControl.value">Press enter to add</mat-hint>
-    </mat-form-field>
-  
+            <!-- Tags on Update or Create Action-->
+            <mat-form-field class="col-12" *ngIf="!isDeleteAction()">
+                <mat-label>Tags</mat-label>
+                <mat-chip-list #tagList aria-label="Tag selection">
+                    <mat-chip *ngFor="let tag of tagsOfArticle" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(tag)">
+                        {{tag.title}}
+                        <mat-icon matChipRemove *ngIf="removable" matTooltip="Remove Tag" aria-label="Remove  tag"
+                            matTooltipPosition="above">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="New tag" #tagInput [formControl]="tagControl" [matAutocomplete]="auto"
+                        [matChipInputFor]="tagList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="addTag($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                        {{tag}}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-hint *ngIf="tagControl.value">Press enter to add</mat-hint>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
