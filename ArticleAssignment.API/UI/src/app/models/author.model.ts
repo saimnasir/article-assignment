@@ -11,3 +11,13 @@ export class Author {
     public createDate: Date;
     public updateDate: Date;
 }
+
+export function AuthorFullName(author: Author): string {
+    if (!author) {
+        return '';
+    }
+    if (author.middleName) {
+        return `${author.firstName}  ${author.middleName} ${author.lastName}`;
+    }
+    return `${author.firstName}  ${author.lastName}`;
+}

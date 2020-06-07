@@ -1,7 +1,7 @@
 
 
 import { Component, OnInit, Input } from '@angular/core';
-import { Author } from 'src/app/models/author.model';
+import { Author, AuthorFullName } from 'src/app/models/author.model';
 
 @Component({
   selector: 'app-user-info',
@@ -16,10 +16,7 @@ export class UserInfoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getFullName(): string {
-    if (this.author.middleName) {
-      return `${this.author.firstName} ${this.author.middleName} ${this.author.lastName}`;
-    }
-    return `${this.author.firstName} ${this.author.lastName}`;
+  getAuthorFullName(): string {
+    return AuthorFullName(this.author);
   }
 }

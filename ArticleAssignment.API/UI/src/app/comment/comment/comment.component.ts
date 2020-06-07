@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, TemplateRef } from '@angular/core';
-import { Author } from 'src/app/models/author.model';
+import { Author, AuthorFullName } from 'src/app/models/author.model';
 import { Comment } from 'src/app/models/comment.model';
 import { CommentService } from 'src/app/services/comment.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -50,6 +50,9 @@ export class CommentComponent implements OnInit {
     this.dialogConfig.hasBackdrop = false;
   }
 
+  getAuthorFullName(): string {
+    return AuthorFullName(this.author);
+  }
 
   onEdit() {
     this.action = CRUDActions.Update;

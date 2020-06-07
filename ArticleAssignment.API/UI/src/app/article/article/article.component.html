@@ -1,10 +1,9 @@
 <mat-card class="article-card mt-4">
     <div class="row">
         <div class="col-9">
-            <mat-card-header class="pt-1" color="primary" *ngIf="author"
-                style="background-color: whitesmoke;width: 100%; font-size: larger; border: 1px solid #d7d7d7; border-radius: 4px;">
+            <mat-card-header color="primary" *ngIf="author">
                 <mat-card-title class="mt-1">
-                    <mat-card-title>{{article.title}} </mat-card-title>
+                    <mat-card-title style="font-size: x-large;">{{article.title}} </mat-card-title>
                 </mat-card-title>
             </mat-card-header>
         </div>
@@ -14,8 +13,8 @@
                 <div mat-card-avatar>
                     <img class="author-thumbnail" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
                 </div>
-                <mat-card-title>
-                    {{author.firstName + ' ' + author.lastName }}
+                <mat-card-title style="font-size: medium;">
+                    {{getAuthorFullName() }}
                 </mat-card-title>
             </mat-card-header>
         </div>

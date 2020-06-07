@@ -3,8 +3,7 @@
         <mat-card-header>
             <div mat-card-avatar><img class="author-thumbnail"
                     src="https://material.angular.io/assets/img/examples/shiba1.jpg"></div>
-            <mat-card-title *ngIf="author.firstName">{{author.firstName + ' ' + author.lastName}}</mat-card-title>
-            <mat-card-title *ngIf="!author.firstName">Loading ..</mat-card-title>
+            <mat-card-title>{{getAuthorFullName()}}</mat-card-title>
         </mat-card-header>
     </mat-card-header>
     <mat-divider [inset]="true"></mat-divider>
@@ -30,7 +29,7 @@
                 </div>
             </div>
         </div>
-       
+
     </mat-card-content>
     <mat-card-actions class="example-button-row" *ngIf="isCreateAction()">
         <div class="col-12 text-right">
@@ -46,7 +45,7 @@
         </div>
         <div class="col text-right" *ngIf="isUpdateAction()">
             <button mat-stroked-button color="primary" (click)="update()">Save</button>
-            <button mat-stroked-button  (click)="onDiscardUpdate()">Discard</button>
+            <button mat-stroked-button (click)="onDiscardUpdate()">Discard</button>
         </div>
     </mat-card-actions>
 </mat-card>

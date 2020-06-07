@@ -2,7 +2,7 @@
 
 import { Component, OnInit, Input, ViewChild, TemplateRef, HostListener } from '@angular/core';
 import { Article } from 'src/app/models/article.model';
-import { Author } from 'src/app/models/author.model';
+import { Author, AuthorFullName } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -61,6 +61,9 @@ export class ArticleComponent implements OnInit {
     this.dialogConfig.hasBackdrop = false;
   }
 
+  getAuthorFullName(): string {
+    return AuthorFullName(this.author);
+  }
   onUpdate() {
     this.dialogConfig.data = {
       article: this.article,

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, TemplateRef } from '@angular/core';
-import { Author } from 'src/app/models/author.model';
+import { Author, AuthorFullName } from 'src/app/models/author.model';
 import { AuthorService } from 'src/app/services/author.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -41,6 +41,10 @@ export class AuthorComponent implements OnInit {
     this.dialogConfig.hasBackdrop = false;
   }
 
+  getAuthorFullName(): string {
+    return AuthorFullName(this.author);
+  }
+
   onUpdate() {
     this.dialogConfig.data = {
       author: this.author,
@@ -57,13 +61,6 @@ export class AuthorComponent implements OnInit {
       action: CRUDActions.Delete
     };
     this.dialog.open(AuthorEditDialogComponent, this.dialogConfig);
-  }
-
-  getFullName(): string {
-    if (this.author.middleName) {
-      return `${this.author.firstName} ${this.author.middleName} ${this.author.lastName}`;
-    }
-    return `${this.author.firstName} ${this.author.lastName}`;
   }
 
   read(id: number): void {
