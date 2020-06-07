@@ -1,21 +1,32 @@
-
 <h2 mat-dialog-title>{{title}}</h2>
 <!-- Dialog Content for Form Actions -->
-<mat-dialog-content [formGroup]="commentForm" class="row">
-    <mat-form-field class="col-lg-4 col-md-6 col-sm-6 col-xs-12" appearance="fill">
-        <mat-label>content</mat-label>
-        <input matInput name="content" formControlName="content" required>
-        <button mat-button *ngIf="showClearButton('content')" matSuffix mat-icon-button aria-label="Clear"
-            (click)="clearField('content')">
-            <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
-                close
-            </mat-icon>
-        </button>
-    </mat-form-field>     
+<mat-dialog-content >
+    <mat-card class="mb-1">
+        <mat-card-header>
+            <mat-card-header>
+                <div mat-card-avatar><img class="author-thumbnail"
+                        src="https://material.angular.io/assets/img/examples/shiba1.jpg"></div>
+                <mat-card-title>{{getAuthorFullName()}}</mat-card-title>
+            </mat-card-header>
+        </mat-card-header>
+        <mat-divider [inset]="true"></mat-divider>
+        <mat-card-content [formGroup]="commentForm">
+            <mat-form-field class="col-12 mt-1" appearance="fill">
+                <mat-label>Comment</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="2"
+                    formControlName="content" cdkAutosizeMaxRows="4" required [readonly]="isDeleteAction()"></textarea>
+                <button mat-button *ngIf="showClearButton('content')" matSuffix mat-icon-button aria-label="Clear"
+                    (click)="clearField('content')">
+                    <mat-icon matTooltip="Clear" aria-label="Clear field" matTooltipPosition="above">
+                        close
+                    </mat-icon>
+                </button>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
 </mat-dialog-content>
 
-
-<mat-dialog-actions>
+<mat-dialog-actions align="end" >
     <button class="mat-raised-button" (click)="close()">Close</button>
     <button *ngIf="isCreateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Create</button>
     <button *ngIf="isUpdateAction()" class="mat-stroked-button mat-primary" (click)="submit()">Update</button>

@@ -36,6 +36,7 @@ export class AuthorComponent implements OnInit {
     }
 
     this.dialogConfig.minHeight = '80%';
+    this.dialogConfig.width = '80%';
     this.dialogConfig.disableClose = false;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.hasBackdrop = false;

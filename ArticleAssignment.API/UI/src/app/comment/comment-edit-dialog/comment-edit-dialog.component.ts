@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormControl, ControlValueAccessor } from '@angu
 import { CRUDActions } from 'src/app/models/enums/action.enum';
 import { Comment } from 'src/app/models/comment.model';
 import { CommentService } from 'src/app/services/comment.service';
+import { AuthorFullName, Author } from 'src/app/models/author.model';
 
 @Component({
   selector: 'app-comment-edit-dialog',
@@ -15,6 +16,7 @@ export class CommentEditDialogComponent implements OnInit, ControlValueAccessor 
   commentForm: FormGroup;
   container: any;
   comment: Comment;
+  author: Author;
   action = CRUDActions.Read;
   title: string;
   constructor(
@@ -26,6 +28,7 @@ export class CommentEditDialogComponent implements OnInit, ControlValueAccessor 
   ) {
     this.container = data.container;
     this.comment = data.comment;
+    this.author = data.author;
     this.action = data.action;
   }
 
@@ -110,6 +113,12 @@ export class CommentEditDialogComponent implements OnInit, ControlValueAccessor 
       this.openSnackBar('New comment created!', null);
     });
   }
+
+
+  getAuthorFullName(): string {
+    return AuthorFullName(this.author);
+  }
+
 
   close() {
     this.dialogRef.close();

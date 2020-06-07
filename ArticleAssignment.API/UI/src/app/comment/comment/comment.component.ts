@@ -45,6 +45,7 @@ export class CommentComponent implements OnInit {
     });
 
     this.dialogConfig.minHeight = '80%';
+    this.dialogConfig.width = '80%';
     this.dialogConfig.disableClose = false;
     this.dialogConfig.autoFocus = true;
     this.dialogConfig.hasBackdrop = false;
@@ -91,6 +92,7 @@ export class CommentComponent implements OnInit {
     this.dialogConfig.data = {
       article: this.article,
       author: this.author,
+      comment: this.comment,
       container: this.container,
       action: CRUDActions.Delete
     };
@@ -187,6 +189,5 @@ export class CommentComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'bottom',
       });
-  }
-
+  } 
 }
