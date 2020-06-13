@@ -1,4 +1,4 @@
-<mat-card class="author-card mt-4">
+<mat-card class="author-card mt-4" *ngIf="isEmbedded">
     <mat-card-header>
         <div mat-card-avatar><img class="author-thumbnail"
                 src="https://material.angular.io/assets/img/examples/shiba1.jpg"></div>
@@ -41,5 +41,53 @@
             </mat-card-actions>
         </div>
     </div>
+</mat-card>
 
+<mat-card *ngIf="!isEmbedded " class="example-card" style="background-color: gainsboro;">
+    <mat-card-content style="background-color: gainsboro;">
+        <mat-card class="author-card" *ngIf="author">
+            <mat-card-header>
+                <div mat-card-avatar><img class="author-thumbnail"
+                        src="https://material.angular.io/assets/img/examples/shiba1.jpg"></div>
+                <mat-card-title>{{getAuthorFullName()}}</mat-card-title>
+            </mat-card-header>
+            <mat-divider [inset]="true"></mat-divider>
+            <mat-card-content class="author-card-content">
+                <div class="row mt-4">
+                    <div class="col-2">
+                        <img class="author-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+                    </div>
+                    <div class="col-7">
+                        <p>{{author.about}}</p>
+                    </div>
+                    <div class="col-3">
+                        <a href="mailto:'author.email'" class="row mb-2">
+                            <mat-icon matSuffix>email</mat-icon> {{author.email}}
+                        </a>
+                        <a class="row mb-2" href="tel:'author.phone'">
+                            <mat-icon matSuffix>phone</mat-icon> {{author.phone}}
+                        </a>
+                        <div class="row mb-2">
+                            <mat-icon matSuffix>accessibility_new</mat-icon> {{author.birthDate | date : 'MMM d, y'}}
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-divider [inset]="true"></mat-divider>
+            <div class="row">
+                <div class="col-9">
+                    <app-entity-history class="col-2" [createDate]="author.createDate" [updateDate]="author.updateDate"
+                        [createDateCaption]="'Join at'">Loading</app-entity-history>
+                </div>
+                <div class="col-3 mb-2" align="end">
+                    <mat-card-actions>
+                        <div class="col text-right">
+                            <button mat-stroked-button color="primary" (click)="onUpdate()">Edit</button>
+                            <button mat-stroked-button color="warn" (click)="onDelete()">Delete</button>
+                        </div>
+                    </mat-card-actions>
+                </div>
+            </div>
+        </mat-card>
+    </mat-card-content>
 </mat-card>

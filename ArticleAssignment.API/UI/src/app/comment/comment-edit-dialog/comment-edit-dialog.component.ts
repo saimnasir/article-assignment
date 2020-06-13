@@ -45,7 +45,7 @@ export class CommentEditDialogComponent implements OnInit, ControlValueAccessor 
     if (!this.comment) { // set author if not defined
       this.comment = new Comment();
     }
-    if(this.isCreateAction()){
+    if (this.isCreateAction()) {
       this.commentForm = this.fb.group({
         id: new FormControl(0),
         content: new FormControl(),
@@ -55,7 +55,7 @@ export class CommentEditDialogComponent implements OnInit, ControlValueAccessor 
         updateDate: new FormControl(),
         entityState: new FormControl()
       });
-    }else{
+    } else {
       this.commentForm = this.fb.group({
         id: new FormControl(this.comment.id),
         content: new FormControl(this.comment.content),
@@ -65,7 +65,7 @@ export class CommentEditDialogComponent implements OnInit, ControlValueAccessor 
         updateDate: new FormControl(this.comment.updateDate),
         entityState: new FormControl(this.comment.entityState)
       });
-    }    
+    }
 
     this.setTitle();
   }

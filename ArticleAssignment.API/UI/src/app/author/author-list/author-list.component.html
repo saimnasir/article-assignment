@@ -46,7 +46,7 @@
                 </mat-accordion>
             </mat-card-content>
         </mat-card>
-        <app-author *ngFor="let author of authorList" [author]="author" [container]="this">
+        <app-author *ngFor="let author of authorList" [author]="author" [container]="this" [isEmbedded]='true'>
         </app-author>
     </mat-card-content>
 </mat-card>

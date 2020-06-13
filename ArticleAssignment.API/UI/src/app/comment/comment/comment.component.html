@@ -29,9 +29,8 @@
                 </div>
             </div>
         </div>
-
     </mat-card-content>
-    <mat-divider [inset]="true"></mat-divider>
+    <mat-divider [inset]="true" *ngIf="!isCreateAction()"></mat-divider>
     <mat-card-actions class="example-button-row" *ngIf="isCreateAction()">
         <div class="col-12 text-right">
             <button mat-stroked-button color="primary" (click)="create()">Add Comment</button>
