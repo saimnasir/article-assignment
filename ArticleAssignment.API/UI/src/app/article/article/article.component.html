@@ -35,15 +35,15 @@
                 </div>
                 <mat-divider [inset]="true" class="mt-2 mb-2"></mat-divider>
                 <mat-accordion class="mt-2">
-                    <mat-expansion-panel (opened)="commentPanelOpenState = true"
-                        (closed)="commentPanelOpenState = false" style="background-color: gainsboro;">
+                    <mat-expansion-panel (opened)="commentsPanelOpenState = true"
+                        (closed)="commentsPanelOpenState = false" style="background-color: gainsboro;">
                         <mat-expansion-panel-header style="background-color: lemonchiffon;">
                             <mat-panel-title>
                                 <mat-icon class="mr-2">comment</mat-icon>
                                 Comments
                             </mat-panel-title>
                             <mat-panel-description>
-                                {{!commentPanelOpenState ? 'Expand to see comments.' : 'Close Comments Panel'}}
+                                {{!commentsPanelOpenState ? 'Expand to see comments.' : 'Close Comments Panel'}}
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <mat-divider [inset]="true"></mat-divider>

@@ -32,7 +32,7 @@ export class ArticleComponent implements OnInit {
   @Input() container: ArticleListComponent;
   @Input() article: Article;
 
-  commentPanelOpenState = false;
+  commentsPanelOpenState = false;
 
   articleId: number;
   author: Author;
