@@ -42,19 +42,34 @@ export class AuthorEditDialogComponent implements OnInit, ControlValueAccessor {
     if (!this.author) { // set author if not defined
       this.author = new Author();
     }
+    if (this.isCreateAction()) {
+      this.authorForm = this.fb.group({
+        id: new FormControl(0),
+        firstName: new FormControl(),
+        middleName: new FormControl(),
+        lastName: new FormControl(),
+        email: new FormControl(),
+        phone: new FormControl(),
+        about: new FormControl(),
+        birthDate: new FormControl(new Date()),
+        createDate: new FormControl(new Date()),
+        updateDate: new FormControl(new Date())
+      });
+    } else {
+      this.authorForm = this.fb.group({
+        id: new FormControl(this.author.id),
+        firstName: new FormControl(this.author.firstName),
+        middleName: new FormControl(this.author.middleName),
+        lastName: new FormControl(this.author.lastName),
+        email: new FormControl(this.author.email),
+        phone: new FormControl(this.author.phone),
+        about: new FormControl(this.author.about),
+        birthDate: new FormControl(this.author.birthDate),
+        createDate: new FormControl(this.author.createDate),
+        updateDate: new FormControl(this.author.updateDate)
+      });
 
-    this.authorForm = this.fb.group({
-      id: new FormControl(this.author.id),
-      firstName: new FormControl(this.author.firstName),
-      middleName: new FormControl(this.author.middleName),
-      lastName: new FormControl(this.author.lastName),
-      email: new FormControl(this.author.email),
-      phone: new FormControl(this.author.phone),
-      about: new FormControl(this.author.about),
-      birthDate: new FormControl(this.author.birthDate),
-      createDate: new FormControl(this.author.createDate),
-      updateDate: new FormControl(this.author.updateDate)
-    });
+    }
 
     this.setTitle();
   }

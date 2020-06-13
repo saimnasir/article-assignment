@@ -124,18 +124,31 @@ export class ArticleEditDialogComponent implements OnInit {
   }
 
   private createForm() {
-    this.articleForm = this.fb.group({
-      id: new FormControl(this.article.id),
-      title: new FormControl(this.article.title),
-      content: new FormControl(this.article.content),
-      // authorId: new FormControl( this.author.id ),
-      categoryId: new FormControl(this.article.categoryId),
-      createDate: new FormControl(this.article.createDate),
-      updateDate: new FormControl(this.article.updateDate),
-      entityState: new FormControl(this.article.entityState),
-      state: new FormControl(this.article.state),
-      specie: []
-    });
+    if (this.isCreateAction()) {
+      this.articleForm = this.fb.group({
+        id: new FormControl(0),
+        title: new FormControl(),
+        content: new FormControl(),
+        // authorId: new FormControl( this.author.id ),
+        categoryId: new FormControl(0),
+        createDate: new FormControl(new Date() ),
+        updateDate: new FormControl(),
+        entityState: new FormControl(1),
+        state: new FormControl(1)
+      });
+    } else {
+      this.articleForm = this.fb.group({
+        id: new FormControl(this.article.id),
+        title: new FormControl(this.article.title),
+        content: new FormControl(this.article.content),
+        // authorId: new FormControl( this.author.id ),
+        categoryId: new FormControl(this.article.categoryId),
+        createDate: new FormControl(this.article.createDate),
+        updateDate: new FormControl(this.article.updateDate),
+        entityState: new FormControl(this.article.entityState),
+        state: new FormControl(this.article.state)
+      });
+    }
   }
 
   openSnackBar(message: string, action: string) {
